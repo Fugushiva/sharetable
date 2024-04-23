@@ -1,0 +1,70 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Nnjeim\World\Models\Country;
+
+class UserSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+        User::truncate();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
+        $dataset = [
+            [
+                'firstname' => 'Jerome',
+                'lastname' => 'Delodder',
+                'email' => 'jeromedelodder90@gmail.com',
+                'password' => Hash::make('epfc1234'),
+                'country_name' => 'Belgium',
+            ],
+            [
+                'firstname' => 'Bob',
+                'lastname' => 'Sull',
+                'email' => 'bob@epfc',
+                'password' => Hash::make('epfc'),
+                'country_name' => 'France',
+            ],
+            [
+                'firstname' => 'Ayu',
+                'lastname' => 'Safira',
+                'email' => 'ayu@epfc',
+                'password' => Hash::make('epfc'),
+                'country_name' => 'Indonesia',
+            ],
+            [
+                'firstname' => 'Chen',
+                'lastname' => 'Zhen',
+                'email' => 'Chen@epfc',
+                'password' => Hash::make('epfc'),
+                'country_name' => 'China',
+            ],
+
+        ];
+
+            foreach($dataset as &$data){
+                $country = Country::where([
+                    ['name', '=', $data['country_name']]
+                ])->first();
+
+                $data['country_id'] = $country->id;
+
+                unset($data['country_name']);
+            }
+
+            DB::table('users')->insert($dataset);
+
+    }
+}
