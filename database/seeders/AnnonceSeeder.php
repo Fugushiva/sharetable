@@ -28,7 +28,8 @@ class AnnonceSeeder extends Seeder
                 'title' => 'Venez découvrir la cuisine italienne',
                 'description' => "J'ai grandit avec une maman italienne, je connais tout ce qu'il faut pur vous rendre fou de cette cuisine",
                 'schedule' => Carbon::create(2024, 12, 06),
-                'max_guest' => 4
+                'max_guest' => 4,
+                'picture_name' => 'BA65D785-D807-4DA7-8D83-54E56562F52B.jpg'
             ],
 
             [
@@ -37,7 +38,8 @@ class AnnonceSeeder extends Seeder
                 'title' => 'Discover the heart of Sumatra cuisine',
                 'description' => "Best cuisine in Indonesia, Sumatra is the hearth of spices",
                 'schedule' => Carbon::create(2024, 10, 03),
-                'max_guest' => 4
+                'max_guest' => 4,
+                'picture_name' => 'Rendang.jpg'
             ]
         ];
 

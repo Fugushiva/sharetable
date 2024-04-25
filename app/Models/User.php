@@ -4,11 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Nnjeim\World\Models\Country;
 
 class User extends Authenticatable
 {
@@ -25,6 +27,8 @@ class User extends Authenticatable
         'firstname',
         'lastname',
         'language',
+        'profile_picture',
+        'country_id'
     ];
 
     /**
@@ -69,4 +73,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function country():BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function scopeGetCountry($query, $id)
+    {
+        return $query->where('id', $id)->with('country');
+    }
+
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->dateTime('schedule');
             $table->integer('max_guest',0,1);
+            $table->string('picture_name');
             $table->timestamps();
         });
     }

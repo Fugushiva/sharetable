@@ -45,6 +45,18 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+        <!--Country-->
+        <div class="mt-4">
+            <x-input-label for="country_id" :value="__('Country')" />
+            <select id="country_id" name="country_id" class="block mt-1 w-full" required>
+                <option value="">{{ __('--Make your choice--') }}</option>
+                @foreach($countries as $country)
+                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                @endforeach
+            </select>
+            <x-input-error :messages="$errors->get('country_id')" class="mt-2" />
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}

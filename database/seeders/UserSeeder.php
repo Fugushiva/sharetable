@@ -27,8 +27,9 @@ class UserSeeder extends Seeder
                 'firstname' => 'Jerome',
                 'lastname' => 'Delodder',
                 'email' => 'jeromedelodder90@gmail.com',
-                'password' => Hash::make('epfc1234'),
+                'password' => Hash::make('epfc'),
                 'country_name' => 'Belgium',
+                'profile_picture' => 'italian'
             ],
             [
                 'firstname' => 'Bob',
@@ -36,6 +37,7 @@ class UserSeeder extends Seeder
                 'email' => 'bob@epfc',
                 'password' => Hash::make('epfc'),
                 'country_name' => 'France',
+                'profile_picture' => 'french'
             ],
             [
                 'firstname' => 'Ayu',
@@ -43,6 +45,7 @@ class UserSeeder extends Seeder
                 'email' => 'ayu@epfc',
                 'password' => Hash::make('epfc'),
                 'country_name' => 'Indonesia',
+                'profile_picture' => 'indonesian'
             ],
             [
                 'firstname' => 'Chen',
@@ -50,6 +53,7 @@ class UserSeeder extends Seeder
                 'email' => 'Chen@epfc',
                 'password' => Hash::make('epfc'),
                 'country_name' => 'China',
+                'profile_picture' => 'chinese'
             ],
 
         ];

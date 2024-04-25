@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('language')->default('english');
+            $table->string('profile_picture')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

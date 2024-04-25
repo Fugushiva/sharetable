@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Nnjeim\World\Models\Country;
 
 class RegisteredUserController extends Controller
 {
@@ -19,7 +20,10 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $countries = Country::all();
+        return view('auth.register', [
+            'countries' => $countries
+        ]);
     }
 
     /**
@@ -34,14 +38,18 @@ class RegisteredUserController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'country_id' => ['required', 'exists:countries,id' ]
         ]);
+
 
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'country_id' => $request->country_id
         ]);
+
 
         event(new Registered($user));
 
