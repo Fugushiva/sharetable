@@ -21,10 +21,20 @@
                         {{ __('Annonces') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link  :active="request()->routeIs('annonce.index')">
+                        {{ __('Become a host') }}
+                    </x-nav-link>
+                </div>
             </div>
+
+
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <div class="btn-validate  ">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
