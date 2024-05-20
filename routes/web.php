@@ -19,3 +19,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 require __DIR__ . '/annonce.php';
+require __DIR__ . '/host.php';

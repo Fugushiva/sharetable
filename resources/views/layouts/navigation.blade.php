@@ -22,12 +22,17 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link  :active="request()->routeIs('annonce.index')">
-                        {{ __('Become a host') }}
-                    </x-nav-link>
+                    @if (Auth::user())
+                        <x-nav-link :href="route('host.create')" :active="request()->routeIs('host.create')">
+                            {{ __('Become a host') }}
+                        </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('register')" :active="request()->routeIs('host.create')">
+                            {{ __('Become a host') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
-
 
 
             <!-- Settings Dropdown -->
@@ -40,7 +45,10 @@
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             @if(Auth::user())
-                                <div>{{ Auth::user()->firstname }}</div>
+                                <div class="flex items-center">
+                                    <img src="{{ image_path(Auth::user()->profile_picture) }}" alt="Profile picture" class="w-8 h-8 rounded-full me-2">
+                                    <p class="me-2">{{ Auth::user()->firstname }}</p>
+                                </div>
                             @else
                                 <div>S'enregistrer ou se connecter</div>
                             @endif

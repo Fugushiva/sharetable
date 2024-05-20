@@ -13,25 +13,25 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6 flex flex-col w-full">
         @csrf
         @method('patch')
 
         <div>
             <label for="firstname">Firstname</label>
-            <input id="firstname" name="firstname" type="text" class="mt-1 block w-full" required autofocus autocomplete="name">
+            <input id="firstname" name="firstname" type="text" class="mt-1 block w-full" placeholder="{{$user->firstname}}" value="{{$user->firstname}}">
             <x-input-error class="mt-2" :messages="$errors->get('firstname')" />
         </div>
 
         <div>
             <label for="lastname">Lastname</label>
-            <input id="lastname" name="lastname" type="text" class="mt-1 block w-full" required autofocus autocomplete="name">
+            <input id="lastname" name="lastname" type="text" class="mt-1 block w-full" placeholder="{{$user->lastname}}" value="{{$user->lastname}}" >
             <x-input-error class="mt-2" :messages="$errors->get('lastname')" />
         </div>
 
         <div>
             <label for="email">Email</label>
-            <input id="email" name="email" type="email" class="mt-1 block w-full" placeholder="{{$user->email}}"  required autocomplete="username">
+            <input id="email" name="email" type="email" class="mt-1 block w-full" placeholder="{{$user->email}}" value="{{$user->email}}">
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
@@ -53,8 +53,24 @@
             @endif
         </div>
 
+
+        <!--Profile picture-->
+        <label for="picture">Photo de profil</label>
+        <input type="file" name="profile_picture" id="picture" value="{{image_path($user->profile_picture)}}">
+        <img src="{{ image_path($user->profile_picture) }}" alt="Profile picture" class="w-1/4 rounded-full  ">
+
+        <!--Country-->
+        <label for="country">Country</label>
+        <input list="country" name="country_id" id="country">
+        <datalist id="country" >
+            <option>--Select a country--</option>
+            @foreach($countries as $country)
+                <option value="{{$country->id}}">{{$country->name}}</option>
+            @endforeach
+        </datalist>
+
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <button class="btn-validate">{{ __('Save') }}</button>
 
             @if (session('status') === 'profile-updated')
                 <p

@@ -17,7 +17,8 @@ class Host extends Model
         'user_id',
         'city_id',
         'bio',
-        'date_of_birth'
+        'birthdate',
+        'profile_picture'
     ];
 
     protected $table = 'hosts';
