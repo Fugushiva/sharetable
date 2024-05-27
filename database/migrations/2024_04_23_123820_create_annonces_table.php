@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('annonces', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('host_id')->constrained()->onUpdate('cascade');
-            $table->foreignId('country_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('host_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('country_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('title', '255');
             $table->text('description');
             $table->dateTime('schedule');

@@ -23,7 +23,7 @@ class StoreHostRequest extends FormRequest
     {
         return [
             //'user_id' => ['required', 'exists:users,id', 'unique:hosts,user_id'],
-            'city_id' => ['required', 'exists:cities,id'],
+            'city_name' => ['required', 'string', 'exists:cities,name'],
             'bio' => ['required', 'string', 'min:50'],
             'birthdate' => ['required', 'date'],
             'profile_picture' => ['image','mimes:jpeg,png,jpg','max:2048'],

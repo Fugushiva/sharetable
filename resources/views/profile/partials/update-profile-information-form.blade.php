@@ -61,11 +61,10 @@
 
         <!--Country-->
         <label for="country">Country</label>
-        <input list="country" name="country_id" id="country">
-        <datalist id="country" >
-            <option>--Select a country--</option>
+        <input list="countryList" name="country_id" id="country" value="{{ old('country_name', $user->country->name ?? '') }}">
+        <datalist id="countryList">
             @foreach($countries as $country)
-                <option value="{{$country->id}}">{{$country->name}}</option>
+                <option value="{{ $country->id }}">{{$country->name}}</option>
             @endforeach
         </datalist>
 

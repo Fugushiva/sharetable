@@ -13,11 +13,11 @@
             @csrf
             <!-- City -->
             <div class="flex flex-col">
-                <label for="city" class="mb-2 text-lg font-medium text-gray-700">City</label>
-                <input list="city" name="city_id" id="city">
-                <datalist id="city" class="w-1/3 p-2 border border-gray-300 rounded-md shadow-sm">
+                <label for="cityInput" class="mb-2 text-lg font-medium text-gray-700">City</label>
+                <input list="cityList" name="city_name" id="cityInput" class="w-full p-2 border border-gray-300 rounded-md shadow-sm" placeholder="Select city">
+                <datalist id="cityList" class="w-1/3 p-2 border border-gray-300 rounded-md shadow-sm">
                     @foreach($cities as $city)
-                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                        <option value="{{ $city->name }}" data-id="{{ $city->id }}"></option>
                     @endforeach
                 </datalist>
                 @error('city_id')
