@@ -34,6 +34,11 @@ class Annonce extends Model
         return $this->hasMany(Reservation::class);
     }
 
+    public function pictures():HasMany
+    {
+        return $this->hasMany(AnnoncePicture::class);
+    }
+
 
 
 
