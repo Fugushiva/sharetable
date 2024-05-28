@@ -42,12 +42,6 @@ class HostController extends Controller
        $validated = $request->validated();
        $validated['user_id'] = auth()->id();
 
-        $city = City::where('name', $request->input('city_name'))->first();
-        if ($city) {
-            $validated['city_id'] = $city->id;
-        } else {
-            return redirect()->back()->withErrors(['city_name' => 'Invalid city name']);
-        }
 
 
         if ($request->hasFile('profile_picture')) {

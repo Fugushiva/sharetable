@@ -11,19 +11,6 @@
     <div class="w-full flex flex-col gap-8 mt-6 p-6 bg-white shadow-lg rounded-lg">
         <form enctype="multipart/form-data" method="post" action="{{ route('host.store') }}" class="space-y-6">
             @csrf
-            <!-- City -->
-            <div class="flex flex-col">
-                <label for="cityInput" class="mb-2 text-lg font-medium text-gray-700">City</label>
-                <input list="cityList" name="city_name" id="cityInput" class="w-full p-2 border border-gray-300 rounded-md shadow-sm" placeholder="Select city">
-                <datalist id="cityList" class="w-1/3 p-2 border border-gray-300 rounded-md shadow-sm">
-                    @foreach($cities as $city)
-                        <option value="{{ $city->name }}" data-id="{{ $city->id }}"></option>
-                    @endforeach
-                </datalist>
-                @error('city_id')
-                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                @enderror
-            </div>
 
             <!-- Description -->
             <div class="flex flex-col">

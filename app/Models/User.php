@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Country;
 
 class User extends Authenticatable
@@ -77,6 +78,11 @@ class User extends Authenticatable
     public function country():BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 
     public function scopeGetCountry($query, $id)

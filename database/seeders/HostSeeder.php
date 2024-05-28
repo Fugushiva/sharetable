@@ -31,13 +31,11 @@ class HostSeeder extends Seeder
             [
                 'name' => 'jerome',
                 'bio' => $faker->text(1200),
-                'city' => 'Brussels',
                 'birthdate' => Carbon::create(1990,11,21)
             ],
             [
                 'name' => 'Ayu',
                 'bio' => $faker->text(720),
-                'city' => 'Medan',
                 'birthdate' => Carbon::create(1995,8,30)
             ],
         ];
@@ -46,15 +44,11 @@ class HostSeeder extends Seeder
             $user = User::where([
                 ['firstname', '=', $host['name']]
             ])->first();
-            $city = City::where([
-                ['name', '=', $host['city']]
-            ])->first();
 
             $host['user_id'] = $user->id;
-            $host['city_id'] = $city->id;
 
             unset($host['name']);
-            unset($host['city']);
+
         }
 
         DB::table('hosts')->insert($hosts);
