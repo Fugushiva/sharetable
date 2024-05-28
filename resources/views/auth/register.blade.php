@@ -48,14 +48,26 @@
 
         <!--Country-->
         <div class="mt-4">
-            <x-input-label for="country_id" :value="__('Country')" />
-            <select id="country_id" name="country_id" class=" block mt-1 w-full" required>
-                <option value="">{{ __('--Make your choice--') }}</option>
+            <label for="country">Country</label>
+            <input list="countryList" id="country" name="country_name">
+            <datalist id="countryList">
                 @foreach($countries as $country)
-                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                    <option value="{{$country->name}}" data-id="{{$country->id}}"></option>
                 @endforeach
-            </select>
-            <x-input-error :messages="$errors->get('country_id')" class="mt-2" />
+            </datalist>
+
+            <x-input-error :messages="$errors->get('country_name')" class="mt-2" />
+        </div>
+        <div class="mt-4">
+            <label for="city">City</label>
+            <input list="cityList" id="city" name="city_name">
+            <datalist id="cityList">
+                @foreach($cities as $city)
+                    <option value="{{$city->name}}" data-id="{{$city->id}}"></option>
+                @endforeach
+            </datalist>
+
+            <x-input-error :messages="$errors->get('city_name')" class="mt-2" />
         </div>
         <div class="m">
             <button class="btn-validate w-full">Create my account</button>
