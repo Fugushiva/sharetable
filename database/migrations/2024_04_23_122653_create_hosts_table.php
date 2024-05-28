@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('hosts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique()->constrained()->onUpdate('cascade');
-            $table->foreignId('city_id')->constrained()->onUpdate('cascade');
             $table->text('bio');
             $table->date('birthdate');
             $table->timestamps();
