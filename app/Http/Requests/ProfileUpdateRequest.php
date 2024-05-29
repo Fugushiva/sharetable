@@ -26,7 +26,8 @@ class ProfileUpdateRequest extends FormRequest
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
             'profile_picture' => ['image','mimes:jpeg,png,jpg','max:2048'],
-            'country_id' => ['required', 'exists:countries,id'],
+            'country_name' => ['required', 'exists:countries,name'],
+            'city_name' => ['required', 'exists:cities,name'],
         ];
     }
 }

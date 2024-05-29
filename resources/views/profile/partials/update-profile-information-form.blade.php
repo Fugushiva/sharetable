@@ -60,13 +60,26 @@
         <img src="{{ image_path($user->profile_picture) }}" alt="Profile picture" class="w-1/4 rounded-full  ">
 
         <!--Country-->
-        <label for="country">Country</label>
-        <input list="countryList" name="country_id" id="country" value="{{ old('country_name', $user->country->name ?? '') }}">
-        <datalist id="countryList">
-            @foreach($countries as $country)
-                <option value="{{ $country->id }}">{{$country->name}}</option>
-            @endforeach
-        </datalist>
+        <div class="mt-4">
+            <label for="country">Country</label>
+            <input list="countryList" id="country" name="country_name">
+            <datalist id="countryList">
+                @foreach($countries as $country)
+                    <option value="{{$country->name}}" data-id="{{$country->id}}"></option>
+                @endforeach
+            </datalist>
+            <x-input-error :messages="$errors->get('country_name')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <label for="city">City</label>
+            <input list="cityList" id="city" name="city_name">
+            <datalist id="cityList">
+                <!-- Les villes seront ajoutées ici -->
+            </datalist>
+            <x-input-error :messages="$errors->get('city_name')" class="mt-2" />
+        </div>
+
 
         <div class="flex items-center gap-4">
             <button class="btn-validate">{{ __('Save') }}</button>
@@ -82,4 +95,6 @@
             @endif
         </div>
     </form>
+
+    <script src="{{ asset('build/assets/cities-BouRWpE4.js') }}"></script>
 </section>

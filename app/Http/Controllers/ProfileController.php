@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Country;
 
 class ProfileController extends Controller
@@ -18,10 +19,12 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         $countries = Country::all();
+        $cities = City::all();
 
         return view('profile.edit', [
             'user' => $request->user(),
-            'countries' => $countries
+            'countries' => $countries,
+            'cities' => $cities
         ]);
     }
 
@@ -37,6 +40,14 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        $country = Country::where('name', $request->input('country_name'))->first();
+        $countryId = $country->id;
+
+        $city = City::where('name', $request->input('city_name'))->first();
+        $cityId = $city->id;
+
+        $request->user()->country_id = $countryId;
+        $request->user()->city_id = $cityId;
 
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
@@ -49,6 +60,7 @@ class ProfileController extends Controller
 
             $request->user()->profile_picture = $uniqueName;
         }
+
 
 
         $request->user()->save();
