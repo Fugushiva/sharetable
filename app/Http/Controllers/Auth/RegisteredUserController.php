@@ -49,13 +49,16 @@ class RegisteredUserController extends Controller
         $country = Country::where('name', $request->input('country_name'))->first();
         $countryId = $country->id;
 
+        $city = City::where('name', $request->input('city_name'))->first();
+        $cityId = $city->id;
 
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'country_id' => $countryId
+            'country_id' => $countryId,
+            'city_id' => $cityId,
         ]);
 
 
@@ -64,5 +67,16 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));
+    }
+
+    public function getCities($country_id)
+    {
+        try {
+            $cities = City::where('country_id', $country_id)->pluck('name');
+            return response()->json($cities);
+        } catch (\Exception $e) {
+            \Log::error('Error fetching cities: ' . $e->getMessage());
+            return response()->json(['error' => 'Could not fetch cities'], 500);
+        }
     }
 }

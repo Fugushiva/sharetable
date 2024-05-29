@@ -26,23 +26,14 @@
         <!-- Password -->
         <div class="mt-4">
             <label for="password" :value="__('Password')">Password</label>
-
-            <input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" >
-
+            <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" >
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
             <label for="password_confirmation">Confirm Password</label>
-
-            <input id="password_confirmation" class="form-input block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password">
-
+            <input id="password_confirmation" class="form-input block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password">
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
@@ -55,28 +46,30 @@
                     <option value="{{$country->name}}" data-id="{{$country->id}}"></option>
                 @endforeach
             </datalist>
-
             <x-input-error :messages="$errors->get('country_name')" class="mt-2" />
         </div>
+
         <div class="mt-4">
             <label for="city">City</label>
             <input list="cityList" id="city" name="city_name">
             <datalist id="cityList">
-                @foreach($cities as $city)
-                    <option value="{{$city->name}}" data-id="{{$city->id}}"></option>
-                @endforeach
+                <!-- Les villes seront ajoutées ici -->
             </datalist>
-
             <x-input-error :messages="$errors->get('city_name')" class="mt-2" />
         </div>
+
         <div class="m">
             <button class="btn-validate w-full">Create my account</button>
         </div>
+
         <div class="flex items-center justify-center mt-4 gap-3">
             <a class="btn-secondary" href="{{ route('login') }}">
                 {{ __('Login') }}
             </a>
-
         </div>
     </form>
+
+    <script src="{{ asset('build/assets/cities-BouRWpE4.js') }}"></script>
+
+
 </x-guest-layout>
