@@ -25,3 +25,4 @@ Route::get('/cities/{id}', [RegisteredUserController::class, 'getCities'])
 require __DIR__.'/auth.php';
 require __DIR__ . '/annonce.php';
 require __DIR__ . '/host.php';
+require __DIR__ . '/guest.php';
