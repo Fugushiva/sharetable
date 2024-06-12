@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Country;
+use Nnjeim\World\Models\Language;
 
 class ProfileController extends Controller
 {
@@ -46,8 +47,13 @@ class ProfileController extends Controller
         $city = City::where('name', $request->input('city_name'))->first();
         $cityId = $city->id;
 
+        $language = Language::where('code', $request->input('language_code'))->first();
+        $languageId = $language->id;
+
         $request->user()->country_id = $countryId;
         $request->user()->city_id = $cityId;
+        $request->user()->language_id = $languageId;
+
 
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');

@@ -13,6 +13,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Country;
+use Nnjeim\World\Models\Language;
 
 class RegisteredUserController extends Controller
 {
@@ -23,10 +24,12 @@ class RegisteredUserController extends Controller
     {
         $countries = Country::all();
         $cities = City::all();
+        $languages = Language::whereIn('name',['French', 'English'])->get();
 
         return view('auth.register', [
             'countries' => $countries,
             'cities' => $cities,
+            'languages'=> $languages
         ]);
     }
 
@@ -43,7 +46,8 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'country_name' => ['required', 'exists:countries,name' ],
-            'city_name' => ['required', 'exists:cities,name' ]
+            'city_name' => ['required', 'exists:cities,name' ],
+            'language_name' => ['required', 'exists:languages,name_native']
         ]);
 
         $country = Country::where('name', $request->input('country_name'))->first();
@@ -52,6 +56,9 @@ class RegisteredUserController extends Controller
         $city = City::where('name', $request->input('city_name'))->first();
         $cityId = $city->id;
 
+        $language = Language::where('name_native', $request->input('language_name'))->first();
+        $languageId = $language->id;
+
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
@@ -59,6 +66,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'country_id' => $countryId,
             'city_id' => $cityId,
+            'language_id' => $languageId,
         ]);
 
 

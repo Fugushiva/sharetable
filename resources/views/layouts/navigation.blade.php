@@ -15,22 +15,22 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('content.dashboard') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('annonce.index')" :active="request()->routeIs('annonce.index')">
-                        {{ __('Annonces') }}
+                        {{ __('content.listing') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @if (Auth::user())
                         <x-nav-link :href="route('host.create')" :active="request()->routeIs('host.create')">
-                            {{ __('Become a host') }}
+                            {{ __('content.become_host') }}
                         </x-nav-link>
                     @else
                         <x-nav-link :href="route('register')" :active="request()->routeIs('host.create')">
-                            {{ __('Become a host') }}
+                            {{ __('content.become_host') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -39,9 +39,19 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <div class="btn-validate  ">
-                    <i class="fa-solid fa-globe"></i>
+                <div class="">
+                    <form id="language-form" action="{{ route('change.language') }}" method="POST">
+                        @csrf
+                        <select id="language" name="language" onchange="document.getElementById('language-form').submit()">
+                            @foreach($languages as $language)
+                                <option value="{{ $language->code }}" {{ app()->getLocale() == $language->code ? 'selected' : '' }}>
+                                    {{ $language->code }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
@@ -67,10 +77,10 @@
                     @if(Auth::user())
                         <x-slot name="content">
                             <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Profile') }}
+                                {{ __('content.profile') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Switch to host') }}
+                                {{ __('content.switch_host') }}
                             </x-dropdown-link>
 
                             <!-- Authentication -->
@@ -80,7 +90,7 @@
                                 <x-dropdown-link :href="route('logout')"
                                                  onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('content.logout') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
@@ -88,11 +98,11 @@
                         <x-slot name="content">
                             <!-- Authentication -->
                             <x-dropdown-link :href="route('register')">
-                                {{ __("S'enregistrer") }}
+                                {{ __("content.signin") }}
                             </x-dropdown-link>
 
                             <x-dropdown-link :href="route('login')">
-                                {{ __("Se connecter") }}
+                                {{ __("content.login") }}
                             </x-dropdown-link>
                         </x-slot>
                     @endif
@@ -119,7 +129,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('content.dashboard') }}
             </x-responsive-nav-link>
         </div>
 
@@ -131,21 +141,21 @@
                     <div class="font-medium text-base text-gray-800">{{ Auth::user()->firstname }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 @else
-                    <div class="font-medium text-base text-gray-800">s'enregistrer ou se connecter</div>
+                    <div class="font-medium text-base text-gray-800">{{__('content.register_connect')}}</div>
                 @endif
             </div>
 
             <div class="mt-3 space-y-1">
                 @if(Auth::user())
                     <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
+                        {{ __('content.profile') }}
                     </x-responsive-nav-link>
                 @else
                     <x-responsive-nav-link :href="route('login')">
-                        {{ __('Se connecter') }}
+                        {{ __('content.login') }}
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('register')">
-                        {{ __("s'enregistrer") }}
+                        {{ __("content.signin") }}
                     </x-responsive-nav-link>
                 @endif
 
@@ -157,7 +167,7 @@
                         <x-responsive-nav-link :href="route('logout')"
                                                onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                            {{ __('Log Out') }}
+                            {{ __('content.logout') }}
                         </x-responsive-nav-link>
                     </form>
                 @endif
@@ -169,11 +179,11 @@
                 <div class="font-medium text-base text-gray-800">S'enregistrer ou se connecter</div>
             </div>
             <x-responsive-nav-link :href="route('register')">
-                {{ __("S'enregistrer") }}
+                {{ __("content.signin") }}
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('login')">
-                {{ __("Se connecter") }}
+                {{ __("content.login") }}
             </x-responsive-nav-link>
         </div>
 

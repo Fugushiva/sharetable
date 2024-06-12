@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('language')->default('english');
+            //$table->string('language')->default('en');
             $table->string('profile_picture')->nullable();
             $table->rememberToken();
             $table->timestamps();

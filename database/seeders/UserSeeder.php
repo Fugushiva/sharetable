@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Country;
+use Nnjeim\World\Models\Language;
 
 class UserSeeder extends Seeder
 {
@@ -31,7 +32,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('epfc'),
                 'country_name' => 'Belgium',
                 'city_name' => 'Brussels',
-                'profile_picture' => 'italian'
+                'profile_picture' => 'italian',
+                'language_name' => 'French'
             ],
             [
                 'firstname' => 'Bob',
@@ -40,7 +42,9 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('epfc'),
                 'country_name' => 'France',
                 'city_name' => 'Paris',
-                'profile_picture' => 'french'
+                'profile_picture' => 'french',
+                'language_name' => 'French'
+
             ],
             [
                 'firstname' => 'Ayu',
@@ -49,7 +53,9 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('epfc'),
                 'country_name' => 'Indonesia',
                 'city_name' => 'Jakarta',
-                'profile_picture' => 'indonesian'
+                'profile_picture' => 'indonesian',
+                'language_name' => 'English'
+
             ],
             [
                 'firstname' => 'Chen',
@@ -58,7 +64,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('epfc'),
                 'country_name' => 'China',
                 'city_name' => 'Shanghai',
-                'profile_picture' => 'chinese'
+                'profile_picture' => 'chinese',
+                'language_name' => 'English'
             ],
 
         ];
@@ -70,12 +77,17 @@ class UserSeeder extends Seeder
                 $city = City::where([
                     ['name', '=', $data['city_name']]
                 ])->first();
+                $language = Language::where([
+                   ['name', '=', $data['language_name']]
+                ])->first();
 
                 $data['country_id'] = $country->id;
                 $data['city_id'] = $city->id;
+                $data['language_id'] = $language->id;
 
                 unset($data['country_name']);
                 unset($data['city_name']);
+                unset($data['language_name']);
             }
 
             DB::table('users')->insert($dataset);

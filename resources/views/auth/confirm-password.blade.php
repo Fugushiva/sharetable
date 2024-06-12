@@ -8,7 +8,7 @@
 
         <!-- Password -->
         <div>
-            <label for="password" >Password</label>
+            <label for="password" >{{__('forms.Password')}}</label>
 
             <input id="password" class="block mt-1 w-full"
                             type="password"

@@ -1,11 +1,11 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
+            {{ __('forms.profile_info') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
+            {{ __("forms.profile_info_message") }}
         </p>
     </header>
 
@@ -18,13 +18,13 @@
         @method('patch')
 
         <div>
-            <label for="firstname">Firstname</label>
+            <label for="firstname">{{ __("forms.Firstname") }}</label>
             <input id="firstname" name="firstname" type="text" class="mt-1 block w-full" placeholder="{{$user->firstname}}" value="{{$user->firstname}}">
             <x-input-error class="mt-2" :messages="$errors->get('firstname')" />
         </div>
 
         <div>
-            <label for="lastname">Lastname</label>
+            <label for="lastname">{{ __("forms.Lastname") }}</label>
             <input id="lastname" name="lastname" type="text" class="mt-1 block w-full" placeholder="{{$user->lastname}}" value="{{$user->lastname}}" >
             <x-input-error class="mt-2" :messages="$errors->get('lastname')" />
         </div>
@@ -55,14 +55,14 @@
 
 
         <!--Profile picture-->
-        <label for="picture">Photo de profil</label>
+        <label for="picture">{{ __("forms.profile_picture") }}</label>
         <input type="file" name="profile_picture" id="picture" value="{{image_path($user->profile_picture)}}">
         <img src="{{ image_path($user->profile_picture) }}" alt="Profile picture" class="w-1/4 rounded-full  ">
 
         <!--Country-->
         <div class="mt-4">
-            <label for="country">Country</label>
-            <input list="countryList" id="country" name="country_name">
+            <label for="country">{{ __("forms.Country") }}</label>
+            <input list="countryList" id="country" name="country_name" value="{{$user->country->name}}">
             <datalist id="countryList">
                 @foreach($countries as $country)
                     <option value="{{$country->name}}" data-id="{{$country->id}}"></option>
@@ -72,12 +72,21 @@
         </div>
 
         <div class="mt-4">
-            <label for="city">City</label>
-            <input list="cityList" id="city" name="city_name">
+            <label for="city">{{ __("forms.City") }}</label>
+            <input list="cityList" id="city" name="city_name" value="{{$user->city->name}}">
             <datalist id="cityList">
                 <!-- Les villes seront ajoutées ici -->
             </datalist>
             <x-input-error :messages="$errors->get('city_name')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <label for="language">@lang("forms.language")</label>
+            <select id="language" name="language_code" value="{{$user->language}}">
+                @foreach($languages as $language)
+                    <option data-id="{{$language->id}}">{{$language->code}}</option>
+                @endforeach
+            </select>
         </div>
 
 

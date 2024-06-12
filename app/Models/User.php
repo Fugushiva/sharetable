@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Country;
+use Nnjeim\World\Models\Language;
 
 class User extends Authenticatable
 {
@@ -27,7 +28,7 @@ class User extends Authenticatable
         'password',
         'firstname',
         'lastname',
-        'language',
+        'language_id',
         'profile_picture',
         'country_id',
         'city_id'
@@ -84,6 +85,11 @@ class User extends Authenticatable
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function language(): BelongsTo
+    {
+        return $this->belongsTo(Language::class);
     }
 
     public function scopeGetCountry($query, $id)

@@ -28,6 +28,7 @@ class ProfileUpdateRequest extends FormRequest
             'profile_picture' => ['image','mimes:jpeg,png,jpg','max:2048'],
             'country_name' => ['required', 'exists:countries,name'],
             'city_name' => ['required', 'exists:cities,name'],
+            'language_code' => ['required', 'exists:languages,code']
         ];
     }
 }
