@@ -18,6 +18,7 @@ class Annonce extends Model
         'schedule',
         'cuisine',
         'max_guest',
+        'price'
     ];
 
     protected $table = 'annonces';

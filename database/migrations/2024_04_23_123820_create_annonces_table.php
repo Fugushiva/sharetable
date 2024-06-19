@@ -20,6 +20,7 @@ return new class extends Migration
             $table->dateTime('schedule');
             $table->integer('max_guest',0,1);
             $table->string('picture_name');
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
     }

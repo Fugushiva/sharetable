@@ -29,7 +29,8 @@ class AnnonceSeeder extends Seeder
                 'description' => "J'ai grandit avec une maman italienne, je connais tout ce qu'il faut pur vous rendre fou de cette cuisine",
                 'schedule' => Carbon::create(2024, 12, 06),
                 'max_guest' => 4,
-                'picture_name' => 'BA65D785-D807-4DA7-8D83-54E56562F52B.jpg'
+                'picture_name' => 'BA65D785-D807-4DA7-8D83-54E56562F52B.jpg',
+                'price' => 50
             ],
 
             [
@@ -39,8 +40,19 @@ class AnnonceSeeder extends Seeder
                 'description' => "Best cuisine in Indonesia, Sumatra is the hearth of spices",
                 'schedule' => Carbon::create(2024, 10, 03),
                 'max_guest' => 4,
-                'picture_name' => 'Rendang.jpg'
-            ]
+                'picture_name' => 'Rendang.jpg',
+                'price' => '20'
+            ],
+            [
+            'host_birthdate' => Carbon::create(1995,8,30),
+            'country_name' => 'Indonesia',
+            'title' => 'chinese cuisine discover',
+            'description' => "ching chong",
+            'schedule' => Carbon::create(2024, 10, 03),
+            'max_guest' => 1,
+            'picture_name' => 'Rendang.jpg',
+            'price' => '20'
+        ]
         ];
 
         foreach($annonces as &$annonce){
