@@ -25,10 +25,10 @@ if (!function_exists('generateUniqueImageName')) {
      */
     function generateUniqueImageName($file)
     {
-        // Obtenez l'extension du fichier
+        // get the file extension
         $extension = $file->getClientOriginalExtension();
 
-        // Générez un nom unique en utilisant un identifiant unique et l'horodatage
+        // generate a unique name for the image
         $uniqueName = uniqid() . '_' . time() . '.' . $extension;
 
         return $uniqueName;

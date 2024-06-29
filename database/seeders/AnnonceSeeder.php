@@ -23,39 +23,39 @@ class AnnonceSeeder extends Seeder
 
         $annonces = [
             [
-                'host_birthdate' => Carbon::create(1990,11,21),
+                'host_birthdate' => Carbon::create(1990, 11, 21),
                 'country_name' => 'Belgium',
                 'title' => 'Venez découvrir la cuisine italienne',
+                'cuisine' => 'Italian',
                 'description' => "J'ai grandit avec une maman italienne, je connais tout ce qu'il faut pur vous rendre fou de cette cuisine",
                 'schedule' => Carbon::create(2024, 12, 06),
                 'max_guest' => 4,
-                'picture_name' => 'BA65D785-D807-4DA7-8D83-54E56562F52B.jpg',
                 'price' => 50
             ],
 
             [
-                'host_birthdate' => Carbon::create(1995,8,30),
+                'host_birthdate' => Carbon::create(1995, 8, 30),
                 'country_name' => 'Indonesia',
-                'title' => 'Discover the heart of Sumatra cuisine',
-                'description' => "Best cuisine in Indonesia, Sumatra is the hearth of spices",
+                'title' => 'Discover the Flavors: Exploring Padang Cuisine',
+                'cuisine' => 'Indonesian',
+                'description' => "Padang cuisine, from the Minangkabau region in Indonesia, is renowned for its bold and spicy flavors. It features a variety of dishes served in small portions, typically with rice. Key ingredients include coconut milk, chili, turmeric, and tamarind. Signature dishes include rendang (spicy stewed beef) and sambal balado (spicy chili sauce). Presentation is important, with dishes arranged for diners to sample a wide array of flavors.",
                 'schedule' => Carbon::create(2024, 10, 03),
                 'max_guest' => 4,
-                'picture_name' => 'Rendang.jpg',
                 'price' => '20'
             ],
             [
-            'host_birthdate' => Carbon::create(1995,8,30),
-            'country_name' => 'Indonesia',
-            'title' => 'chinese cuisine discover',
-            'description' => "ching chong",
-            'schedule' => Carbon::create(2024, 10, 03),
-            'max_guest' => 1,
-            'picture_name' => 'Rendang.jpg',
-            'price' => '20'
-        ]
+                'host_birthdate' => Carbon::create(1992, 8, 30),
+                'country_name' => 'Indonesia',
+                'title' => 'Experience the Art of Cantonese Cuisine',
+                'cuisine' => 'Chinese',
+                'description' => "Cantonese cuisine, originating from Guangdong province in China, is known for its subtle flavors and fresh ingredients. It emphasizes preserving the natural taste of the ingredients, using minimal spices. Signature dishes include dim sum, roasted meats, and seafood. Steaming and stir-frying are common cooking methods, and presentation is elegant, highlighting the colors and textures of the food. Cantonese cuisine is highly regarded for its balance and variety, offering a diverse array of soups, noodles, and rice dishes.",
+                'schedule' => Carbon::create(2024, 10, 03),
+                'max_guest' => 1,
+                'price' => '20'
+            ]
         ];
 
-        foreach($annonces as &$annonce){
+        foreach ($annonces as &$annonce) {
             $host = Host::where([
                 ['birthdate', '=', $annonce['host_birthdate']]
             ])->first();

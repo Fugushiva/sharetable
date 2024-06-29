@@ -13,6 +13,7 @@ class Annonce extends Model
 
     protected $fillable = [
         'host_id',
+        'country_id',
         'title',
         'description',
         'schedule',
@@ -33,6 +34,23 @@ class Annonce extends Model
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function pictures(): HasMany
+    {
+        return $this->hasMany(AnnoncePicture::class);
+    }
+
+    public function uploadPictures(array $pictures)
+    {
+        foreach ($pictures as $picture) {
+            $filename = generateUniqueImageName($picture);
+            $path = $picture->storeAs('img/annonces/' . $this->id, $filename, 'public');
+
+            $this->pictures()->create([
+                'path' => 'storage/' . $path,
+            ]);
+        }
     }
 
 

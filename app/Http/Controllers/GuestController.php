@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class GuestController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the guest.
      */
     public function index($id)
     {
@@ -23,7 +23,7 @@ class GuestController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new guest.
      */
     public function create()
     {
@@ -31,7 +31,7 @@ class GuestController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created guest in storage.
      */
     public function store(Request $request)
     {
@@ -39,7 +39,7 @@ class GuestController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified guest.
      */
     public function show(string $id)
     {
@@ -47,7 +47,7 @@ class GuestController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified guest.
      */
     public function edit(string $id)
     {
@@ -55,7 +55,7 @@ class GuestController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified guest in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -63,7 +63,7 @@ class GuestController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified guest from storage.
      */
     public function destroy(string $id)
     {

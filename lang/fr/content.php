@@ -18,6 +18,7 @@ return [
     'search' => 'Rechercher',
     'more' => 'Plus',
     'city_or_cuisine' => 'Commençons par une ville ou une cuisine.',
+    'about' => 'A propos de'
 
 
 

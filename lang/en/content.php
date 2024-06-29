@@ -17,7 +17,8 @@ return [
     'find_and_book' => 'Find and book unique food experiences around the world',
     'search' => 'Search',
     'more' => 'More',
-    'city_or_cuisine' => "Let's start with a city or cuisine"
+    'city_or_cuisine' => "Let's start with a city or cuisine",
+    'about' => 'About'
 
 
 

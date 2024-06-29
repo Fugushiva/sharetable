@@ -47,8 +47,9 @@ class HostController extends Controller
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
 
-            // Assurez-vous que la fonction generateUniqueImageName() est définie quelque part
+
             $nameAndExtention = generateUniqueImageName($file);
+            // Get the name without the extention
             $uniqueName = explode('.', $nameAndExtention)[0];
             $file->move(public_path('img/host'), $nameAndExtention);
 
@@ -92,5 +93,14 @@ class HostController extends Controller
     public function destroy(Host $host)
     {
         //
+    }
+    public function profile(Request $request)
+    {
+        $user = $request->user();
+
+
+        return view('host.profile', [
+            'user' => $user
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AnnoncePicture;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,7 +26,8 @@ class DatabaseSeeder extends Seeder
                 ProfileUserSeeder::class,
                 HostSeeder::class,
                 AnnonceSeeder::class,
-                ReservationSeeder::class
+                ReservationSeeder::class,
+                AnnoncePictureSeeder::class,
 
             ]
         );

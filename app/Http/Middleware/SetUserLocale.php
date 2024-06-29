@@ -17,8 +17,10 @@ class SetUserLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // on récupère la langue de la session
         $language = session('locale', config('app.locale'));
 
+        // si l'utilisateur est connecté, on récupère sa langue
         if(Auth::check() ){
             $language = session('locale', Auth::user()->language->code);
         }

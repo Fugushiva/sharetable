@@ -38,6 +38,11 @@ class HostSeeder extends Seeder
                 'bio' => $faker->text(720),
                 'birthdate' => Carbon::create(1995,8,30)
             ],
+            [
+                'name' => 'Chen',
+                'bio' => $faker->text(720),
+                'birthdate' => Carbon::create(1992,8,30)
+            ],
         ];
 
         foreach($hosts as &$host){

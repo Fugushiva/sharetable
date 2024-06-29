@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('title', '255');
             $table->text('description');
             $table->dateTime('schedule');
+            $table->string('cuisine');
             $table->integer('max_guest',0,1);
-            $table->string('picture_name');
             $table->decimal('price', 10, 2);
             $table->timestamps();
         });

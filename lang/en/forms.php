@@ -43,7 +43,19 @@ return [
 
     'profile_info' => 'profile information',
     'profile_info_message' => "Update your account's profile information and email address.",
-    'profile_picture' => 'profile picture'
+    'profile_picture' => 'profile picture',
+
+    //********* Annonce *********//
+
+    'title' => 'Title',
+    'description' => 'Description',
+    'schedule' => 'Schedule',
+    'price' => 'Price',
+    'cuisine' => 'Cuisine',
+    'max_guest' => 'Guest(s) number(s)',
+    'create_ad' => 'Create my ad',
+    'pictures' => 'Pictures 6 maximum',
+    'delete_ad' => 'Delete ad',
 
 
 

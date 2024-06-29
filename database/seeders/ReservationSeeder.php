@@ -29,7 +29,7 @@ class ReservationSeeder extends Seeder
                 'reservation_date' => Carbon::create(now()),
             ],
             [
-                'annonce_title' => 'Discover the heart of Sumatra cuisine',
+                'annonce_title' => 'Discover the Flavors: Exploring Padang Cuisine',
                 'user_name' => 'Jerome',
                 'reservation_date' => Carbon::create(now()),
             ],
@@ -39,7 +39,7 @@ class ReservationSeeder extends Seeder
                 'reservation_date' => Carbon::create(now()),
             ],
             [
-                'annonce_title' => 'Discover the heart of Sumatra cuisine',
+                'annonce_title' => 'Discover the Flavors: Exploring Padang Cuisine',
                 'user_name' => 'Bob',
                 'reservation_date' => Carbon::create(now()),
             ],

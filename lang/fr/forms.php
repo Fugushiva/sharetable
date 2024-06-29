@@ -42,7 +42,20 @@ return [
 
     'profile_info' => 'Information du profil',
     'profile_info_message' => "Mettez à jour les informations de profil et l'adresse e-mail de votre compte.",
-    'profile_picture' => 'Photo de profil'
+    'profile_picture' => 'Photo de profil',
+
+    //********* Annonce *********//
+
+    'title' => 'Titre',
+    'description' => 'Description',
+    'schedule' => 'Fixer la date',
+    'price'=> 'Prix',
+    'cuisine' => 'Cuisine',
+    'max_guest' => "Nombre d'invité(s)",
+    'create_ad' => 'Créer mon annonce',
+    'pictures' => 'Photo 6 maximum',
+    'delete_ad' => 'Supprimer l\'annonce',
+
 
 
 
