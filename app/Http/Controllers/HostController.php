@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHostRequest;
 use App\Models\Host;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Country;
 
 class HostController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -23,6 +26,7 @@ class HostController extends Controller
      */
     public function create(Request $request)
     {
+        $this->authorize('create', Host::class);
 
         $cities = city::with('country')->where('country_id', '=', $request->user()->country_id)->get();
 

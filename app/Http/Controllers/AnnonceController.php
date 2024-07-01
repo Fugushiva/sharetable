@@ -10,9 +10,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Nnjeim\World\Models\Country;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 
 class AnnonceController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the ad.
      * @return \Illuminate\Contracts\View\View
@@ -32,6 +36,8 @@ class AnnonceController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Annonce::class);
+
         $countries = Country::all();
 
         return view('annonce.create',[
@@ -110,14 +116,18 @@ class AnnonceController extends Controller
      */
     public function destroy(string $id)
     {
-        $directory = storage_path('app/public/img/annonces/' . $id);
+        $annonce = Annonce::findOrfail($id);
 
+        // Vérifie si l'utilisateur connecté peut supprimer l'annonce
+        $this->authorize('delete', $annonce);
+
+        $directory = storage_path('app/public/img/annonces/' . $id);
         // Supprime le dossier et son contenu de manière récursive
         if (File::exists($directory)) {
             File::deleteDirectory($directory);
         }
 
-        Annonce::find($id)->delete();
+        $annonce->delete();
 
         return redirect()->route('annonce.index')->with('success', 'Annonce supprimée avec succès');
     }

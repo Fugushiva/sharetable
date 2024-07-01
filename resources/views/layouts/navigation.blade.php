@@ -24,11 +24,11 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    @if (Auth::user())
+                    @if (Auth::user() && !Auth::user()->host)
                         <x-nav-link :href="route('host.create')" :active="request()->routeIs('host.create')">
                             {{ __('content.become_host') }}
                         </x-nav-link>
-                    @else
+                    @elseif(!Auth::user())
                         <x-nav-link :href="route('register')" :active="request()->routeIs('host.create')">
                             {{ __('content.become_host') }}
                         </x-nav-link>
