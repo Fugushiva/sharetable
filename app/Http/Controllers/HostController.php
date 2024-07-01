@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHostRequest;
 use App\Models\Host;
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Nnjeim\World\Models\City;
@@ -72,7 +73,18 @@ class HostController extends Controller
      */
     public function show(Host $host)
     {
-        //
+
+        $user = User::find($host->user_id);
+
+        $annonces = $host->annonces()->with('pictures')->get();
+
+
+
+        return view('host.show', [
+            'host' => $host,
+            'user' => $user,
+            'annonces' => $annonces
+        ]);
     }
 
     /**

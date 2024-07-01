@@ -6,7 +6,6 @@
                     <p class="text-2xl font-bold">{{$user->firstname}} {{$user->lastname}}</p>
                     <p class="text-sm text-gray-600">{{$user->country->name}}, {{$user->city->name}}</p>
                 </div>
-                <a href='{{route('annonce.create')}}' class="ml-auto btn-validate">Create Experience</a>
             </div>
             <div class="mt-4">
                 <h2 class="text-xl font-bold">@lang('content.about') {{$user->firstname}}</h2>

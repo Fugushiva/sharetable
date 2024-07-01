@@ -32,6 +32,10 @@
                         <x-nav-link :href="route('register')" :active="request()->routeIs('host.create')">
                             {{ __('content.become_host') }}
                         </x-nav-link>
+                    @elseif(Auth::user()->host)
+                        <x-nav-link :href="route('annonce.create')" :active="request()->routeIs('host.profile')">
+                            {{ __('content.create_experience') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>

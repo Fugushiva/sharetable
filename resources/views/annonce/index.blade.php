@@ -7,8 +7,10 @@
                     <div class="flex items-center mb-4">
                         <img src="{{ image_path($annonce->host->user->profile_picture) }}" class="w-16 h-16 rounded-full mr-4">
                         <div class="flex flex-col">
-                            <p class="font-medium">{{ $annonce->host->user->firstname }}</p>
+                            <p class="font-medium"><a href="{{route('host.show', $annonce->host->id)}}">{{ $annonce->host->user->firstname }}</a></p>
                             <p class="text-red-500 text-sm">{{ $annonce->host->user->country->name }}, {{ $annonce->host->user->city->name }}</p>
+                            <p class="text-sm">{{$annonce->price}} €</p>
+
                         </div>
                     </div>
                     <p class="underline mb-2">

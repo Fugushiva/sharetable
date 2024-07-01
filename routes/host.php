@@ -11,3 +11,7 @@ Route::post('/host', [HostController::class, 'store'])
 
 Route::get('/profile/host', [HostController::class, 'profile'])
     ->name('host.profile');
+
+Route::get('/host/{host}', [HostController::class, 'show'])
+    ->name('host.show')
+    ->where('id', '[0-9]+');

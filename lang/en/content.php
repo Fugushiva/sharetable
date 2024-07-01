@@ -18,7 +18,8 @@ return [
     'search' => 'Search',
     'more' => 'More',
     'city_or_cuisine' => "Let's start with a city or cuisine",
-    'about' => 'About'
+    'about' => 'About',
+    'create_experience' => 'Create an experience',
 
 
 

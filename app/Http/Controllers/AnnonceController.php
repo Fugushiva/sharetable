@@ -78,7 +78,11 @@ class AnnonceController extends Controller
     {
         // Récupère l'utilisateur connecté & l'hôte connecté
         $current_user = Auth::user();
-        $current_host = Host::where('user_id', $current_user->id)->first();
+        $current_host = null;
+        if($current_user){
+            $current_host = Host::where('user_id', $current_user->id)->first();
+        }
+
 
 
         $annonce = Annonce::with('pictures')->find($id);
