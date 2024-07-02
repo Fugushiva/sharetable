@@ -86,6 +86,9 @@
                             <x-dropdown-link :href="route('host.profile')">
                                 {{ __('content.switch_host') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('reservation.index')">
+                                {{ __('content.my_reservations') }}
+                            </x-dropdown-link>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">

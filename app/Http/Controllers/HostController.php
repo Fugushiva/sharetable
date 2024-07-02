@@ -70,6 +70,8 @@ class HostController extends Controller
 
     /**
      * Display the specified resource.
+     * @param Host $host
+     * @return \Illuminate\Http\Response with the host, user and annonces
      */
     public function show(Host $host)
     {
@@ -110,6 +112,12 @@ class HostController extends Controller
     {
         //
     }
+
+    /**
+     * Display the host profile of the connected user
+     * @param Request $request
+     * @return \Illuminate\Http\Response with the user
+     */
     public function profile(Request $request)
     {
         $user = $request->user();

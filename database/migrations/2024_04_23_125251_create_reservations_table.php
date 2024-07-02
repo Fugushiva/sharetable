@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('annonce_id')->constrained()->onUpdate('cascade');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade');
-            $table->dateTime('reservation_date');
             $table->timestamps();
         });
     }

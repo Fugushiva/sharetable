@@ -117,6 +117,10 @@ class AnnonceController extends Controller
 
     /**
      * Remove the specified ad from storage.
+     * @param string $id : id de l'annonce
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception : si l'annonce n'existe pas ou si l'utilisateur connecté n'a pas les droits pour supprimer l'annonce
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException : si le dossier de l'annonce n'existe pas
      */
     public function destroy(string $id)
     {
@@ -126,6 +130,7 @@ class AnnonceController extends Controller
         $this->authorize('delete', $annonce);
 
         $directory = storage_path('app/public/img/annonces/' . $id);
+
         // Supprime le dossier et son contenu de manière récursive
         if (File::exists($directory)) {
             File::deleteDirectory($directory);

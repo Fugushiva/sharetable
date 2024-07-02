@@ -28,6 +28,9 @@ class AnnoncePolicy
 
     /**
      * Determine whether the user can create models.
+     * Only users with the host profile can create annonces
+     * @param User $user
+     * @return Response user with the host profile
      */
     public function create(User $user): bool
     {
@@ -35,7 +38,10 @@ class AnnoncePolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Only the host of the annonce can update it
+     * @param User $user connected user
+     * @param Annonce $annonce annonce from the user
+     * @return bool true if the user is the host of the annonce
      */
     public function update(User $user, Annonce $annonce): bool
     {
@@ -43,7 +49,10 @@ class AnnoncePolicy
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Only the host of the annonce can delete it
+     * @param User $user connected user
+     * @param Annonce $annonce annonce from the user
+     * @return bool true if the user is the host of the annonce
      */
     public function delete(User $user, Annonce $annonce): bool
     {

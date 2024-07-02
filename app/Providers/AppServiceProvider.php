@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
+     * Register the LanguageComposer to the navigation and profile.edit views
      */
     public function boot(): void
     {

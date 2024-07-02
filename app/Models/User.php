@@ -92,6 +92,12 @@ class User extends Authenticatable
         return $this->belongsTo(Language::class);
     }
 
+
+    /**
+     * Get the user's country
+     * @param int $id
+     * return the user's country
+     */
     public function scopeGetCountry($query, $id)
     {
         return $query->where('id', $id)->with('country');

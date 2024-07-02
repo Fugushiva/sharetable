@@ -26,6 +26,7 @@ class Annonce extends Model
 
     public $timestamps = true;
 
+
     public function host(): BelongsTo
     {
         return $this->belongsTo(Host::class);
@@ -41,6 +42,10 @@ class Annonce extends Model
         return $this->hasMany(AnnoncePicture::class);
     }
 
+    /**
+     * Upload pictures for the annonce
+     * @param array $pictures
+     */
     public function uploadPictures(array $pictures)
     {
         foreach ($pictures as $picture) {

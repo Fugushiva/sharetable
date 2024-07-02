@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Host;
+use App\Models\Reservation;
+use App\Policies\HostPolicy;
+use App\Policies\ReservationPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Annonce;
@@ -16,6 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Annonce::class => AnnoncePolicy::class,
+        Host::class => HostPolicy::class,
+        Reservation::class => ReservationPolicy::class,
     ];
 
     /**

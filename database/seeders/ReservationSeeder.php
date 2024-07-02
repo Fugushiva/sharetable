@@ -26,22 +26,18 @@ class ReservationSeeder extends Seeder
             [
                 'annonce_title' => 'Venez découvrir la cuisine italienne',
                 'user_name' => 'Bob',
-                'reservation_date' => Carbon::create(now()),
             ],
             [
                 'annonce_title' => 'Discover the Flavors: Exploring Padang Cuisine',
                 'user_name' => 'Jerome',
-                'reservation_date' => Carbon::create(now()),
             ],
             [
                 'annonce_title' => 'Venez découvrir la cuisine italienne',
                 'user_name' => 'Chen',
-                'reservation_date' => Carbon::create(now()),
             ],
             [
                 'annonce_title' => 'Discover the Flavors: Exploring Padang Cuisine',
                 'user_name' => 'Bob',
-                'reservation_date' => Carbon::create(now()),
             ],
         ];
 

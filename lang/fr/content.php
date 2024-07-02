@@ -20,6 +20,13 @@ return [
     'city_or_cuisine' => 'Commençons par une ville ou une cuisine.',
     'about' => 'A propos de',
     'create_experience' => 'Créer une expérience',
+    'my_reservations' => 'Mes réservations',
+    'reservation_list' => 'Liste des réservations',
+    'book'=> 'Réserver',
+    'booking_summary'=> 'Résumé de la réservation',
+    'your_meal'=> 'Votre repas',
+    'pay'=> 'Paiement',
+    'host'=> 'Hôte',
 
 
 

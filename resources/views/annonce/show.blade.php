@@ -34,6 +34,9 @@
                     <button type="submit" class="bg-red-750 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-850 transition-colors">{{__('forms.delete_ad')}}</button>
                 </form>
             </div>
+        @elseif(Auth::check())
+          <a class="btn-validate" href="{{route('book.create', $annonce->id)}}">@lang('content.book')</a>
         @endif
+
     </section>
 </x-app-layout>

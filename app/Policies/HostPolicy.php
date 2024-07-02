@@ -27,6 +27,9 @@ class HostPolicy
 
     /**
      * Determine whether the user can create models.
+     * Only users without the host profile can create hosts
+     * @param User $user The user to check
+     * @return bool True if the user does not have the host profile, false otherwise
      */
     public function create(User $user): bool
     {
@@ -35,14 +38,16 @@ class HostPolicy
 
     /**
      * Determine whether the user can update the model.
+     *
      */
     public function update(User $user, Host $host): bool
     {
-        //
+
     }
 
     /**
      * Determine whether the user can delete the model.
+     *
      */
     public function delete(User $user, Host $host): bool
     {

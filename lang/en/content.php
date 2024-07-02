@@ -20,6 +20,13 @@ return [
     'city_or_cuisine' => "Let's start with a city or cuisine",
     'about' => 'About',
     'create_experience' => 'Create an experience',
+    'my_reservations' => 'My reservations',
+    'reservation_list' => 'Reservation list',
+    'book'=> 'Book',
+    'booking_summary'=> 'Booking summary',
+    'your_meal'=> 'Your meal',
+    'pay'=> 'Payment',
+    'host'=> 'Host',
 
 
 
