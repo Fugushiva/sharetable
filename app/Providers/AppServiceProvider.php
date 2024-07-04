@@ -18,10 +18,11 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     * Register the LanguageComposer to the navigation and profile.edit views
      */
     public function boot(): void
     {
+        $this->loadMigrationsFrom(__DIR__.'/../../vendor/nnjeim/world/src/Database/Migrations');
+
         View::composer(['layouts.navigation', 'profile.edit'], LanguageComposer::class);
     }
 }

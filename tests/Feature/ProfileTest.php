@@ -28,8 +28,12 @@ class ProfileTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->patch('/profile', [
-                'name' => 'Test User',
+                'firstname' => 'Test',
+                'lastname' => 'User',
                 'email' => 'test@example.com',
+                'country_name' => 'Belgium', // Remplace par le nom valide
+                'city_name' => 'Brussels', // Remplace par le nom valide
+                'language_code' => 'fr', // Remplace par le code valide
             ]);
 
         $response
@@ -38,20 +42,28 @@ class ProfileTest extends TestCase
 
         $user->refresh();
 
-        $this->assertSame('Test User', $user->name);
+        $this->assertSame('Test', $user->firstname);
+        $this->assertSame('User', $user->lastname);
         $this->assertSame('test@example.com', $user->email);
         $this->assertNull($user->email_verified_at);
     }
 
     public function test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(), // Assure-toi que l'email est vérifié
+
+        ]);
 
         $response = $this
             ->actingAs($user)
             ->patch('/profile', [
-                'name' => 'Test User',
-                'email' => $user->email,
+                'firstname' => 'Test',
+                'lastname' => 'User',
+                'email' => $user->email, // Utilise le même email pour ne pas changer
+                'country_name' => 'Belgium', // Remplace par le nom valide
+                'city_name' => 'Brussels', // Remplace par le nom valide
+                'language_code' => 'fr', // Remplace par le code valide
             ]);
 
         $response

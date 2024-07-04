@@ -4,12 +4,22 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Prepare the test environment before each test.
+     * @return void
+     */
+    protected function setUp(): Void {
+        parent::setUp();
+
+        Artisan::call('db:seed', ['--class' => 'WorldSeeder']);
+    }
     public function test_login_screen_can_be_rendered(): void
     {
         $response = $this->get('/login');
