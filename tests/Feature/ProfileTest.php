@@ -60,10 +60,10 @@ class ProfileTest extends TestCase
             ->patch('/profile', [
                 'firstname' => 'Test',
                 'lastname' => 'User',
-                'email' => $user->email, // Utilise le même email pour ne pas changer
-                'country_name' => 'Belgium', // Remplace par le nom valide
-                'city_name' => 'Brussels', // Remplace par le nom valide
-                'language_code' => 'fr', // Remplace par le code valide
+                'email' => $user->email,
+                'country_name' => 'Belgium',
+                'city_name' => 'Brussels',
+                'language_code' => 'fr',
             ]);
 
         $response

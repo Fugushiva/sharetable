@@ -59,6 +59,4 @@ class Annonce extends Model
     }
 
 
-
-
 }

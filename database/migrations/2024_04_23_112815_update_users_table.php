@@ -14,7 +14,7 @@ return new class extends Migration
 
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('country_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('country_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('city_id')->constrained()->onUpdate('cascade');
             $table->foreignId('language_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
