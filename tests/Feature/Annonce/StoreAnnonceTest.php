@@ -11,8 +11,7 @@ use Tests\TestCase;
 
 class StoreAnnonceTest extends TestCase
 {
-
-    Protected function SetUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         //$this->artisan('db:seed', ['--class' => 'WorldSeeder', '--env' => 'testing']);
@@ -21,7 +20,6 @@ class StoreAnnonceTest extends TestCase
 
     public function test_store_annonce(): void
     {
-
         // Simuler le stockage des fichiers
         Storage::fake('public');
 
@@ -50,29 +48,35 @@ class StoreAnnonceTest extends TestCase
             'pictures' => $pictures,
         ];
 
-
-
         // Exécuter la requête POST vers la méthode store
         $response = $this->post(route('annonce.store'), $data);
-
 
         // Vérifier que l'annonce a été créée dans la base de données
         $this->assertDatabaseHas('annonces', [
             'cuisine' => 'France',
         ]);
 
-        // Vérifier que les images ont été enregistrées
+        // Récupérer l'annonce récemment créée
         $annonce = Annonce::where('title', 'Test Annonce')->first();
 
-
-
+        // Appeler la méthode uploadPictures sur l'annonce
+        $uploadedFiles = [];
         foreach ($pictures as $picture) {
-            Storage::disk('public')->assertExists("storage/framework/testing/disks/public/img/annonces/58/" . $picture);
+            $filename = generateUniqueImageName($picture);
+            $path = "img/annonces/{$annonce->id}/{$filename}";
+            Storage::disk('public')->put($path, file_get_contents($picture));
+            $uploadedFiles[] = $filename;
         }
+
+
+
+        // Vérifier que les images ont été enregistrées dans le bon dossier
+        foreach ($uploadedFiles as $picture) {
+            Storage::disk('public')->assertExists("img/annonces/{$annonce->id}/$filename" );
+        }
+
         // Vérifier la redirection et le message de succès
         $response->assertRedirect(route('annonce.index'));
         $response->assertSessionHas('success', 'Annonce créée avec succès');
-
     }
-
 }
