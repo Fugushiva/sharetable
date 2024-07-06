@@ -28,4 +28,9 @@ class Reservation extends Model
     {
         return $this->belongsTo(Annonce::class);
     }
+
+    public function transaction(): BelongsTo
+    {
+        return $this->belongsTo(Transaction::class);
+    }
 }

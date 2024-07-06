@@ -34,5 +34,6 @@ Route::middleware([SetUserLocale::class])->group(function () {
     require __DIR__ . '/host.php';
     require __DIR__ . '/guest.php';
     require __DIR__ . '/reservation.php';
+    require __DIR__ . '/stripe.php';
 
 });

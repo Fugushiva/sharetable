@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\View\Composers\LanguageComposer;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**
@@ -21,8 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadMigrationsFrom(__DIR__.'/../../vendor/nnjeim/world/src/Database/Migrations');
 
+        $this->loadMigrationsFrom(__DIR__.'/../../vendor/nnjeim/world/src/Database/Migrations');
         View::composer(['layouts.navigation', 'profile.edit'], LanguageComposer::class);
+
     }
 }

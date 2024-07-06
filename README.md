@@ -68,6 +68,16 @@ npm install
 ```sh
 npm run dev
 ```
+### 9. update.env file
+Add the following keys to your .env file
+
+#### Stripe :
+```sh
+STRIPE_SK= *your_stripe_secret_key*
+STRIPE_PK= *your_stripe_public_key*
+```
+
+
 
 ## Usage
 

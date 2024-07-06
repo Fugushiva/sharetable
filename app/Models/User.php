@@ -92,6 +92,11 @@ class User extends Authenticatable
         return $this->belongsTo(Language::class);
     }
 
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
 
     /**
      * Get the user's country

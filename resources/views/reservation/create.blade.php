@@ -27,11 +27,14 @@
         <div class="text-center">
             <p class="text-lg text-gray-700">{{ $annonce->price }}€ {{ __('annonce.per_guest') }}</p>
         </div>
-        <form method="post" class="mt-4" action="{{ route('book.store') }}">
+
+        @if(Auth::check())
+        <form method="post" class="mt-4" action="{{ route('stripe.checkout') }}">
             @csrf
             <input type="hidden" name="annonce_id" value="{{ Crypt::encrypt($annonce->id) }}">
             <button class="btn-validate hover:bg-red-700 transition duration-300">@lang('content.pay')</button>
         </form>
+        @endif
 
         @if ($errors->any())
             <div class="alert alert-danger mt-3">

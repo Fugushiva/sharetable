@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
                 AnnonceSeeder::class,
                 ReservationSeeder::class,
                 AnnoncePictureSeeder::class,
+                TransactionSeeder::class,
 
             ]
         );

@@ -37,4 +37,9 @@ class Host extends Model
     {
         return $this->hasOne(City::class);
     }
+
+    public function transactions():HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

@@ -6,10 +6,13 @@ use App\Http\Requests\StoreReservationRequest;
 use App\Models\Annonce;
 use App\Models\Host;
 use App\Models\Reservation;
+use App\Models\Transaction;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 class ReservationController extends Controller
 {
@@ -20,6 +23,7 @@ class ReservationController extends Controller
     {
         $reservations = Reservation::with('annonce')->where('user_id', auth()->id())->get();
 
+
         return view('reservation.index', compact('reservations',));
     }
 
@@ -27,9 +31,17 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create(Request $request, $id)
     {
         $annonce = Annonce::with('host.user')->find($request->id);
+
+        $reservationExists = Reservation::where('annonce_id', $annonce->id)
+            ->where('user_id', Auth::user()->id)
+            ->exists();
+
+        if ($reservationExists) {
+            return redirect()->back()->withErrors(['msg' => __('message.reservation_exists')]);
+        }
 
         return view('reservation.create', compact('annonce'));
     }
@@ -41,34 +53,45 @@ class ReservationController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
-        // Decrypt the annonce_id
-        try {
-            $annonceId = Crypt::decrypt($request->input('annonce_id'));
-        } catch (DecryptException $e) {
-            return redirect()->back()->withErrors('Invalid annonce ID');
-        }
+        //Définiaation de la clé secrète de l'API Stripe pour les transactions
+        Stripe::setApiKey(config('stripe.sk'));
 
-        $annonce = Annonce::find($annonceId);
+        $annonce = Annonce::find($request->input('annonce_id'));
+        $user = Auth::user();
 
-        // Check if the annonce exists, if not, redirect back with an error message
+        // Vérifie si l'annonce existe, sinon redirige avec un message d'erreur
         if (!$annonce) {
-            return redirect()->back()->withErrors('Annonce not found');
+            return redirect()->back()->withErrors(['msg' => __('message.annonce_exists')]);
         }
 
-        // Check if the user has already reserved this annonce, if yes, redirect back with an error message
-        if (Reservation::where('user_id', auth()->id())->where('annonce_id', $annonceId)->first()) {
-            return redirect()->back()->withErrors(['msg' => __('message.reservation_exists')]);
-        }
 
-        Reservation::create([
-            'annonce_id' => $annonceId,
-            'user_id' => auth()->id(),
+        // Crée la réservation
+        $reservation = Reservation::create([
+            'annonce_id' => $annonce->id,
+            'user_id' => $user->id,
             'host_id' => $annonce->host_id,
         ]);
 
+        //retrouver la transaction stipe
+        $session = Session::retrieve($request->session()->get('stripe_session_id'));
+
+
+        $transaction = Transaction::create([
+            'annonce_id' => $annonce->id,
+            'user_id' =>$user->id,
+            'reservation_id' => $reservation->id,
+            'host_id' => $annonce->host_id,
+            'quantity' => 1,
+            'status' => 'pending',
+            'stripe_transaction_id' => $session->payment_intent,
+            'commission' => $annonce->price * 0.1,
+            'currency' => $session->currency,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+
         return redirect()->route('reservation.index');
-
-
     }
 
     /**
