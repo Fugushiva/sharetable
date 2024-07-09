@@ -6,6 +6,7 @@ use App\Models\Annonce;
 use App\Models\Host;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -14,8 +15,8 @@ class StoreAnnonceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        //$this->artisan('db:seed', ['--class' => 'WorldSeeder', '--env' => 'testing']);
-        //$this->artisan('db:seed', ['--env' => 'testing']);
+//        $this->artisan('db:seed', ['--class' => 'WorldSeeder', '--env' => 'testing']);
+//        $this->artisan('db:seed', ['--env' => 'testing']);
     }
 
     public function test_store_annonce(): void
@@ -51,6 +52,7 @@ class StoreAnnonceTest extends TestCase
         // Exécuter la requête POST vers la méthode store
         $response = $this->post(route('annonce.store'), $data);
 
+
         // Vérifier que l'annonce a été créée dans la base de données
         $this->assertDatabaseHas('annonces', [
             'cuisine' => 'France',
@@ -69,10 +71,13 @@ class StoreAnnonceTest extends TestCase
         }
 
 
-
         // Vérifier que les images ont été enregistrées dans le bon dossier
         foreach ($uploadedFiles as $picture) {
-            Storage::disk('public')->assertExists("img/annonces/{$annonce->id}/$filename" );
+            Storage::disk('public')->assertExists("img/annonces/{$annonce->id}/$filename");
+        }
+
+        if (File::exists("app/public/img/annonces/{$annonce->id}")) {
+            File::deleteDirectory("app/public/img/annonces/{$annonce->id}");
         }
 
         // Vérifier la redirection et le message de succès
