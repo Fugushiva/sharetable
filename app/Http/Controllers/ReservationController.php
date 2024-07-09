@@ -21,8 +21,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::with('annonce')->where('user_id', auth()->id())->get();
-
+        $reservations = Reservation::activeForUser(auth()->id())->get();
 
         return view('reservation.index', compact('reservations',));
     }
@@ -37,6 +36,7 @@ class ReservationController extends Controller
 
         $reservationExists = Reservation::where('annonce_id', $annonce->id)
             ->where('user_id', Auth::user()->id)
+            ->where('status', 'active')
             ->exists();
 
         if ($reservationExists) {

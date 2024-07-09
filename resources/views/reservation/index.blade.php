@@ -9,6 +9,8 @@
                     <th class="py-2 px-4 border-b text-center">Lieu</th>
                     <th class="py-2 px-4 border-b text-center">Prix</th>
                     <th class="py-2 px-4 border-b text-center">Annonce</th>
+                    <th class="py-2 px-4 border-b text-center">action</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -33,10 +35,34 @@
                                 {{ $reservation->annonce->title }}
                             </a>
                         </td>
+                        <td class="py-2 px-4 border-b text-center">
+                            <form action="{{route('stripe.refund')}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="reservation_id" value="{{$reservation->id}}">
+                               <button class="btn-secondary">cancel</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
+        <!-- Display errors -->
+        @if ($errors->any())
+            <div class="alert alert-danger mt-3">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <!-- Stripe error session message -->
+        @if(session('error'))
+            <div class="alert alert-danger mt-3">
+                {{ session('error') }}
+            </div>
+        @endif
     </section>
 </x-app-layout>

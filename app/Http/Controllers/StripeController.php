@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreReservationRequest;
 use App\Models\Annonce;
 use App\Models\Host;
+use App\Models\Reservation;
 use App\Models\Transaction;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 
@@ -18,6 +20,12 @@ class StripeController extends Controller
         return view('index');
     }
 
+    /**
+     * Checkout the reservation
+     * @param StoreReservationRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Stripe\Exception\ApiErrorException : if the API key is not set
+     */
     public function checkout(StoreReservationRequest $request)
     {
         //config/stripe.php
@@ -70,5 +78,105 @@ class StripeController extends Controller
     public function success()
     {
         return view('stripe.index');
+    }
+
+    public function refund(Request $request)
+    {
+
+        // Valider les données reçues
+        $request->validate([
+            'reservation_id' => 'required|exists:transactions,reservation_id',
+        ]);
+
+        Stripe::setApiKey(config('stripe.sk'));
+
+        $reservation = Reservation::find($request->reservation_id);
+        $transaction = Transaction::where('reservation_id', $request->reservation_id)->first();
+        $annonce = Annonce::find($reservation->annonce_id);
+
+        if (!$transaction) {
+            return redirect()->route('stripe.index')->with('error', 'Transaction not found.');
+        }
+
+        try {
+
+            $reservation->update([
+                'status' => 'cancelled',
+            ]);
+
+            $scheduleDate = Carbon::parse($annonce->schedule);
+            // Vérifier si la date de la réservation est dans les 2 prochains jours
+            if ($scheduleDate->isBefore(now()->addDays(2))) {
+                return redirect()->route('reservation.index')->with('error', 'Refund not possible, the reservation is less than 2 days away.');
+            }
+
+            // Créer le remboursement
+            $refund = \Stripe\Refund::create([
+                'payment_intent' => $transaction->stripe_transaction_id,
+            ]);
+
+            $transaction->update([
+                'payment_status' => 'refunded',
+            ]);
+
+
+            return redirect()->route('reservation.index')->with('success', 'Refund successful.');
+        } catch (\Exception $e) {
+            // Gérer les erreurs
+            return redirect()->route('reservation.index')->with('error', 'Refund failed: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Refund all reservations for a specific ad
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception : si l'annonce n'existe pas
+     * @throws \Exception : si la réservation n'existe pas
+     */
+    public function refundAll()
+    {
+        $annonce = Annonce::find(session('annonce_id'));
+        $reservations = Reservation::all()->where('annonce_id', $annonce->id);
+
+        Stripe::setApiKey(config('stripe.sk'));
+
+        // pour chaque réservation on annule la réservation et on rembourse
+        foreach ($reservations as $reservation) {
+            $transaction = Transaction::where('reservation_id', $reservation->id)->first();
+            if (!$transaction) {
+                return redirect()->route('stripe.index')->with('error', 'Transaction not found.');
+            }
+
+
+            // les 4 premières transactions sont des tests, on ne les rembourse pas
+            if ($transaction->id > '4') {
+                try {
+
+                    $reservation->update([
+                        'status' => 'cancelled',
+                    ]);
+
+                    $refund = \Stripe\Refund::create([
+                        'payment_intent' => $transaction->stripe_transaction_id,
+                    ]);
+
+                    $transaction->update([
+                        'payment_status' => 'refunded',
+                    ]);
+
+                } catch (\Exception $e) {
+                    // Gérer les erreurs
+                    return redirect()->route('reservation.index')->with('error', 'Refund failed: ' . $e->getMessage());
+                }
+            } else {
+                $reservation->update([
+                    'status' => 'cancelled',
+                ]);
+                $transaction->update([
+                    'payment_status' => 'refunded',
+                ]);
+            }
+        }
+        return redirect()->route('reservation.index')->with('success', 'Refund successful.');
     }
 }

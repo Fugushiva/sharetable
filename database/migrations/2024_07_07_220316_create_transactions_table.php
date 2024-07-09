@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('host_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->string('currency', 3);
-            $table->enum('payment_status', ['pending', 'completed', 'failed', 'refunded']);
+            $table->enum('payment_status', ['pending', 'completed', 'refunded']);
             $table->string('stripe_transaction_id');
             $table->decimal('commission', 10, 2);
             $table->timestamps();

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('cuisine');
             $table->integer('max_guest',0,1);
             $table->decimal('price', 10, 2);
+            $table->enum('status', ['active', 'inactive', 'deleted'])->default('active');
             $table->timestamps();
         });
     }

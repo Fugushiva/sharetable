@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use MongoDB\Driver\Session;
 use Nnjeim\World\Models\Country;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -23,7 +24,7 @@ class AnnonceController extends Controller
      */
     public function index()
     {
-        $annonces = Annonce::with('host', 'host.user', 'pictures')->get(); // Récupère toutes les annonces avec les informations de l'hôte et de l'utilisateur
+        $annonces = Annonce::with('host', 'host.user', 'pictures')->where('status', '=', 'active')->get(); // Récupère toutes les annonces avec les informations de l'hôte et de l'utilisateur
 
         return view('annonce.index', [
             'annonces' => $annonces
@@ -119,10 +120,11 @@ class AnnonceController extends Controller
      * Remove the specified ad from storage.
      * @param string $id : id de l'annonce
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception : si l'annonce n'existe pas ou si l'utilisateur connecté n'a pas les droits pour supprimer l'annonce
+     * @throws \Exception : if the ad does not exist
+     * @throws \Exception : if the user didn't create the ad
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException : si le dossier de l'annonce n'existe pas
      */
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
         $annonce = Annonce::findOrfail($id);
 
@@ -136,8 +138,11 @@ class AnnonceController extends Controller
             File::deleteDirectory($directory);
         }
 
-        $annonce->delete();
+        $annonce->status = 'deleted';
+        $annonce->save();
 
-        return redirect()->route('annonce.index')->with('success', 'Annonce supprimée avec succès');
+        $request->session()->put('annonce_id', $annonce->id);
+
+        return redirect()->route('stripe.refundAll')->with('success', 'Annonce supprimée avec succès');
     }
 }

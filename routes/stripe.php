@@ -9,3 +9,8 @@ Route::post('/checkout', [StripeController::class, 'checkout'])
     ->name('stripe.checkout');
 Route::get('/success', [StripeController::class, 'success'])
     ->name('stripe.success');
+Route::delete('/refund', [StripeController::class, 'refund'])
+    ->name('stripe.refund')
+    ->where('id', '[0-9]+');
+Route::get('/refundAll', [StripeController::class, 'refundAll'])
+    ->name('stripe.refundAll');

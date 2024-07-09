@@ -13,6 +13,7 @@ class Reservation extends Model
     protected $fillable = [
         'annonce_id',
         'user_id',
+        'status'
     ];
 
     protected $table = 'reservations';
@@ -32,5 +33,17 @@ class Reservation extends Model
     public function transaction(): BelongsTo
     {
         return $this->belongsTo(Transaction::class);
+    }
+
+    /**
+     * Scope a query to only include active reservations for a specific user.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int $userId
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActiveForUser($query, $userId)
+    {
+        return $query->where('user_id', $userId)->where('status', 'active')->with('annonce');
     }
 }
