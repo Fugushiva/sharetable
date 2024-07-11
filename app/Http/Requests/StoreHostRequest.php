@@ -23,7 +23,6 @@ class StoreHostRequest extends FormRequest
     {
         return [
             //'user_id' => ['required', 'exists:users,id', 'unique:hosts,user_id'],
-            'city_name' => ['required', 'string', 'exists:cities,name'], // check if city exists
             'bio' => ['required', 'string', 'min:50'], // check if bio is at least 50 characters
             'birthdate' => ['required', 'date'], // check if birthdate is a date
             'profile_picture' => ['image','mimes:jpeg,png,jpg','max:2048'], // check if profile_picture is an image and is less than 2MB

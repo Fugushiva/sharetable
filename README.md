@@ -72,10 +72,30 @@ npm run dev
 Add the following keys to your .env file
 
 #### Stripe :
+Stripe is a service that provides payment processing.
 ```sh
 STRIPE_SK= *your_stripe_secret_key*
 STRIPE_PK= *your_stripe_public_key*
 ```
+
+#### Mailtrap :
+With mailtrap is a test inbox for testing emails.
+```sh
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=*your_mailtrap_username*
+MAIL_PASSWORD=*your_mailtrap_password*
+```
+
+#### Mailgun :
+Mailgun is a service that provides email sending.
+```sh
+MAILGUN_DOMAIN=*your_mailgun_domain*
+MAILGUN_SECRET=*your_mailgun_secret*
+MAILGUN_ENDPOINT=api.mailgun.net
+```
+
 
 
 

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHostRequest;
+use App\Mail\HostProfileCreated;
 use App\Models\Host;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Country;
 
@@ -27,9 +29,12 @@ class HostController extends Controller
      */
     public function create(Request $request)
     {
+
         $this->authorize('create', Host::class);
 
         $cities = city::with('country')->where('country_id', '=', $request->user()->country_id)->get();
+
+
 
         return view('host.create', [
             'cities' => $cities
@@ -41,6 +46,8 @@ class HostController extends Controller
      */
     public function store(StoreHostRequest $request)
     {
+
+        $user = User::find(auth()->id());
 
         $validated = $request->validated();
         $validated['user_id'] = auth()->id();
@@ -59,6 +66,8 @@ class HostController extends Controller
 
         $host = Host::create($validated);
         $host->save();
+
+        Mail::to($user->email)->send(new HostProfileCreated($user));
 
         return redirect()->route('annonce.index');
 

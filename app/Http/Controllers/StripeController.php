@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReservationRequest;
+use App\Mail\PaymentDone;
+use App\Mail\PaymentRefund;
 use App\Models\Annonce;
 use App\Models\Host;
 use App\Models\Reservation;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 
@@ -77,6 +81,11 @@ class StripeController extends Controller
 
     public function success()
     {
+        $user = User::find(auth()->user()->id);
+        $annonce = Annonce::find(session('annonce_id'));
+        $host = Host::find($annonce->host_id);
+
+        Mail::to($user->email)->send(new PaymentDone($user, $annonce, $host));
         return view('stripe.index');
     }
 
@@ -90,6 +99,8 @@ class StripeController extends Controller
 
         Stripe::setApiKey(config('stripe.sk'));
 
+        $user = User::find(auth()->user()->id);
+        $host = Host::find($user->id);
         $reservation = Reservation::find($request->reservation_id);
         $transaction = Transaction::where('reservation_id', $request->reservation_id)->first();
         $annonce = Annonce::find($reservation->annonce_id);
@@ -118,6 +129,8 @@ class StripeController extends Controller
             $transaction->update([
                 'payment_status' => 'refunded',
             ]);
+
+            Mail::to($user->email)->send(new PaymentRefund($user, $annonce, $host));
 
 
             return redirect()->route('reservation.index')->with('success', 'Refund successful.');

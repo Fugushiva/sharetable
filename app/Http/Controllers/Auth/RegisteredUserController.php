@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\UserRegistered;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Nnjeim\World\Models\City;
@@ -69,6 +71,7 @@ class RegisteredUserController extends Controller
             'language_id' => $languageId,
         ]);
 
+        Mail::to($user->email)->send(new UserRegistered($user));
 
         event(new Registered($user));
 
