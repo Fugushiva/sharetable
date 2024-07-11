@@ -139,6 +139,7 @@ class AnnonceController extends Controller
         $annonce->save();
 
         $request->session()->put('annonce_id', $annonce->id);
+        $request->session()->put('allow_access', true);
 
         return redirect()->route('stripe.refundAll')->with('success', 'Annonce supprimée avec succès');
     }

@@ -76,6 +76,10 @@ class StripeController extends Controller
         $request->session()->put('stripe_session_id', $session->id);
 
 
+        // Allow access to the success page
+        $request->session()->put('allow_access', true);
+
+
         return redirect()->away($session->url);
     }
 
