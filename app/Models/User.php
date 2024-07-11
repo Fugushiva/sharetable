@@ -82,7 +82,7 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class);
     }
 
-    public function city(): BelongsTo
+    public function city():BelongsTo
     {
         return $this->belongsTo(City::class);
     }
@@ -95,17 +95,6 @@ class User extends Authenticatable
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
-    }
-
-
-    /**
-     * Get the user's country
-     * @param int $id
-     * return the user's country
-     */
-    public function scopeGetCountry($query, $id)
-    {
-        return $query->where('id', $id)->with('country');
     }
 
 }

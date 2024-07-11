@@ -42,12 +42,8 @@ class HostController extends Controller
     public function store(StoreHostRequest $request)
     {
 
-
-
-       $validated = $request->validated();
-       $validated['user_id'] = auth()->id();
-
-
+        $validated = $request->validated();
+        $validated['user_id'] = auth()->id();
 
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
@@ -61,26 +57,21 @@ class HostController extends Controller
             $validated['profile_picture'] = $uniqueName;
         }
 
-       $host = Host::create($validated);
-       $host->save();
+        $host = Host::create($validated);
+        $host->save();
 
-       return redirect()->route('annonce.index');
+        return redirect()->route('annonce.index');
 
     }
 
     /**
      * Display the specified resource.
      * @param Host $host
-     * @return \Illuminate\Http\Response with the host, user and annonces
      */
     public function show(Host $host)
     {
-
         $user = User::find($host->user_id);
-
         $annonces = $host->annonces()->with('pictures')->get();
-
-
 
         return view('host.show', [
             'host' => $host,
@@ -116,12 +107,10 @@ class HostController extends Controller
     /**
      * Display the host profile of the connected user
      * @param Request $request
-     * @return \Illuminate\Http\Response with the user
      */
     public function profile(Request $request)
     {
         $user = $request->user();
-
 
         return view('host.profile', [
             'user' => $user

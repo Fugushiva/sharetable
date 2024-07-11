@@ -41,20 +41,20 @@ class AnnonceController extends Controller
 
         $countries = Country::all();
 
-        return view('annonce.create',[
+        return view('annonce.create', [
             'countries' => $countries
         ]);
     }
 
     /**
      *  Store a newly created ad in storage.
-     *  @param StoreAnnonceRequest $request
+     * @param StoreAnnonceRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreAnnonceRequest $request)
     {
         // Récupère l'hôte qui a créé l'annonce
-        $host = Host::where('user_id', auth()->id())->first();
+        $host = Host::getCurrentUser();
         $user = User::find(auth()->id());
 
         $validated = $request->validated();
@@ -64,9 +64,8 @@ class AnnonceController extends Controller
         $annonce = Annonce::create($validated);
 
         // Enregistre les images dans le dossier public/img/annonces/{id_annonce}
-        if ($request->hasFile('pictures')) {
-            $annonce->uploadPictures($request->file('pictures'));
-        }
+        $annonce->uploadPictures($request->file('pictures'));
+
         return redirect()->route('annonce.index')->with('success', 'Annonce créée avec succès');
     }
 
@@ -80,17 +79,15 @@ class AnnonceController extends Controller
         // Récupère l'utilisateur connecté & l'hôte connecté
         $current_user = Auth::user();
         $current_host = null;
-        if($current_user){
-            $current_host = Host::where('user_id', $current_user->id)->first();
+        if ($current_user) {
+            $current_host = Host::getCurrentUser();
         }
-
-
 
         $annonce = Annonce::with('pictures')->find($id);
 
         // Récupère l'hôte de l'annonce & l'utilisateur qui a créé l'annonce
-        $host = Host::with('user')->where('id',"=", $annonce->host_id)->first();
-        $user = User::where('id', '=', $host->user_id)->first();
+        $host = Host::find($annonce->host_id);
+        $user = User::find($host->user_id);
 
         return view('annonce.show', [
             'annonce' => $annonce,

@@ -39,7 +39,6 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-
         // Update the user's information
         $request->user()->fill($request->validated());
 
@@ -65,7 +64,6 @@ class ProfileController extends Controller
 
         // Update the user's profile picture
         if ($request->hasFile('profile_picture')) {
-
             // Delete the old profile picture
             $file = $request->file('profile_picture');
 
@@ -80,7 +78,6 @@ class ProfileController extends Controller
 
             $request->user()->profile_picture = $uniqueName;
         }
-
 
         $request->user()->save();
 

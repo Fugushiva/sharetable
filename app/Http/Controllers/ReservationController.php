@@ -34,10 +34,7 @@ class ReservationController extends Controller
     {
         $annonce = Annonce::with('host.user')->find($request->id);
 
-        $reservationExists = Reservation::where('annonce_id', $annonce->id)
-            ->where('user_id', Auth::user()->id)
-            ->where('status', 'active')
-            ->exists();
+        $reservationExists = Reservation::reservationExists($annonce->id, Auth::id());
 
         if ($reservationExists) {
             return redirect()->back()->withErrors(['msg' => __('message.reservation_exists')]);

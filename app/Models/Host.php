@@ -42,4 +42,18 @@ class Host extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    /**
+     * Get the host of the current user
+     * @return Host
+     */
+    public function scopeGetCurrentUser()
+    {
+        return self::where('user_id', auth()->id())->first();
+    }
+
+    public function scopeWithUserByAnnonceId($query, $annonceId)
+    {
+        return $query->with('user')->where('id', $annonceId)->first();
+    }
 }

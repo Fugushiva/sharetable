@@ -46,4 +46,12 @@ class Reservation extends Model
     {
         return $query->where('user_id', $userId)->where('status', 'active')->with('annonce');
     }
+
+    public function scopeReservationExists($query, $annonceId, $userId)
+    {
+        return $query->where('annonce_id', $annonceId)
+            ->where('user_id', $userId)
+            ->where('status', 'active')
+            ->exists();
+    }
 }

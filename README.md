@@ -109,7 +109,11 @@ Then run the tests:
 ```sh
 php artisan test
 ```
+Sometimes the test results in a config error, run the following command:
 
+```sh
+php artisan config:clear
+```
 If the test results in a db error, run the following command:
 
 ```sh
