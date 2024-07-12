@@ -25,6 +25,7 @@ return [
     'City' => 'Ville',
     'create_account' => 'Créer mon compte',
     'login' => 'Se connecter',
+    'logout'=> 'Se déconnecter',
     'save' => 'Enregistrer',
     'language' => 'Langue',
 
@@ -55,6 +56,13 @@ return [
     'create_ad' => 'Créer mon annonce',
     'pictures' => 'Photo 6 maximum',
     'delete_ad' => 'Supprimer l\'annonce',
+
+
+    //********* email verification *********//
+    'ask_to_verify' => 'Veuillez confirmer votre adresse e-mail en cliquant sur le lien que nous vous avons envoyé. Si vous n\'avez pas reçu l\'e-mail, nous vous en enverrons un autre.',
+    'check_email' => 'Avant de continuer, veuillez vérifier votre e-mail pour un lien de vérification.',
+    'resend' => 'renvoyer l\'email de vérification',
+
 
 
 

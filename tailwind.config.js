@@ -1,10 +1,9 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
-import {buttons} from './resources/js/tailwindcss/buttons.js'
-
+const defaultTheme = require('tailwindcss/defaultTheme');
+const forms = require('@tailwindcss/forms');
+const { buttons } = require('./resources/js/tailwindcss/buttons.js');
 
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
@@ -22,7 +21,7 @@ export default {
 
     plugins: [
         forms,
-        function({addComponents}){
+        function ({ addComponents }) {
             addComponents(buttons);
         },
     ],

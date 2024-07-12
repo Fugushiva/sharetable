@@ -25,6 +25,7 @@ return [
     'City' => 'City',
     'create_account' => 'Create my account',
     'login' => 'login',
+    'logout'=> 'logout',
     'save' => 'save',
     'language' => 'Language',
 
@@ -56,6 +57,11 @@ return [
     'create_ad' => 'Create my ad',
     'pictures' => 'Pictures 6 maximum',
     'delete_ad' => 'Delete ad',
+
+    //********* email verification *********//
+    'ask_to_verify' => 'Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.',
+    'check_email' => 'A new verification link has been sent to the email address you provided during registration.',
+    'resend' => 'Resend verification email',
 
 
 
