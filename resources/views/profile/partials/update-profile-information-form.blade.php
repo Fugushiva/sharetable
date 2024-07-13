@@ -19,19 +19,19 @@
 
         <div>
             <label for="firstname">{{ __("forms.Firstname") }}</label>
-            <input id="firstname" name="firstname" type="text" class="mt-1 block w-full" placeholder="{{$user->firstname}}" value="{{$user->firstname}}">
+            <input id="firstname" name="firstname" type="text" class="mt-1 block w-full input" placeholder="{{$user->firstname}}" value="{{$user->firstname}}">
             <x-input-error class="mt-2" :messages="$errors->get('firstname')" />
         </div>
 
         <div>
             <label for="lastname">{{ __("forms.Lastname") }}</label>
-            <input id="lastname" name="lastname" type="text" class="mt-1 block w-full" placeholder="{{$user->lastname}}" value="{{$user->lastname}}" >
+            <input id="lastname" name="lastname" type="text" class="mt-1 block w-full input" placeholder="{{$user->lastname}}" value="{{$user->lastname}}" >
             <x-input-error class="mt-2" :messages="$errors->get('lastname')" />
         </div>
 
         <div>
             <label for="email">Email</label>
-            <input id="email" name="email" type="email" class="mt-1 block w-full" placeholder="{{$user->email}}" value="{{$user->email}}">
+            <input id="email" name="email" type="email" class="mt-1 block w-full input" placeholder="{{$user->email}}" value="{{$user->email}}">
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
@@ -56,13 +56,13 @@
 
         <!--Profile picture-->
         <label for="picture">{{ __("forms.profile_picture") }}</label>
-        <input type="file" name="profile_picture" id="picture" value="{{image_path($user->profile_picture)}}">
+        <input type="file" name="profile_picture" class="input-file" id="picture" value="{{image_path($user->profile_picture)}}">
         <img src="{{ image_path($user->profile_picture) }}" alt="Profile picture" class="w-1/4 rounded-full  ">
 
         <!--Country-->
         <div class="mt-4">
             <label for="country">{{ __("forms.Country") }}</label>
-            <input list="countryList" id="country" name="country_name" value="{{$user->country->name}}">
+            <input list="countryList" id="country" class="select" name="country_name" value="{{$user->country->name}}">
             <datalist id="countryList">
                 @foreach($countries as $country)
                     <option value="{{$country->name}}" data-id="{{$country->id}}"></option>
@@ -73,7 +73,7 @@
 
         <div class="mt-4">
             <label for="city">{{ __("forms.City") }}</label>
-            <input list="cityList" id="city" name="city_name" value="{{$user->city->name}}">
+            <input list="cityList" id="city" class="select" name="city_name" value="{{$user->city->name}}">
             <datalist id="cityList">
                 <!-- Les villes seront ajoutées ici -->
             </datalist>
@@ -82,7 +82,7 @@
 
         <div class="mt-4">
             <label for="language">@lang("forms.language")</label>
-            <select id="language" name="language_code" value="{{$user->language}}">
+            <select id="language" class="w-1/6 select" name="language_code" value="{{$user->language}}">
                 @foreach($languages as $language)
                     <option data-id="{{$language->id}}">{{$language->code}}</option>
                 @endforeach

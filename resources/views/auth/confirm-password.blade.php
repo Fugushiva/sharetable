@@ -10,7 +10,7 @@
         <div>
             <label for="password" >{{__('forms.Password')}}</label>
 
-            <input id="password" class="block mt-1 w-full"
+            <input id="password" class="block mt-1 w-full input"
                             type="password"
                             name="password"
                             required autocomplete="current-password">

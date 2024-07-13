@@ -43,10 +43,10 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <div class="">
+                <div class="w-full">
                     <form id="language-form" action="{{ route('change.language') }}" method="POST">
                         @csrf
-                        <select id="language" name="language" onchange="document.getElementById('language-form').submit()">
+                        <select id="language" class="w-full select" name="language" onchange="document.getElementById('language-form').submit()">
                             @foreach($languages as $language)
                                 <option value="{{ $language->code }}" {{ app()->getLocale() == $language->code ? 'selected' : '' }}>
                                     {{ $language->code }}
@@ -59,7 +59,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-red-750 focus:outline-none transition ease-in-out duration-150">
                             @if(Auth::user())
                                 <div class="flex items-center">
                                     <img src="{{ image_path(Auth::user()->profile_picture) }}" alt="Profile picture" class="w-8 h-8 rounded-full me-2">
@@ -69,7 +69,7 @@
                                 <div>S'enregistrer ou se connecter</div>
                             @endif
                             <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                <svg class=" ml-5 h-4 w-5" xmlns="http://www.w3.org/2000/svg"
                                      viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
                                           d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"

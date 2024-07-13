@@ -1,5 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const forms = require('@tailwindcss/forms');
+const forms = require('./resources/js/tailwindcss/forms.js');
 const { buttons } = require('./resources/js/tailwindcss/buttons.js');
 
 /** @type {import('tailwindcss').Config} */
@@ -12,17 +12,21 @@ module.exports = {
     ],
 
     theme: {
+
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                'red-750': '#991A14',
             },
         },
     },
 
     plugins: [
-        forms,
         function ({ addComponents }) {
             addComponents(buttons);
+            addComponents(forms);
         },
     ],
 };

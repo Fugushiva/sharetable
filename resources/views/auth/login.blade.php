@@ -10,7 +10,7 @@
         <!-- Email Address -->
         <div>
             <label for="email" >Email</label>
-            <input id="email" class="block mt-1 w-full" type="email" name="email" placeholder="Enter your email" required autofocus autocomplete="username" >
+            <input id="email" class="block mt-1 w-full input" type="email" name="email" placeholder="Enter your email" required autofocus autocomplete="username" >
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
@@ -18,7 +18,7 @@
         <div class="mt-4">
             <label for="password" >{{__('forms.Password')}}</label>
 
-            <input id="password" class="block mt-1 w-full"
+            <input id="password" class="block mt-1 w-full input"
                             type="password"
                             name="password"
                             required autocomplete="current-password"

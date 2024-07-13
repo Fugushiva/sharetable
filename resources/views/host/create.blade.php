@@ -15,7 +15,7 @@
             <!-- Description -->
             <div class="flex flex-col">
                 <label for="bio" class="mb-2 text-lg font-medium text-gray-700">Description</label>
-                <textarea id="bio" name="bio" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea>
+                <textarea id="bio" name="bio" class="input"></textarea>
                 @error('bio')
                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                 @enderror
@@ -24,7 +24,7 @@
             <!-- Date of Birth -->
             <div class="flex flex-col">
                 <label for="birthdate" class="mb-2 text-lg font-medium text-gray-700">Date of Birth</label>
-                <input type="date" name="birthdate" id="birthdate" class="w-1/3 p-2 border border-gray-300 rounded-md shadow-sm">
+                <input type="date" name="birthdate" id="birthdate" class="input">
                 @error('birthdate')
                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                 @enderror

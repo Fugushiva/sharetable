@@ -8,14 +8,14 @@
         <!-- Email Address -->
         <div>
             <label for="email">Email</label>
-            <input id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username">
+            <input id="email" class="block mt-1 w-full input" type="email" name="email" required autofocus autocomplete="username">
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
             <label for="password" >Password</label>
-            <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password">
+            <input id="password" class="block mt-1 w-full input" type="password" name="password" required autocomplete="new-password">
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
@@ -23,7 +23,7 @@
         <div class="mt-4">
             <label for="password_confirmation" >Password confirmation</label>
 
-            <input id="password_confirmation" class="block mt-1 w-full"
+            <input id="password_confirmation" class="block mt-1 w-full input"
                                 type="password"
                                 name="password_confirmation" required autocomplete="new-password">
 
