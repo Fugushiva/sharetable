@@ -2,6 +2,8 @@
 
 namespace Nnjeim\World\Models;
 
+use App\Models\Annonce;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nnjeim\World\Models\Traits\WorldConnection;
 use Nnjeim\World\Models\Traits\CountryRelations;
 
@@ -25,4 +27,9 @@ class Country extends Model
 	{
 		return config('world.migrations.countries.table_name', parent::getTable());
 	}
+
+    public function annonces():HasMany
+    {
+        return $this->hasMany(Annonce::class);
+    }
 }

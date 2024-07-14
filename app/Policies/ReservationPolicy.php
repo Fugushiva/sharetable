@@ -14,7 +14,7 @@ class ReservationPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasRole('admin');
     }
 
     /**
@@ -45,7 +45,7 @@ class ReservationPolicy
      */
     public function update(User $user, Reservation $reservation): bool
     {
-        //
+        return $user->id === $reservation->user_id || $user->hasRole('admin');
     }
 
     /**

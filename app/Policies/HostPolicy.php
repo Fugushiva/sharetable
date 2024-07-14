@@ -14,7 +14,7 @@ class HostPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasRole('admin');
     }
 
     /**
@@ -33,7 +33,7 @@ class HostPolicy
      */
     public function create(User $user): bool
     {
-        return $user->profiles->doesntContain(Profile::where('profile', 'host')->first());
+        return $user->profiles->doesntContain(Profile::where('profile', 'host')->first()) || $user->hasRole('admin');
     }
 
     /**
@@ -42,7 +42,7 @@ class HostPolicy
      */
     public function update(User $user, Host $host): bool
     {
-
+        return $user->hasRole('admin') || $user->id === $host->user_id;
     }
 
     /**
@@ -51,7 +51,7 @@ class HostPolicy
      */
     public function delete(User $user, Host $host): bool
     {
-        //
+        return $user->hasRole('admin') || $user->id === $host->user_id;
     }
 
     /**

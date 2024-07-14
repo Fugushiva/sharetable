@@ -44,6 +44,11 @@ class Annonce extends Model
         return $this->hasMany(AnnoncePicture::class);
     }
 
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     /**
      * Upload pictures for the annonce
      * @param array $pictures

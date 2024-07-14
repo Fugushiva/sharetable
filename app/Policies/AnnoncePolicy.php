@@ -15,7 +15,7 @@ class AnnoncePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasRole('admin');
     }
 
     /**
