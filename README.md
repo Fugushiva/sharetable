@@ -51,10 +51,13 @@ DB_PASSWORD=your_password
 ```
 
 ### 6. Migrate and seed the database
+Is important to run the following commands in the order below
+Seed the world table first, then seed the rest of the tables.
 
 ```sh
-php artisan migrate --class="WorldSeeder"
 php artisan migrate
+php artisan db:seed --class=WorldSeeder
+php artisan db:seed
 ```
 
 ### 7. Install JavaScript dependencies
