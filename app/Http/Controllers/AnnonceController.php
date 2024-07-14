@@ -143,4 +143,58 @@ class AnnonceController extends Controller
 
         return redirect()->route('stripe.refundAll')->with('success', 'Annonce supprimée avec succès');
     }
+
+    /**
+     * Display the form to search for an ad.
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function search(Request $request)
+    {
+        $input = $request->input();
+        $user = auth()->user();
+        $countries = Country::all();
+
+        $query = Annonce::query();
+
+        // Ajoutez des conditions à la requête en fonction des champs remplis
+        $this->applyFilters($query, $input);
+
+        // Exécutez la requête pour obtenir les résultats
+        $annonces = $query->get();
+
+        return view('guest.index', [
+            'annonces' => $annonces,
+            'user' => $user,
+            'countries' => $countries
+        ]);
+    }
+
+    /**
+     * Apply filters to the query
+     * @param $query
+     * @param $input
+     */
+
+    private function applyFilters($query, $input)
+    {
+        if (!empty($input['cuisine'])) {
+            $query->findByCuisine($input['cuisine']);
+        }
+
+        if (!empty($input['date'])) {
+            $query->whereDate('schedule', $input['date']);
+        }
+
+        if (!empty($input['price_max'])) {
+            $query->findPriceBelow($input['price_max']);
+        }
+
+        if (!empty($input['guest_max'])) {
+            $query->findGuestsBelow($input['guest_max']);
+        }
+
+        if (!empty($input['country'])) {
+            $query->findByCountry($input['country']);
+        }
+        }
 }

@@ -45,7 +45,7 @@ class AnnonceSeeder extends Seeder
             ],
             [
                 'host_birthdate' => Carbon::create(1992, 8, 30),
-                'country_name' => 'Indonesia',
+                'country_name' => 'China',
                 'title' => 'Experience the Art of Cantonese Cuisine',
                 'cuisine' => 'Chinese',
                 'description' => "Cantonese cuisine, originating from Guangdong province in China, is known for its subtle flavors and fresh ingredients. It emphasizes preserving the natural taste of the ingredients, using minimal spices. Signature dishes include dim sum, roasted meats, and seafood. Steaming and stir-frying are common cooking methods, and presentation is elegant, highlighting the colors and textures of the food. Cantonese cuisine is highly regarded for its balance and variety, offering a diverse array of soups, noodles, and rice dishes.",

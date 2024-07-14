@@ -5,7 +5,6 @@ module.exports = {
             color: 'white',
             padding: '8px 20px',
             borderRadius: '12px',
-            margin: '15px 0',
             boxShadow: '0 2px 5px rgba(0, 0, 0, 0.15)',
             transition: 'all 0.3s ease',
             '&:hover': {

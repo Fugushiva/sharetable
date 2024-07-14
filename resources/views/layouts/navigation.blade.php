@@ -46,7 +46,7 @@
                 <div class="w-full">
                     <form id="language-form" action="{{ route('change.language') }}" method="POST">
                         @csrf
-                        <select id="language" class="w-full select" name="language" onchange="document.getElementById('language-form').submit()">
+                        <select id="language" class="w-1/2 mr-12 select" name="language" onchange="document.getElementById('language-form').submit()">
                             @foreach($languages as $language)
                                 <option value="{{ $language->code }}" {{ app()->getLocale() == $language->code ? 'selected' : '' }}>
                                     {{ $language->code }}

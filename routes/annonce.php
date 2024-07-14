@@ -18,5 +18,8 @@ Route::delete('/annonce/{id}', [AnnonceController::class, 'destroy'])
     ->where('id', '[0-9]+')
     ->name('annonce.destroy');
 
+Route::get('/annonce/search', [AnnonceController::class, 'search'])
+    ->name('annonce.search');
+
 
 

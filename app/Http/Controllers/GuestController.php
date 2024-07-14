@@ -4,21 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Annonce;
 use Illuminate\Http\Request;
+use Nnjeim\World\Models\Country;
 
 class GuestController extends Controller
 {
     /**
      * Display a listing of the guest.
      */
-    public function index($id)
+    public function index()
     {
         $annonces = Annonce::all();
         $user = auth()->user();
+        $countries = Country::all();
 
 
         return view('guest.index', [
             'annonces' => $annonces,
-            'user' => $user
+            'user' => $user,
+            'countries' => $countries,
         ]);
     }
 
