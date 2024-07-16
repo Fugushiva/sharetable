@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/stripe', [StripeController::class, 'index'])
     ->name('stripe.index');
+
 Route::post('/checkout', [StripeController::class, 'checkout'])
     ->name('stripe.checkout');
 

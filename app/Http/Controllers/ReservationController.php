@@ -79,7 +79,7 @@ class ReservationController extends Controller
             'reservation_id' => $reservation->id,
             'host_id' => $annonce->host_id,
             'quantity' => 1,
-            'status' => 'pending',
+            'payment_status' => 'completed',
             'stripe_transaction_id' => $session->payment_intent,
             'commission' => $annonce->price * 0.1,
             'currency' => $session->currency,
