@@ -69,7 +69,7 @@ class StripeController extends Controller
             'metadata' => $metadata,
             'mode' => 'payment',
             'success_url' => route('stripe.success'),
-            'cancel_url' => route('stripe.index'),
+            'cancel_url' => route('stripe.cancel'),
 
         ]);
 
@@ -195,5 +195,13 @@ class StripeController extends Controller
             }
         }
         return redirect()->route('reservation.index')->with('success', 'Refund successful.');
+    }
+
+    public function cancel()
+    {
+        $annonce = Annonce::find(session('annonce_id'));
+
+
+        return redirect()->route('annonce.show', ['id' => $annonce->id]);
     }
 }

@@ -22,4 +22,7 @@ Route::delete('/refund', [StripeController::class, 'refund'])
     ->name('stripe.refund')
     ->where('id', '[0-9]+');
 
+Route::get('/cancel', [StripeController::class, 'cancel'])
+    ->name('stripe.cancel');
+
 

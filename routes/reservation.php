@@ -9,5 +9,6 @@ Route::get('/book', [ReservationController::class, 'index'])
 Route::get('/book/{id}', [ReservationController::class, 'create'])
     ->name('book.create')
     ->where('annonce.id', '[0-9]+');
+
 Route::post('/book', [ReservationController::class, 'store'])
     ->name('book.store');
