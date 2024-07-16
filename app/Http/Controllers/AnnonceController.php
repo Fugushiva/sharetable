@@ -80,7 +80,7 @@ class AnnonceController extends Controller
         $current_user = Auth::user();
         $current_host = null;
         if ($current_user) {
-            $current_host = Host::getCurrentUser();
+            $current_host = Host::where('user_id', $current_user->id)->first();
         }
 
         $annonce = Annonce::with('pictures')->find($id);

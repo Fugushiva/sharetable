@@ -62,7 +62,7 @@
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-red-750 focus:outline-none transition ease-in-out duration-150">
                             @if(Auth::user())
                                 <div class="flex items-center">
-                                    <img src="{{ image_path(Auth::user()->profile_picture) }}" alt="Profile picture" class="w-8 h-8 rounded-full me-2">
+                                    <img src="{{ asset(Auth::user()->profile_picture) }}" alt="Profile picture" class="w-8 h-8 rounded-full me-2">
                                     <p class="me-2">{{ Auth::user()->firstname }}</p>
                                 </div>
                             @else
@@ -80,7 +80,7 @@
                     </x-slot>
                     @if(Auth::user())
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('profile.show')">
                                 {{ __('content.profile') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('host.profile')">

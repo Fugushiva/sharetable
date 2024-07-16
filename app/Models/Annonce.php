@@ -127,6 +127,32 @@ class Annonce extends Model
 
     }
 
+    /**
+     * show the next annonce to be scheduled
+     * @param $query
+     * @param $status
+     * @return mixed
+     */
+    public function scopeNextAnnonce($query)
+    {
+        return $query->where('schedule', '>', now())
+            ->orderBy('schedule', 'asc');
+    }
+
+    /**
+     * shows the past 3 annonces
+     * @param $query
+     * @param $status
+     * @return mixed
+     */
+    public function scopePast3Annonces($query)
+    {
+        return $query->where('schedule', '<', now())
+            ->orderBy('schedule', 'desc')
+            ->limit(3)
+            ->get();
+    }
+
 
 
 

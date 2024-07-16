@@ -57,7 +57,7 @@
         <!--Profile picture-->
         <label for="picture">{{ __("forms.profile_picture") }}</label>
         <input type="file" name="profile_picture" class="input-file" id="picture" value="{{image_path($user->profile_picture)}}">
-        <img src="{{ image_path($user->profile_picture) }}" alt="Profile picture" class="w-1/4 rounded-full  ">
+        <img src="{{ asset($user->profile_picture) }}" alt="Profile picture" class="w-1/4 rounded-full  ">
 
         <!--Country-->
         <div class="mt-4">

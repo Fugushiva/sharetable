@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Host;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class HostFactory extends Factory
 {
+    protected $model = Host::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,10 +20,30 @@ class HostFactory extends Factory
      */
     public function definition(): array
     {
+        // Ensure we only select users without hosts
+        $user = User::doesntHave('host')->inRandomOrder()->first();
+
+        // List of available images
+        $images = [
+            'alex.jpg',
+            'annie.jpg',
+            'blob.jpg',
+            'ch.jpg',
+            'henry.jpg',
+            'jule.jpg',
+            'mathilde.jpg',
+            'max.jpg',
+            'phem.jpg',
+        ];
+
+        // Randomly select an image
+        $profilePicture = $images[array_rand($images)];
+
         return [
             'bio' => $this->faker->paragraph(),
             'birthdate' => $this->faker->date(),
-            'user_id' => User::factory(), // foreign key
+            'user_id' => $user ? $user->id : null,
+            'profile_picture' => 'resources/test-images/host/' . $profilePicture,
         ];
     }
 }

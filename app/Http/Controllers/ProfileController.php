@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Annonce;
+use App\Models\Reservation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,5 +108,27 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function show()
+    {
+        $user = Auth::user();
+        $reservations = Reservation::where('user_id', $user->id)->get();
+        // Trouver les IDs des annonces liées aux réservations de l'utilisateur
+        $annonceIds = $reservations->pluck('annonce_id');
+
+
+        // Récupérer la prochaine annonce
+        $nextAnnonce = Annonce::whereIn('id', $annonceIds)->nextAnnonce()->first();
+
+        // Récupérer les trois dernières annonces passées
+        $pastAnnonces = Annonce::whereIn('id', $annonceIds)->past3Annonces();
+
+        return view('profile.show', [
+            'user' => $user,
+            'reservations' => $reservations,
+            'nextAnnonce' => $nextAnnonce,
+            'pastAnnonces' => $pastAnnonces
+        ]);
     }
 }

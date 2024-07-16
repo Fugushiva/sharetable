@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Host;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Nnjeim\World\Models\Country;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Annonce>
@@ -17,15 +18,18 @@ class AnnonceFactory extends Factory
      */
     public function definition(): array
     {
+        // Get a random host or create one if none exists
+        $host = Host::inRandomOrder()->first() ?? Host::factory()->create();
+
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'schedule' => $this->faker->dateTimeBetween('now', '+1 year'),
-            'price' => $this->faker->randomFloat(2, 0.01, 1000),
+            'schedule' => $this->faker->dateTimeBetween('-1year', '+1 year'),
+            'price' => $this->faker->randomFloat(2, 10, 50),
             'max_guest' => $this->faker->numberBetween(1, 8),
-            'cuisine' => 'France', // cuisine must be a valid country name
-            'host_id' => Host::factory(), // foreign key
-            'country_id' => 21, // Belgium
+            'cuisine' => Country::inRandomOrder()->first()->name ?? 21, // Belgium
+            'host_id' => $host->id, // foreign key
+            'country_id' => Country::inRandomOrder()->first()->id ?? 21, // Belgium
         ];
     }
 }

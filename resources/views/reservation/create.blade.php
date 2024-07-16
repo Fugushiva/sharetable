@@ -20,7 +20,7 @@
             <p class="text-gray-700 text-lg leading-relaxed">{{ __('content.the') }} {{ substr($annonce->schedule, 0, -8) }} {{ __('content.at') }} {{ substr($annonce->schedule, -8, 8) }}</p>
         </div>
         <div class="text-center">
-            <p class="text-gray-700 text-lg leading-relaxed">{{ $annonce->cuisine }} cuisine</p>
+            <p class="text-gray-700 text-lg leading-relaxed">{{ $annonce->cuisine}} cuisine</p>
         </div>
         <!-- Paiement & form -->
         <div class="border-t border-red-750 w-3/4 my-4"></div>

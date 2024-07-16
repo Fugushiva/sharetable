@@ -41,6 +41,8 @@ class ReservationSeeder extends Seeder
             ],
         ];
 
+        Reservation::factory()->count(40)->create();
+
         foreach($reservations as &$reservation){
             $annonce = Annonce::where([
                 ['title', '=', $reservation['annonce_title']]
