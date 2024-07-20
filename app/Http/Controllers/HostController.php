@@ -6,6 +6,7 @@ use App\Http\Requests\StoreHostRequest;
 use App\Mail\HostProfileCreated;
 use App\Models\Host;
 use App\Models\User;
+use App\Notifications\NewNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -68,6 +69,9 @@ class HostController extends Controller
         $host->save();
 
         Mail::to($user->email)->send(new HostProfileCreated($user));
+
+        $notifMessage = 'Vous avez créer votre profil hôte';
+        $user->notify(new NewNotification($notifMessage));
 
         return redirect()->route('annonce.index');
 

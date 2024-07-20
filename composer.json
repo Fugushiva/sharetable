@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "nnjeim/world": "^1.1",
+        "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-ignition": "*",
         "stripe/stripe-php": "^15.1",
         "symfony/http-client": "^7.1",

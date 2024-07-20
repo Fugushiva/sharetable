@@ -7,6 +7,7 @@ use App\Models\Annonce;
 use App\Models\Host;
 use App\Models\Reservation;
 use App\Models\Transaction;
+use App\Notifications\NewNotification;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,6 +88,9 @@ class ReservationController extends Controller
             'updated_at' => now()
         ]);
 
+        $host = $annonce->host->user; // Assurez-vous que le modèle Host a une relation avec User
+        $hostMessage = __('notification.new_reservation');
+        $host->notify(new NewNotification($hostMessage));
 
         return redirect()->route('reservation.index');
     }

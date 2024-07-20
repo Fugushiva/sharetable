@@ -53,8 +53,10 @@ DB_PASSWORD=your_password
 ### 6. Migrate and seed the database
 Is important to run the following commands in the order below
 Seed the world table first, then seed the rest of the tables.
+don't forget to publish the vendor files before running the migrations and seeds.
 
 ```sh
+php artisan vendor:publish
 php artisan migrate
 php artisan db:seed --class=WorldSeeder
 php artisan db:seed
@@ -98,8 +100,16 @@ MAILGUN_DOMAIN=*your_mailgun_domain*
 MAILGUN_SECRET=*your_mailgun_secret*
 MAILGUN_ENDPOINT=api.mailgun.net
 ```
-
-
+#### WebPush
+Webpush is a service that provides push notifications.
+This command will generate the VAPID keys and add them to your .env file.
+```sh
+php artisan webpush:vapid
+```
+You may need to install openssl to generate the keys, the best way is to install using scoop if you are on windows.
+```sh
+scoop install openssl
+```
 
 
 ## Usage

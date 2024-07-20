@@ -100,6 +100,11 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         return $this->hasMany(Transaction::class);
     }
 
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     /**
      * Check if the user has a role.
      *
