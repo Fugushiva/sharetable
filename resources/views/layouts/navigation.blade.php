@@ -56,6 +56,16 @@
                     </form>
                 </div>
 
+                <!-- Icône de notification -->
+                <div id="notification-container" style="position:relative;">
+                    <i class="fa-solid fa-user" id="notification-icon" style="cursor:pointer; position:relative;">
+                        <span id="notification-count" style="position:absolute; top:0; right:0; background:red; color:white; border-radius:50%; padding:0.25em 0.5em; display:none;">0</span>
+                    </i>
+                    <ul id="notification-list" style="display:none; position:absolute; top:30px; right:0; background:white; border:1px solid #ccc; list-style:none; padding:1em; width:300px; max-height:300px; overflow-y:auto;">
+                        <!-- Les notifications seront ajoutées ici par JavaScript -->
+                    </ul>
+                </div>
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button

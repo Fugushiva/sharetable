@@ -7,3 +7,5 @@ Route::get('/notifications', [NotificationController::class, 'index'])
     ->name('notification.index');
 Route::post('/notifications/read', [NotificationController::class, 'markAsRead'])
     ->name('notification.read');
+Route::post('/notifications/send', [NotificationController::class, 'sendNotification'])->middleware('auth');
+
