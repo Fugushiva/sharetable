@@ -1,34 +1,65 @@
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
-
-window.Pusher = Pusher;
-
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: import.meta.env.VITE_PUSHER_APP_KEY,
-    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-    forceTLS: true
-});
-
-window.Echo.channel('notifications')
-    .listen('NotificationEvent', (e) => {
-        const notificationList = document.getElementById('notification-list');
-        const newNotification = document.createElement('li');
-        newNotification.textContent = e.notification.message;
-        notificationList.prepend(newNotification);  // Ajouter la notification en haut de la liste
-
-        const notificationCount = document.getElementById('notification-count');
-        let count = parseInt(notificationCount.textContent) || 0;
-        count += 1;
-        notificationCount.textContent = count;
-        notificationCount.style.display = 'inline';
-    });
-
-document.getElementById('notification-icon').addEventListener('click', () => {
+document.addEventListener('DOMContentLoaded', () => {
+    const notificationIcon = document.getElementById('notification-icon');
     const notificationList = document.getElementById('notification-list');
-    if (notificationList.style.display === 'none') {
-        notificationList.style.display = 'block';
+    const notificationCount = document.getElementById('notification-count');
+
+    if (notificationIcon) {
+        // Charger les notifications non lues au chargement de la page
+        fetch('/api/notifications/unread', {
+            headers: {
+                'Accept': 'application/json'
+            },
+            credentials: 'include'  // Inclure les cookies de session
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Utiliser json() pour convertir la réponse en JSON
+            })
+            .then(notifications => {
+                console.log('Notifications:', notifications); // Message de débogage
+                let count = notifications.length;
+                notificationCount.textContent = count;
+                notificationCount.classList.toggle('hidden', count === 0);
+
+                notifications.forEach(notification => {
+                    console.log('Notification data:', notification.data); // Afficher les données de notification
+
+                    // Parsing JSON string
+                    const notificationData = JSON.parse(notification.data);
+                    const message = notificationData.message ? notificationData.message : 'Notification sans message';
+                    const newNotification = document.createElement('li');
+                    newNotification.className = 'p-4 border-b border-gray-200 cursor-pointer unread'; // Ajouter la classe pour les notifications non lues
+                    newNotification.textContent = message;
+                    console.log('Adding notification:', newNotification); // Message de débogage
+                    newNotification.addEventListener('click', () => {
+                        // Marquer la notification comme lue
+                        fetch('/api/notifications/read', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            credentials: 'include'
+                        }).then(() => {
+                            newNotification.classList.remove('unread');
+                            let currentCount = parseInt(notificationCount.textContent);
+                            notificationCount.textContent = currentCount > 0 ? currentCount - 1 : 0;
+                            notificationCount.classList.toggle('hidden', currentCount - 1 === 0);
+                        }).catch(error => console.error('Error marking notification as read:', error));
+                    });
+                    notificationList.prepend(newNotification);
+                });
+            })
+            .catch(error => console.error('Error fetching unread notifications:', error));
+
+        // Toggle visibility of the notification list on icon click
+        notificationIcon.addEventListener('click', () => {
+            notificationList.classList.toggle('hidden');
+        });
     } else {
-        notificationList.style.display = 'none';
+        console.error('Notification icon not found');
     }
 });

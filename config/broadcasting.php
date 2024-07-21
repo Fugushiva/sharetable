@@ -1,5 +1,7 @@
 <?php
-return[
+return [
+    'default' => env('BROADCAST_DRIVER', 'pusher'),
+
     'connections' => [
         'pusher' => [
             'driver' => 'pusher',
@@ -11,6 +13,7 @@ return[
                 'useTLS' => true,
             ],
         ],
-    ],
 
+        // other connections...
+    ],
 ];

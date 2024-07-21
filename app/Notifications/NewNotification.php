@@ -26,9 +26,9 @@ class NewNotification extends Notification
 
     public function toArray($notifiable)
     {
-        return [
+        return json_encode([
             'message' => $this->message,
-        ];
+        ]);
     }
 
     public function toBroadcast($notifiable)

@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\api\AnnonceResourceController;
+use App\Http\Controllers\api\NotificationController;
 use App\Http\Controllers\api\TransactionResourceController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,18 @@ Route::middleware([EnsureUserIsAdmin::class])->group(function () {
         ->name('transaction-api.host');
 });
 
+//notifications
+
+Route::middleware('auth')->group(function () {
+    Route::get('/api/notifications', [NotificationController::class, 'index'])
+        ->name('notification.index');
+    Route::post('/api/notifications/read', [NotificationController::class, 'markAsRead'])
+        ->name('notification.read');
+    Route::post('/api/notifications/send', [NotificationController::class, 'sendNotification']);
+
+    Route::get('/api/notifications/unread', [NotificationController::class, 'getUnreadNotifications'])
+        ->name('notifications.unread');
+});
 
 
 
