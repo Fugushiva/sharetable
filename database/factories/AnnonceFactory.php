@@ -24,7 +24,7 @@ class AnnonceFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'schedule' => $this->faker->dateTimeBetween('-1year', '+1 year'),
+            'schedule' => $this->faker->dateTimeBetween('+1 day', '+1 year'),
             'price' => $this->faker->randomFloat(2, 10, 50),
             'max_guest' => $this->faker->numberBetween(1, 8),
             'cuisine' => Country::inRandomOrder()->first()->name ?? 21, // Belgium

@@ -108,6 +108,7 @@ class StripeController extends Controller
         $reservation = Reservation::find($request->reservation_id);
         $transaction = Transaction::where('reservation_id', $request->reservation_id)->first();
         $annonce = Annonce::find($reservation->annonce_id);
+        $annonceHost = Host::find($annonce->host_id);
 
         if (!$transaction) {
             return redirect()->route('stripe.index')->with('error', 'Transaction not found.');
@@ -133,6 +134,8 @@ class StripeController extends Controller
             $transaction->update([
                 'payment_status' => 'refunded',
             ]);
+
+            $hostMessage = "$user->firstname a annulé sa réservation.";
 
             Mail::to($user->email)->send(new PaymentRefund($user, $annonce, $host));
 
