@@ -89,7 +89,7 @@ class ReservationController extends Controller
         ]);
 
         $host = $annonce->host->user; // Assurez-vous que le modèle Host a une relation avec User
-        $hostMessage = 'Vous avez reçu une nouvelle réservation pour votre annonce !';
+        $hostMessage = __('notification.new_reservation');
         $host->notify(new NewNotification($hostMessage));
 
         return redirect()->route('reservation.index');

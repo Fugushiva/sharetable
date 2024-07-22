@@ -121,7 +121,7 @@ class StripeController extends Controller
                 'status' => 'cancelled',
             ]);
 
-            $hostMessage = "$user->firstname a annulé sa réservation.";
+            $hostMessage = __('notification.cancel_reservation', ['Name' => $user->firstname]);
             $annonceHost->notify(new NewNotification($hostMessage));
 
             $scheduleDate = Carbon::parse($annonce->schedule);
@@ -161,7 +161,7 @@ class StripeController extends Controller
     {
         $annonce = Annonce::find(session('annonce_id'));
         $reservations = Reservation::all()->where('annonce_id', $annonce->id);
-        $guestMessage = "Une réservation a été annulée par l'hôte.";
+        $guestMessage = __('notification.host_cancel_reservation');
 
         Stripe::setApiKey(config('stripe.sk'));
 
