@@ -23,14 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 notificationCount.textContent = count;
                 notificationCount.classList.toggle('hidden', count === 0);
 
-                notifications.forEach(notification => {
+                notifications.forEach((notification, index) => {
                     console.log('Notification data:', notification.data); // Afficher les données de notification
 
                     // Parsing JSON string
                     const notificationData = JSON.parse(notification.data);
                     const message = notificationData.message ? notificationData.message : 'Notification sans message';
                     const newNotification = document.createElement('li');
-                    newNotification.className = 'p-4 border-b border-gray-200 cursor-pointer unread'; // Ajouter la classe pour les notifications non lues
+                    newNotification.className = 'p-4 cursor-pointer unread hover:bg-gray-100'; // Modifier la classe pour les notifications non lues
                     newNotification.textContent = message;
                     console.log('Adding notification:', newNotification); // Message de débogage
                     newNotification.addEventListener('click', () => {
@@ -51,6 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         }).catch(error => console.error('Error marking notification as read:', error));
                     });
                     notificationList.prepend(newNotification);
+
+                    // Ajouter la ligne de séparation rouge sauf après la dernière notification
+                    if (index < notifications.length - 1) {
+                        const separator = document.createElement('div');
+                        separator.className = 'flex justify-center';
+                        separator.innerHTML = '<hr class="border-t border-red-750 w-3/4 my-2">';
+                        notificationList.prepend(separator);
+                    }
                 });
             })
             .catch(error => console.error('Error fetching unread notifications:', error));
