@@ -147,7 +147,7 @@ class StripeController extends Controller
             return redirect()->route('reservation.index')->with('success', 'Refund successful.');
         } catch (\Exception $e) {
             // Gérer les erreurs
-            return redirect()->route('reservation.index')->with('error', 'Refund failed: ' . $e->getMessage());
+            return redirect()->route('host.profile')->with('error', 'Refund failed: ' . $e->getMessage());
         }
     }
 

@@ -10,4 +10,6 @@ return [
     'past_experience' => 'Expérience passée',
     'annonce_details' => 'Voir les détails',
 
+    //host profile
+    'my_ads' => 'Mes annonces',
 ];

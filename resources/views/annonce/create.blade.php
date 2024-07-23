@@ -1,9 +1,11 @@
 <x-app-layout>
-    <section class="p-6 flex justify-center">
-        <form method="post" action="{{route('annonce.store')}}" enctype="multipart/form-data" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <section class="p-6 flex justify-center w-full mx-auto">
+        <form method="post" action="{{route('annonce.store')}}" enctype="multipart/form-data" class="bg-white p-8 rounded-lg shadow-lg w-3/4">
             @csrf
-
             <div class="flex flex-col gap-6">
+                <h1 class="text-red-750 mx-auto font-bold text-3xl">
+                    @lang('forms.create_ad')
+                </h1>
                 <!-- Titre -->
                 <div class="flex flex-col gap-1">
                     <label for="title" class="font-semibold">@lang('forms.title')</label>
@@ -15,11 +17,18 @@
                 <!-- Description -->
                 <div class="flex flex-col gap-1">
                     <label for="description" class="font-semibold">@lang('forms.description')</label>
-                    <textarea id="description" name="description" class="input">{{ old('description') }}</textarea>
+                    <textarea
+                        id="description"
+                        name="description"
+                        class="input"
+                        style="height: 100px;"
+                        placeholder="minimum 50 caractères">{{ old('description') }}</textarea>
                     @error('description')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
+                <!-- séparateur -->
+                <div class="border-red-750 border mx-auto w-1/2"></div>
                 <!-- Date -->
                 <div class="flex flex-col gap-1">
                     <label for="schedule" class="font-semibold">@lang('forms.schedule')</label>
@@ -57,6 +66,8 @@
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
+                <!-- séparateur -->
+                <div class="border-red-750 border mx-auto w-1/2"></div>
                 <!-- Pictures -->
                 <div class="flex flex-col gap-1">
                     <label for="picture" class="font-semibold">@lang('forms.pictures')</label>

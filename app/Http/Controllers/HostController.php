@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHostRequest;
 use App\Mail\HostProfileCreated;
+use App\Models\Annonce;
 use App\Models\Host;
 use App\Models\User;
 use App\Notifications\NewNotification;
@@ -124,9 +125,13 @@ class HostController extends Controller
     public function profile(Request $request)
     {
         $user = $request->user();
+        $annonces = Annonce::where('host_id', $user->host->id)
+            ->where('status', 'active')
+            ->get();
 
         return view('host.profile', [
-            'user' => $user
+            'user' => $user,
+            'annonces' => $annonces
         ]);
     }
 }

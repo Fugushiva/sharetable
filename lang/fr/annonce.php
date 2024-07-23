@@ -10,6 +10,14 @@ return [
     'price_max' => 'Prix max',
     'cuisine' => 'Cuisine',
     'guest_max' => 'Invités max',
+    'title' => 'Titre',
+    'description' => 'Description',
+    'price' => 'Prix',
+    'action' => 'Action',
+    'details' => 'Détails',
+    'delete' => 'Supprimer',
+    'edit' => 'Modifier',
+    'schedule' => 'Horaire',
 
 
 
