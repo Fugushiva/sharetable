@@ -9,16 +9,24 @@ return [
     'date' => 'Date',
     'price_max' => 'Prix max',
     'cuisine' => 'Cuisine',
-    'guest_max' => 'Invités max',
+    'guest_max' => '{0} aucune place|[1] :count dernière place disponible|[2,*] :count places disponibles',
     'title' => 'Titre',
     'description' => 'Description',
     'price' => 'Prix',
+    'schedule' => 'Horaire',
+    'list'  => 'Liste des annonces',
+
+
+    //action
     'action' => 'Action',
     'details' => 'Détails',
     'delete' => 'Supprimer',
     'edit' => 'Modifier',
-    'schedule' => 'Horaire',
 
-
+    //pagination
+    "showing" => "Affiche",
+    "to" => "à",
+    "of" => "de",
+    "results" => "résultats",
 
 ];

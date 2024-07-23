@@ -122,7 +122,7 @@ class StripeController extends Controller
             ]);
 
             $hostMessage = __('notification.cancel_reservation', ['Name' => $user->firstname]);
-            $annonceHost->notify(new NewNotification($hostMessage));
+            $annonceHost->user->notify(new NewNotification($hostMessage));
 
             $scheduleDate = Carbon::parse($annonce->schedule);
             // Vérifier si la date de la réservation est dans les 2 prochains jours

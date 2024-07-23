@@ -24,7 +24,10 @@ class AnnonceController extends Controller
      */
     public function index()
     {
-        $annonces = Annonce::with('host', 'host.user', 'pictures')->where('status', '=', 'active')->get(); // Récupère toutes les annonces avec les informations de l'hôte et de l'utilisateur
+        $annonces = Annonce::with('host', 'host.user', 'pictures')
+            ->where('status', '=', 'active')
+            ->paginate(15)
+            ->fragment('annonces');
 
         return view('annonce.index', [
             'annonces' => $annonces

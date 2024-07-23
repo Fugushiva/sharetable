@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Host;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nnjeim\World\Models\Country;
+use Psy\Util\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Annonce>
@@ -22,7 +23,7 @@ class AnnonceFactory extends Factory
         $host = Host::inRandomOrder()->first() ?? Host::factory()->create();
 
         return [
-            'title' => $this->faker->sentence(),
+            'title' => substr($this->faker->sentence(), 0, 40), // max 40 characters
             'description' => $this->faker->paragraph(),
             'schedule' => $this->faker->dateTimeBetween('+1 day', '+1 year'),
             'price' => $this->faker->randomFloat(2, 10, 50),

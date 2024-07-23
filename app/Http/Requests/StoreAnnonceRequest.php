@@ -22,7 +22,7 @@ class StoreAnnonceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'min:8', 'max:30'], // title must be between 8 and 50 characters
+            'title' => ['required', 'string', 'min:8', 'max:40'], // title must be between 8 and 40 characters
             'description' => ['required', 'string', 'min:50', 'max:1500'], // description must be between 50 and 1500 characters
             'schedule' => ['required', 'date', 'after:today'], // schedule must be a date in the future
             'price' => ['required', 'numeric', 'min:0.01'], // price must be a positive number
