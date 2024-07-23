@@ -4,7 +4,7 @@
 return [
 
 
-    //annonce-data
+    //annonces
     'max_guest' => '{0} No guests allowed|[1] :count guest max|[2,*] :count guests max',
     'per_guest' => 'per guest',
     'announce_list' => 'Announce list',
@@ -15,6 +15,7 @@ return [
     'title' => 'Title',
     'description' => 'Description',
     'price' => 'Price',
+    'list'  => 'Ads list',
 
     //action
     'action' => 'Action',

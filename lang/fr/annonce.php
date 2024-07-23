@@ -13,12 +13,15 @@ return [
     'title' => 'Titre',
     'description' => 'Description',
     'price' => 'Prix',
+    'schedule' => 'Horaire',
+    'list'  => 'Liste des annonces',
+
+
+    //action
     'action' => 'Action',
     'details' => 'Détails',
     'delete' => 'Supprimer',
     'edit' => 'Modifier',
-    'schedule' => 'Horaire',
-
 
 
 ];
