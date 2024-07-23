@@ -17,7 +17,7 @@
 
                         </div>
                     </div>
-                    <h2 class="font-sans text-lg text-red-750">{{ $annonce->title }}</h2>
+                    <h2 class="font-sans text-md text-red-750">{{ $annonce->title }}</h2>
                     <a href="{{ route('annonce.show', $annonce->id) }}" class="block w-full h-48 overflow-hidden rounded">
                         <img src="{{ asset($annonce->pictures[0]->path) }}" class="w-full h-full object-cover">
                     </a>
