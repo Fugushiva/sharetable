@@ -6,7 +6,7 @@
         <div class="flex gap-6 mb-8">
             <div
                 class="border border-solid border-red-750 rounded-lg p-6 bg-white shadow-lg transition-transform transform hover:scale-105">
-                <p class="text-lg text-gray-600">{{ trans_choice('annonce.max_guest', $annonce->max_guest, ['count' => $annonce->max_guest]) }}</p>
+                <p class="text-lg text-gray-600">{{ trans_choice('annonce.guest_max', $annonce->max_guest, ['count' => $annonce->max_guest]) }}</p>
             </div>
             <div
                 class="border border-solid border-red-750 rounded-lg p-6 bg-white shadow-lg transition-transform transform hover:scale-105">

@@ -11,7 +11,7 @@ return [
     'date' => 'Date',
     'price_max' => 'Price max',
     'cuisine' => 'Cuisine',
-    'guest_max' => 'Guests max',
+    'guest_max' => '{0} No place|[1] :count last place available|[2,*] :count places available',
     'title' => 'Title',
     'description' => 'Description',
     'price' => 'Price',
@@ -22,6 +22,12 @@ return [
     'details' => 'Details',
     'delete' => 'Delete',
     'edit' => 'Edit',
+
+    //pagination
+    "showing" => "Showing",
+    "to" => "to",
+    "of" => "of",
+    "results" => "results",
 
 
 ];

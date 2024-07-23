@@ -8,10 +8,8 @@ use App\Models\Host;
 use App\Models\Reservation;
 use App\Models\Transaction;
 use App\Notifications\NewNotification;
-use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 
@@ -51,7 +49,6 @@ class ReservationController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
-        //Définiaation de la clé secrète de l'API Stripe pour les transactions
         Stripe::setApiKey(config('stripe.sk'));
 
         $annonce = Annonce::find($request->input('annonce_id'));
@@ -62,35 +59,13 @@ class ReservationController extends Controller
             return redirect()->back()->withErrors(['msg' => __('message.annonce_exists')]);
         }
 
-
-        // Crée la réservation
-        $reservation = Reservation::create([
-            'annonce_id' => $annonce->id,
-            'user_id' => $user->id,
-            'host_id' => $annonce->host_id,
-        ]);
-
-        //retrouver la transaction stipe
+        $reservation = $this->createReservation($annonce, $user);
         $session = Session::retrieve($request->session()->get('stripe_session_id'));
 
 
-        $transaction = Transaction::create([
-            'annonce_id' => $annonce->id,
-            'user_id' =>$user->id,
-            'reservation_id' => $reservation->id,
-            'host_id' => $annonce->host_id,
-            'quantity' => 1,
-            'payment_status' => 'completed',
-            'stripe_transaction_id' => $session->payment_intent,
-            'commission' => $annonce->price * 0.1,
-            'currency' => $session->currency,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        $host = $annonce->host->user; // Assurez-vous que le modèle Host a une relation avec User
-        $hostMessage = __('notification.new_reservation');
-        $host->notify(new NewNotification($hostMessage));
+        $this->createTransaction($annonce, $user, $reservation, $session);
+        $this->notifyHost($annonce);
+        $this->decrementPlace($annonce);
 
         return redirect()->route('reservation.index');
     }
@@ -125,5 +100,66 @@ class ReservationController extends Controller
     public function destroy(Reservation $reservation)
     {
         //
+    }
+
+    /**
+     * Create a reservation
+     * @param $annonce Annonce::class
+     * @param $user  User::class
+     * @return Reservation::class
+     */
+    private function createReservation($annonce, $user)
+    {
+        return Reservation::create([
+            'annonce_id' => $annonce->id,
+            'user_id' => $user->id,
+            'host_id' => $annonce->host_id,
+        ]);
+    }
+
+    /**
+     * Create a transaction
+     * @param $annonce Annonce::class
+     * @param $user User::class
+     * @param $reservation Reservation::class
+     * @param $session Session::class
+     * @return Transaction::class
+     */
+    private function createTransaction($annonce, $user, $reservation, $session)
+    {
+        return Transaction::create([
+            'annonce_id' => $annonce->id,
+            'user_id' => $user->id,
+            'reservation_id' => $reservation->id,
+            'host_id' => $annonce->host_id,
+            'quantity' => 1,
+            'payment_status' => 'completed',
+            'stripe_transaction_id' => $session->payment_intent,
+            'commission' => $annonce->price * 0.1,
+            'currency' => $session->currency,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+    }
+
+    /**
+     * Notify the host
+     * @param $annonce Annonce::class
+     */
+    private function notifyHost($annonce)
+    {
+        $host = Host::find($annonce->host_id);
+        $message = __('notification.new_reservation');
+        $host->user->notify(new NewNotification($message));
+    }
+
+    /**
+     * Decrement the place
+     * @param $annonce Annonce::class
+     */
+    private function decrementPlace($annonce)
+    {
+        $annonce->max_guest = $annonce->max_guest - 1;
+        $annonce->save();
     }
 }
