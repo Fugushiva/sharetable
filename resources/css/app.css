@@ -1,4 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+@font-face {
+    font-family: 'Saudagar';
+    src: url('/resources/css/fonts/Saudagar.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    @apply font-sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply font-title;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 

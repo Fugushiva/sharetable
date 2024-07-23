@@ -15,7 +15,8 @@ module.exports = {
 
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Roboto', "sans-serif"],
+                title: ['Saudagar', "serif"],
             },
             colors: {
                 'red-750': '#991A14',
