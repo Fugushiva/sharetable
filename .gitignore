@@ -3,7 +3,7 @@
 /public/build
 /public/hot
 /public/img/annonces/
-/public/img/profiles/
+/public/img/host/
 /public/storage
 /storage/*.key
 /vendor
