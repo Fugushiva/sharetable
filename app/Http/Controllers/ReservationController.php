@@ -8,6 +8,7 @@ use App\Models\Host;
 use App\Models\Reservation;
 use App\Models\Transaction;
 use App\Notifications\NewNotification;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Checkout\Session;
@@ -21,6 +22,7 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::activeForUser(auth()->id())->get();
+
 
         return view('reservation.index', compact('reservations',));
     }
