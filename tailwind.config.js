@@ -16,7 +16,7 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Roboto', "sans-serif"],
-                title: ['Saudagar', "serif"],
+                title: ['Playfair Display', "serif"],
             },
             colors: {
                 'red-750': '#991A14',

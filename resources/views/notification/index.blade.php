@@ -3,10 +3,14 @@
         <div class="notifications">
             <ul>
                 @foreach (auth()->user()->unreadNotifications as $notification)
-                    <li>{{ $notification->data['message'] }}</li>
+                    <li>
+                        <a href="{{ $notification->data['url'] }}">
+                            {{ $notification->data['message'] }}
+                        </a>
+                    </li>
                 @endforeach
             </ul>
-            <form action="{{route('notification.read')}}" method="POST">
+            <form action="{{ route('notification.read') }}" method="POST">
                 @csrf
                 <button type="submit">Mark all as read</button>
             </form>

@@ -23,6 +23,9 @@ return [
     'delete' => 'Delete',
     'edit' => 'Edit',
 
+
+
+
     //pagination
     "showing" => "Showing",
     "to" => "to",

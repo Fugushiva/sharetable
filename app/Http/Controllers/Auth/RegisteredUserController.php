@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\UserRegistered;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -70,6 +71,9 @@ class RegisteredUserController extends Controller
             'city_id' => $cityId,
             'language_id' => $languageId,
         ]);
+
+        $guestProfile = Profile::where('profile', 'guest')->first();
+        $user->profiles()->attach($guestProfile);
 
         Mail::to($user->email)->send(new UserRegistered($user));
 

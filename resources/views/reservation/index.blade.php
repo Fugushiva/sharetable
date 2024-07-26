@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 <x-app-layout>
     <section class="mt-8">
         <h1 class="text-3xl font-bold mb-6 text-center">@lang('content.reservation_list')</h1>
@@ -8,9 +11,9 @@
                     <th class="py-2 px-4 border-b text-center">Hôte</th>
                     <th class="py-2 px-4 border-b text-center">Lieu</th>
                     <th class="py-2 px-4 border-b text-center">Prix</th>
+                    <th class="py-2 px-4 border-b text-center">Date</th>
                     <th class="py-2 px-4 border-b text-center">Annonce</th>
-                    <th class="py-2 px-4 border-b text-center">action</th>
-
+                    <th class="py-2 px-4 border-b text-center">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,16 +34,19 @@
                             {{ $reservation->annonce->price }} €
                         </td>
                         <td class="py-2 px-4 border-b text-center">
+                            {{ Carbon::parse($reservation->annonce->schedule)->format('d/m/Y H:i') }}
+                        </td>
+                        <td class="py-2 px-4 border-b text-center">
                             <a href="{{ route('annonce.show', $reservation->annonce->id) }}" class="text-orange-600 hover:text-orange-800 underline">
                                 {{ $reservation->annonce->title }}
                             </a>
                         </td>
                         <td class="py-2 px-4 border-b text-center">
-                            <form action="{{route('stripe.refund')}}" method="post">
+                            <form action="{{ route('stripe.refund') }}" method="post" class="cancel-form">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="reservation_id" value="{{$reservation->id}}">
-                               <button class="btn-secondary">cancel</button>
+                                <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
+                                <button type="submit" class="btn-secondary cancel-button">Annuler</button>
                             </form>
                         </td>
                     </tr>
@@ -65,4 +71,22 @@
             </div>
         @endif
     </section>
+
+    <!-- Script pour la boîte de confirmation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cancelButtons = document.querySelectorAll('.cancel-button');
+
+            cancelButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const confirmed = confirm('Êtes-vous sûr de vouloir annuler cette réservation ?');
+                    if (confirmed) {
+                        button.closest('form').submit();
+                    }
+                });
+            });
+        });
+    </script>
 </x-app-layout>
+

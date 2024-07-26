@@ -14,9 +14,10 @@ class NewNotification extends Notification
 
     public $message;
 
-    public function __construct($message)
+    public function __construct($message, $url = null)
     {
         $this->message = $message;
+        $this->url = $url;
     }
 
     public function via($notifiable)
@@ -28,6 +29,7 @@ class NewNotification extends Notification
     {
         return json_encode([
             'message' => $this->message,
+            'url' => $this->url,
         ]);
     }
 
@@ -35,6 +37,7 @@ class NewNotification extends Notification
     {
         return new BroadcastMessage([
             'message' => $this->message,
+            'url' => $this->url,
         ]);
     }
 }
