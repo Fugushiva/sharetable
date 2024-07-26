@@ -20,3 +20,12 @@ h1, h2, h3, h4, h5, h6 {
 @tailwind utilities;
 
 
+.notification-badge {
+    background-color: rgb(153,26,20);
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    display: inline-block;
+    margin-right: 10px;
+    flex-shrink: 0;
+}

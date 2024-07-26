@@ -30,9 +30,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     const notificationData = JSON.parse(notification.data);
                     const message = notificationData.message ? notificationData.message : 'Notification sans message';
                     const newNotification = document.createElement('li');
-                    newNotification.className = 'p-4 cursor-pointer unread hover:bg-gray-100'; // Modifier la classe pour les notifications non lues
-                    newNotification.textContent = message;
+                    newNotification.className = 'p-4 cursor-pointer unread hover:bg-gray-100 flex items-center'; // Modifier la classe pour les notifications non lues
                     console.log('Adding notification:', newNotification); // Message de débogage
+
+                    // Ajouter la boule rouge
+                    const badge = document.createElement('span');
+                    badge.className = 'notification-badge';
+                    newNotification.appendChild(badge);
+
+                    // Ajouter le message de notification
+                    const messageSpan = document.createElement('span');
+                    messageSpan.textContent = message;
+                    newNotification.appendChild(messageSpan);
+
                     newNotification.addEventListener('click', () => {
                         // Marquer la notification comme lue
                         fetch('/api/notifications/read', {
@@ -48,8 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             let currentCount = parseInt(notificationCount.textContent);
                             notificationCount.textContent = currentCount > 0 ? currentCount - 1 : 0;
                             notificationCount.classList.toggle('hidden', currentCount - 1 === 0);
+                            badge.remove(); // Retirer la boule rouge après avoir marqué comme lu
                         }).catch(error => console.error('Error marking notification as read:', error));
                     });
+
                     notificationList.prepend(newNotification);
 
                     // Ajouter la ligne de séparation rouge sauf après la dernière notification
