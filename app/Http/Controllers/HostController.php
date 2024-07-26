@@ -6,6 +6,7 @@ use App\Http\Requests\StoreHostRequest;
 use App\Mail\HostProfileCreated;
 use App\Models\Annonce;
 use App\Models\Host;
+use App\Models\Profile;
 use App\Models\User;
 use App\Notifications\NewNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -66,8 +67,14 @@ class HostController extends Controller
             $validated['profile_picture'] = $uniqueName;
         }
 
+
+
+
         $host = Host::create($validated);
         $host->save();
+
+        $hostProfile = Profile::where('profile', 'host')->first();
+        $user->profiles()->attach($hostProfile->id);
 
         Mail::to($user->email)->send(new HostProfileCreated($user));
 
