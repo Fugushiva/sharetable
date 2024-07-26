@@ -23,6 +23,7 @@ return [
     'delete' => 'Supprimer',
     'edit' => 'Modifier',
 
+
     //pagination
     "showing" => "Affiche",
     "to" => "à",
