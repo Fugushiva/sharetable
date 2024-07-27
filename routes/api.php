@@ -4,6 +4,7 @@
 use App\Http\Controllers\api\AnnonceResourceController;
 use App\Http\Controllers\api\NotificationController;
 use App\Http\Controllers\api\TransactionResourceController;
+use App\Http\Controllers\api\UserCollectionController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/notifications/unread', [NotificationController::class, 'getUnreadNotifications'])
         ->name('notifications.unread');
 });
+
+//User API
+Route::get('/api/user', [UserCollectionController::class, 'index'])
+    ->name('user-api.index');
+Route::get('/api/user/{id}', [UserCollectionController::class, 'show'])
+    ->where('id', '[0-9]+')
+    ->name('user-api.show');
+Route::get('/api/user/{id}/reservations', [UserCollectionController::class, 'userReservations'])
+    ->where('id', '[0-9]+')
+    ->name('user-api.reservations');
+Route::get('/api/user/{id}/annonces', [UserCollectionController::class, 'userAnnonces'])
+    ->where('id', '[0-9]+')
+    ->name('user-api.transactions');
 
 
 
