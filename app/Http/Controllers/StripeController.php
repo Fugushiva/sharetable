@@ -72,6 +72,8 @@ class StripeController extends Controller
         $userId = auth()->user()->id;
         $result = $this->stripeService->processRefund($request->reservation_id, $userId);
 
+
+
         if ($result['success']) {
             return redirect()->route('reservation.index')->with('success', $result['message']);
         } else {

@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Parsing JSON string
                     const notificationData = JSON.parse(notification.data);
                     const message = notificationData.message ? notificationData.message : 'Notification sans message';
+                    const url = notificationData.url ? notificationData.url : '#'; // Assurez-vous que l'URL est incluse
                     const newNotification = document.createElement('li');
                     newNotification.className = 'p-4 cursor-pointer unread hover:bg-gray-100 flex items-center'; // Modifier la classe pour les notifications non lues
                     console.log('Adding notification:', newNotification); // Message de débogage
@@ -38,10 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     badge.className = 'notification-badge';
                     newNotification.appendChild(badge);
 
-                    // Ajouter le message de notification
-                    const messageSpan = document.createElement('span');
-                    messageSpan.textContent = message;
-                    newNotification.appendChild(messageSpan);
+                    // Ajouter le message de notification avec un lien
+                    const messageLink = document.createElement('a');
+                    messageLink.href = url; // Utiliser l'URL de la notification
+                    messageLink.textContent = message;
+                    newNotification.appendChild(messageLink);
 
                     newNotification.addEventListener('click', () => {
                         // Marquer la notification comme lue

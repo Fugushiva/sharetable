@@ -83,7 +83,7 @@ class StripeService
             // check if the reservation is in less than 2 days
             if ($scheduleDate->isBefore(now()->addDays(2))) {
                 // send notification to customer
-                $message = __('annonce.refund.time_over');
+                $message = __('notification.refund.time_over');
                 $user->notify(new NewNotification($message));
 
                 return redirect()->route('stripe.index')->with('error', __('notification.refund.time_over'));
@@ -93,7 +93,7 @@ class StripeService
             $transaction->update(['status' => 'refunded']);
 
             // send notification to customer
-            $message = __('notification.refund.success');
+            $message = __('notification.refund.success_guest');
             $user->notify(new NewNotification($message));
 
             // send notification to host

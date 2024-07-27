@@ -11,7 +11,7 @@ return [
     'refund' => [
         'time_over' => 'Remboursement impossible, la réservation est dans moins de 2 jours.',
         'host_message_over' => 'Réservation annulée par :Name, vous recevrez votre paiment sous peu.',
-        'success_guest' => 'Remboursement effectué, vous recevrez un email de confirmation.',
+        'success_guest' => 'Annulation réussie, vous recevrez votre remboursement sous peu.',
         'host_message' => 'Réservation annulée par :Name',
     ],
 ];

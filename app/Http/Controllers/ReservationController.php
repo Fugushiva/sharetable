@@ -11,6 +11,7 @@ use App\Notifications\NewNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 
@@ -152,7 +153,8 @@ class ReservationController extends Controller
     {
         $host = Host::find($annonce->host_id);
         $message = __('notification.new_reservation');
-        $host->user->notify(new NewNotification($message));
+        $url = URL::route('annonce.show', ['id' => $annonce->id]);
+        $host->user->notify(new NewNotification($message, $url));
     }
 
     /**
