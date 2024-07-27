@@ -56,6 +56,7 @@
         </div>
     </section>
     <!--upcoming exp-->
+    @if($nextAnnonce)
     <section class="flex justify-center mt-8">
         <div class="w-full max-w-4xl">
             <h1 class="text-3xl font-bold mb-4">@lang('profile.upcoming_experience')</h1>
@@ -73,6 +74,9 @@
             </div>
         </div>
     </section>
+    @else
+        <p class="text-center mt-8">@lang('profile.no_upcoming_annonce')</p>
+    @endif
     <!--tags-->
 
 
