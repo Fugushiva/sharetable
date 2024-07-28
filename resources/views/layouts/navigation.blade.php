@@ -48,9 +48,11 @@
                 <div class="w-full">
                     <form id="language-form" action="{{ route('change.language') }}" method="POST">
                         @csrf
-                        <select id="language" class="w-1/2 mr-12 select" name="language" onchange="document.getElementById('language-form').submit()">
+                        <select id="language" class="w-1/2 mr-12 select" name="language"
+                                onchange="document.getElementById('language-form').submit()">
                             @foreach($languages as $language)
-                                <option value="{{ $language->code }}" {{ app()->getLocale() == $language->code ? 'selected' : '' }}>
+                                <option
+                                    value="{{ $language->code }}" {{ app()->getLocale() == $language->code ? 'selected' : '' }}>
                                     {{ $language->code }}
                                 </option>
                             @endforeach
@@ -58,23 +60,41 @@
                     </form>
                 </div>
 
-                <!-- Notification -->
-                <div id="notification-container" class="relative">
-                    <i class="fa-solid fa-bell cursor-pointer text-3xl" id="notification-icon">
-                        <span id="notification-count" class="absolute bottom-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
-                    </i>
-                    <ul id="notification-list" class="hidden absolute top-8 right-0 bg-white border border-gray-300 rounded-md w-80 max-h-80 overflow-y-auto shadow-lg">
-                        <!-- Notifications will be added here by JavaScript -->
-                    </ul>
+                <div class="flex items-center gap-4">
+                    <!-- Notification -->
+                    <div id="notification-container" class="relative">
+                        <i class="fa-solid fa-bell cursor-pointer text-3xl relative" id="notification-icon">
+            <span id="notification-count"
+                  class="absolute bottom-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+                        </i>
+                        <ul id="notification-list"
+                            class="hidden absolute top-8 right-0 bg-white border border-gray-300 rounded-md w-80 max-h-80 overflow-y-auto shadow-lg">
+                            <!-- Notifications will be added here by JavaScript -->
+                        </ul>
+                    </div>
+                    <!-- Messages -->
+                    <div class="relative">
+                        <a href="{{ route('conversations.index') }}">
+                            <i class="fa-solid fa-message cursor-pointer text-3xl"></i>
+                            @if($unreadCount > 0)
+                                <span
+                                    class="absolute top-0 right-0 inline-block w-6 h-6 bg-red-600 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                                    {{ $unreadCount }}
+                                </span>
+                            @endif
+                        </a>
+                    </div>
                 </div>
 
+                <!-- Profile dropdown -->
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-red-750 focus:outline-none transition ease-in-out duration-150">
                             @if(Auth::user())
                                 <div class="flex items-center">
-                                    <img src="{{ asset(Auth::user()->profile_picture) }}" alt="Profile picture" class="w-8 h-8 rounded-full me-2">
+                                    <img src="{{ asset(Auth::user()->profile_picture) }}" alt="Profile picture"
+                                         class="w-8 h-8 rounded-full me-2">
                                     <p class="me-2">{{ Auth::user()->firstname }}</p>
                                 </div>
                             @else

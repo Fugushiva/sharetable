@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cmgmyr\Messenger\Traits\Messagable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
 use Filament\Panel;
@@ -19,7 +20,7 @@ use Nnjeim\World\Models\Language;
 
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Messagable;
 
     /**
      * The attributes that are mass assignable.
@@ -126,4 +127,5 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     {
         return "{$this->firstname} {$this->lastname}";
     }
+
 }

@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.2",
         "ext-http": "*",
+        "cmgmyr/messenger": "^2.30",
         "filament/filament": "^3.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",

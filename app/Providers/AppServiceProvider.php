@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Message;
 use App\View\Composers\LanguageComposer;
 use Carbon\Carbon;
+use Cmgmyr\Messenger\Models\Thread;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,6 +39,5 @@ class AppServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__.'/../../vendor/nnjeim/world/src/Database/Migrations');
         View::composer(['layouts.navigation', 'profile.edit'], LanguageComposer::class);
-
     }
 }
