@@ -75,41 +75,42 @@ class StripeService
         $annonceHost = $annonce->host;
 
         try {
-
-            // cancel the reservation
+            // Annuler la réservation
             $reservation->update(['status' => 'cancelled']);
             $scheduleDate = Carbon::parse($annonce->schedule);
 
-            // check if the reservation is in less than 2 days
+            // Vérifier si la réservation est dans moins de 2 jours
             if ($scheduleDate->isBefore(now()->addDays(2))) {
-                // send notification to customer
+                // Envoyer une notification au client
                 $message = __('notification.refund.time_over');
                 $user->notify(new NewNotification($message));
 
-                return redirect()->route('stripe.index')->with('error', __('notification.refund.time_over'));
+                $annonce->update(['max_guest' => $annonce->max_guests + 1]);
+
+                return ['success' => false, 'message' => __('notification.refund.time_over')];
             }
-            //create refund
+
+            // Créer un remboursement
             $this->createRefund($transaction->stripe_transaction_id);
             $transaction->update(['status' => 'refunded']);
 
-            // send notification to customer
+            // Envoyer une notification au client
             $message = __('notification.refund.success_guest');
             $user->notify(new NewNotification($message));
 
-            // send notification to host
+            // Envoyer une notification à l'hôte
             $message = __('notification.refund.host_message', ['Name' => $user->firstname]);
             $annonceHost->user->notify(new NewNotification($message));
 
-
-            // send email to customer
+            // Envoyer un email au client
             Mail::to($user->email)->send(new \App\Mail\PaymentRefund($user, $annonce, $annonceHost));
-            // update the max_guests of the annonce
-            $annonce->update(['max_guests' => $annonce->max_guests + 1]);
+            // Mettre à jour le nombre maximal de clients de l'annonce
+            $annonce->update(['max_guest' => $annonce->max_guests + 1]);
 
-            return ['success' => true, 'message' => 'Refund successful.'];
+            return ['success' => true, 'message' => 'Remboursement réussi.'];
 
         } catch (\Exception $e) {
-            return ['success' => false, 'message' => 'Refund failed: ' . $e->getMessage()];
+            return ['success' => false, 'message' => 'Échec du remboursement : ' . $e->getMessage()];
         }
     }
 
@@ -117,6 +118,7 @@ class StripeService
     {
         $reservations = Reservation::where('annonce_id', $annonce->id)->get();
         $guestMessage = __('notification.host_cancel_reservation');
+        $errors = [];
 
         // for each reservation we cancel the reservation and refund
         foreach ($reservations as $reservation) {

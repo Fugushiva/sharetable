@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReservationRequest;
+use App\Jobs\SendUniqueCodeJob;
 use App\Models\Annonce;
+use App\Models\BookingCode;
 use App\Models\Host;
 use App\Models\Reservation;
 use App\Models\Transaction;
@@ -62,13 +64,31 @@ class ReservationController extends Controller
             return redirect()->back()->withErrors(['msg' => __('message.annonce_exists')]);
         }
 
+        // Créer la réservation
         $reservation = $this->createReservation($annonce, $user);
+        SendUniqueCodeJob::dispatch($reservation);
         $session = Session::retrieve($request->session()->get('stripe_session_id'));
 
-
+        // Créer la transaction
         $this->createTransaction($annonce, $user, $reservation, $session);
+
+        // Notifier l'hôte
         $this->notifyHost($annonce);
+
+        // Décrémenter le nombre de places disponibles
         $this->decrementPlace($annonce);
+
+        // Calculer le délai pour l'envoi de l'email 48 heures avant la réservation
+        $scheduleTime = Carbon::parse($reservation->annonce->schedule)->subHours(48);
+        $now = Carbon::now();
+
+        if ($scheduleTime->lessThan($now)) {
+            // Si la réservation est dans moins de 48 heures, envoyer l'email immédiatement
+            SendUniqueCodeJob::dispatch($reservation);
+        } else {
+            // Sinon, planifier l'envoi de l'email 48 heures avant la réservation
+            SendUniqueCodeJob::dispatch($reservation)->delay($scheduleTime);
+        }
 
         return redirect()->route('reservation.index');
     }
@@ -113,11 +133,13 @@ class ReservationController extends Controller
      */
     private function createReservation($annonce, $user)
     {
+
         return Reservation::create([
             'annonce_id' => $annonce->id,
             'user_id' => $user->id,
             'host_id' => $annonce->host_id,
         ]);
+
     }
 
     /**
@@ -166,4 +188,36 @@ class ReservationController extends Controller
         $annonce->max_guest = $annonce->max_guest - 1;
         $annonce->save();
     }
+
+    public function checkBookingCode(Request $request)
+    {
+        $request->validate([
+            "code" => ['string', "exists:booking_codes,code"]
+        ]);
+
+        $annonceId = $request->input('annonce_id');
+
+        //search for code & associated reservation and check annonce id
+        $bookingCode = BookingCode::where('code', $request->input('code'))
+            ->whereHas('reservation', function ($query) use ($annonceId) {
+                $query->where('annonce_id', $annonceId);
+            })->first();
+
+        //Check if the code was not already validated
+        if ($bookingCode && !$bookingCode->validated) {
+            $bookingCode->validated = true;
+            $bookingCode->save();
+
+            return response()->json([
+                'message' => 'Booking code is valid and has been marked as used.',
+                'reservation' => $bookingCode->reservation,
+            ]);
+        }
+
+
+        return response()->json([
+            'message' => 'Invalid or already used booking code.',
+        ], 400);
+    }
+
 }

@@ -12,3 +12,5 @@ Route::get('/book/{id}', [ReservationController::class, 'create'])
 
 Route::post('/book', [ReservationController::class, 'store'])
     ->name('book.store');
+
+Route::post('/check-booking-code', [ReservationController::class, "checkBookingCode"])->name("reservation.code");

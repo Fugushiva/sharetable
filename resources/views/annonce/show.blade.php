@@ -32,11 +32,11 @@
         <!-- Bouton supprimer si c'est l'auteur de l'annonce -->
         @if($currentHost && $currentHost->id === $annonce->host_id)
             <div class="flex gap-4">
-                <form method="post" action="{{route('annonce.destroy', $annonce)}}" class="flex gap-4">
+                <form method="post" action="{{route("reservation.code")}}" class="flex gap-4">
                     @csrf
-                    @method('DELETE')
-                    <button type="submit"
-                            class="bg-red-750 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-850 transition-colors">{{__('forms.delete_ad')}}</button>
+                    <input type="hidden" name="annonce_id" value="{{$annonce->id}}">
+                    <input class="input" type="text" name="code" placeholder="Code" >
+                    <button class="btn-validate">envoyer</button>
                 </form>
             </div>
             <!-- Bouton réserver -->
