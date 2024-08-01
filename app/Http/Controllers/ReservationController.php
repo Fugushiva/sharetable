@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReservationRequest;
 use App\Jobs\SendUniqueCodeJob;
+use App\Mail\UserEvaluation;
 use App\Models\Annonce;
 use App\Models\BookingCode;
 use App\Models\Host;
@@ -13,8 +14,10 @@ use App\Notifications\NewNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
-use Stripe\Checkout\Session;
+use Stripe\Checkout\Session as stripeSession;
 use Stripe\Stripe;
 
 class ReservationController extends Controller
@@ -66,8 +69,7 @@ class ReservationController extends Controller
 
         // Créer la réservation
         $reservation = $this->createReservation($annonce, $user);
-        SendUniqueCodeJob::dispatch($reservation);
-        $session = Session::retrieve($request->session()->get('stripe_session_id'));
+        $session = stripeSession::retrieve($request->session()->get('stripe_session_id'));
 
         // Créer la transaction
         $this->createTransaction($annonce, $user, $reservation, $session);
@@ -84,10 +86,12 @@ class ReservationController extends Controller
 
         if ($scheduleTime->lessThan($now)) {
             // Si la réservation est dans moins de 48 heures, envoyer l'email immédiatement
-            SendUniqueCodeJob::dispatch($reservation);
+            $this->bookingCodeGenerate($reservation);
+            $user->notify(new NewNotification(__('notification.booking_code.send', ['code' => Session::get('booking_code')])));
         } else {
             // Sinon, planifier l'envoi de l'email 48 heures avant la réservation
-            SendUniqueCodeJob::dispatch($reservation)->delay($scheduleTime);
+            $this->bookingCodeGenerate($reservation)->delay($scheduleTime);
+            $user->notify(new NewNotification(__('notification.booking_code.send', ['code' => Session::get('booking_code')])));
         }
 
         return redirect()->route('reservation.index');
@@ -195,7 +199,8 @@ class ReservationController extends Controller
             "code" => ['string', "exists:booking_codes,code"]
         ]);
 
-        $annonceId = $request->input('annonce_id');
+        $annonce = Annonce::find($request->input('annonce_id'));
+        $annonceId = $annonce->id;
 
         //search for code & associated reservation and check annonce id
         $bookingCode = BookingCode::where('code', $request->input('code'))
@@ -208,6 +213,20 @@ class ReservationController extends Controller
             $bookingCode->validated = true;
             $bookingCode->save();
 
+            $reservation = $bookingCode->reservation;
+            $guest = $reservation->user;
+            $host = $annonce->host->user;
+
+            // Envoyer un email à l'hôte
+            //Mail::to($host->email)->send(new UserEvaluation($host, $guest));
+            //envoyer une notification à l'hôte
+            $host->notify(new NewNotification(__('notification.evaluation.evaluate', ['name' => $guest->firstname]), URL::route('guest.show', ['id' => $guest->id, 'reservationId' => $reservation->id])));
+
+            // Envoyer un email à l'invité
+            //Mail::to($guest->email)->send(new UserEvaluation($guest, $host));
+            //envoyer une notification à l'invité
+            $guest->notify(new NewNotification(__('notification.evaluation.evaluate', ['name' => $host->firstname]), URL::route('host.show', ['host' => $host->id])));
+
             return response()->json([
                 'message' => 'Booking code is valid and has been marked as used.',
                 'reservation' => $bookingCode->reservation,
@@ -218,6 +237,20 @@ class ReservationController extends Controller
         return response()->json([
             'message' => 'Invalid or already used booking code.',
         ], 400);
+    }
+
+    public function bookingCodeGenerate($reservation)
+    {
+        $code = bin2hex(random_bytes(3));
+
+        $bookingCode = BookingCode::create([
+            'reservation_id' => $reservation->id,
+            'code' => $code,
+        ]);
+
+        Session::put('booking_code', $code);
+
+        return $bookingCode;
     }
 
 }

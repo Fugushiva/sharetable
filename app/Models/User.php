@@ -106,6 +106,16 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         return $this->hasMany(Notification::class);
     }
 
+    public function reviewsGiven(): HasMany
+    {
+        return $this->hasMany(Evaluation::class, 'reviewer_id');
+    }
+
+    public function reviewsReceived():HasMany
+    {
+        return $this->hasMany(Evaluation::class, 'reviewee_id');
+    }
+
     /**
      * Check if the user has a role.
      *
@@ -126,6 +136,30 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     public function getFilamentName(): string
     {
         return "{$this->firstname} {$this->lastname}";
+    }
+
+    public function guestReviewsReceived()
+    {
+        return $this->hasMany(Evaluation::class, 'reviewee_id')->whereHas('reservation', function($query) {
+            $query->where('user_id', $this->id);
+        });
+    }
+
+    public function hostReviewsReceived()
+    {
+        return $this->hasMany(Evaluation::class, 'reviewee_id')->whereHas('reservation.annonce', function($query) {
+            $query->where('host_id', $this->id);
+        });
+    }
+
+    public function isGuest()
+    {
+        return $this->profiles()->where('profile', 'guest')->exists();
+    }
+
+    public function isHost()
+    {
+        return $this->profiles()->where('profile', 'host')->exists();
     }
 
 }

@@ -63,6 +63,11 @@ return [
     'check_email' => 'A new verification link has been sent to the email address you provided during registration.',
     'resend' => 'Resend verification email',
 
+    //********* Evaluation *********//
+    'evaluation' => [
+        'evaluate' => 'Evaluate :name',
+    ],
+
 
 
 ];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAnnonceRequest;
 use App\Models\Annonce;
 use App\Models\Host;
+use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,11 +93,14 @@ class AnnonceController extends Controller
         $host = Host::find($annonce->host_id);
         $user = User::find($host->user_id);
 
+        $reservations = Reservation::where('annonce_id', $id)->get();
+
         return view('annonce.show', [
             'annonce' => $annonce,
             'host' => $host,
             'user' => $user,
-            'currentHost' => $current_host
+            'currentHost' => $current_host,
+            'reservations' => $reservations
         ]);
     }
 

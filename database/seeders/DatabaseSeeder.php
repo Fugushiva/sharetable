@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\AnnoncePicture;
+use App\Models\Evaluation;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
                 ReservationSeeder::class,
                 AnnoncePictureSeeder::class,
                 TransactionSeeder::class,
+                EvaluationSeeder::class,
 
             ]
         );

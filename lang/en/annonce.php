@@ -16,6 +16,7 @@ return [
     'description' => 'Description',
     'price' => 'Price',
     'list'  => 'Ads list',
+    'guest_list' => 'Guest list',
 
     //action
     'action' => 'Action',
@@ -31,6 +32,8 @@ return [
     "to" => "to",
     "of" => "of",
     "results" => "results",
+
+
 
 
 ];

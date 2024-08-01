@@ -38,5 +38,6 @@ Route::middleware([SetUserLocale::class])->group(function () {
     require __DIR__ . '/stripe.php';
     require __DIR__ . '/api.php';
     require __DIR__ . '/message.php';
+    require __DIR__ . '/evaluation.php';
 
 });

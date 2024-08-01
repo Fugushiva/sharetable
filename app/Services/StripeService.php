@@ -103,7 +103,7 @@ class StripeService
             $annonceHost->user->notify(new NewNotification($message));
 
             // Envoyer un email au client
-            Mail::to($user->email)->send(new \App\Mail\PaymentRefund($user, $annonce, $annonceHost));
+            //Mail::to($user->email)->send(new \App\Mail\PaymentRefund($user, $annonce, $annonceHost));
             // Mettre à jour le nombre maximal de clients de l'annonce
             $annonce->update(['max_guest' => $annonce->max_guests + 1]);
 

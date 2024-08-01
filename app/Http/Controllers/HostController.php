@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreHostRequest;
 use App\Mail\HostProfileCreated;
 use App\Models\Annonce;
+use App\Models\BookingCode;
+use App\Models\Evaluation;
 use App\Models\Host;
 use App\Models\Profile;
+use App\Models\Reservation;
 use App\Models\User;
 use App\Notifications\NewNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Nnjeim\World\Models\City;
-use Nnjeim\World\Models\Country;
+
 
 class HostController extends Controller
 {
@@ -36,7 +41,6 @@ class HostController extends Controller
         $this->authorize('create', Host::class);
 
         $cities = city::with('country')->where('country_id', '=', $request->user()->country_id)->get();
-
 
 
         return view('host.create', [
@@ -68,8 +72,6 @@ class HostController extends Controller
         }
 
 
-
-
         $host = Host::create($validated);
         $host->save();
 
@@ -91,13 +93,44 @@ class HostController extends Controller
      */
     public function show(Host $host)
     {
-        $user = User::find($host->user_id);
+        $user = User::find($host->user_id); // host user
+        $guest = Auth::user(); // guest user
+        $evaluations = $user->hostReviewsReceived; // host evaluations
         $annonces = $host->annonces()->with('pictures')->get();
+        // Get the booking code
+        $sessionBookingCode = Session::get('booking_code');
+        $bookingCode = BookingCode::where('code', $sessionBookingCode)->first();
+        // Get the reservation if the booking code is validated
+        if ($bookingCode && $bookingCode->validated) {
+            $reservation = Reservation::where('user_id', $guest->id)
+                ->where('status', 'active')
+                ->where('id', $bookingCode->reservation_id)
+                ->first();
+        } else {
+            $reservation = null;
+        }
+
+        // Check if the guest has already evaluated the host
+        if($reservation) {
+            $existingEvaluation = Evaluation::where('reservation_id', $reservation->id)
+                ->where('reviewer_id', $guest->id)
+                ->where('reviewee_id', $user->id)
+                ->first();
+        }
+
+
+
+
 
         return view('host.show', [
             'host' => $host,
-            'user' => $user,
-            'annonces' => $annonces
+            'guest' => $guest,
+            'annonces' => $annonces,
+            'evaluations' => $evaluations,
+            'bookingCode' => $bookingCode,
+            'reservation' => $reservation,
+            'showForm' => $bookingCode && $bookingCode->validated && $reservation,
+            'existingEvaluation' => $existingEvaluation ?? null
         ]);
     }
 
@@ -136,9 +169,11 @@ class HostController extends Controller
             ->where('status', 'active')
             ->get();
 
+
         return view('host.profile', [
             'user' => $user,
-            'annonces' => $annonces
+            'annonces' => $annonces,
+
         ]);
     }
 }

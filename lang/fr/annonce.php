@@ -15,6 +15,7 @@ return [
     'price' => 'Prix',
     'schedule' => 'Horaire',
     'list'  => 'Liste des annonces',
+    'guest_list' => 'Liste des convives',
 
 
     //action

@@ -64,6 +64,11 @@ return [
     'resend' => 'renvoyer l\'email de vérification',
 
 
+    //******** evaluation ************//
+
+    'evaluate' => [
+        'evaluate' => 'évaluer :name'
+    ]
 
 
 

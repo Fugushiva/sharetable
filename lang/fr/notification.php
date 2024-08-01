@@ -14,4 +14,15 @@ return [
         'success_guest' => 'Annulation réussie, vous recevrez votre remboursement sous peu.',
         'host_message' => 'Réservation annulée par :Name',
     ],
+
+    //evaluation
+    'evaluation' => [
+        'host' => 'Vous avez reçu une évaluation de :Name',
+        'evaluate' => 'Vous pouvez évaluer votre expérience avec :Name',
+    ],
+
+    //code unique
+    'booking_code' => [
+        'send' => 'votre code de réservation :code',
+    ],
 ];

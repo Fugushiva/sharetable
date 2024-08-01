@@ -15,4 +15,15 @@ return  [
         'success' => 'Refund successful you will receive a confirmation email.',
         'host_message' => 'Reservation cancelled by :Name',
     ],
+
+    //evaluation
+    'evaluation' => [
+        'host' => 'You have received an evaluation from :Name',
+        'evaluate' => 'You can evaluate your experience with :Name',
+    ],
+
+    //unique code
+    'booking_code' => [
+        'send' => 'your booking code :code',
+    ],
 ];

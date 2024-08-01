@@ -14,6 +14,7 @@ use App\Notifications\NewNotification;
 use App\Services\StripeService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -61,7 +62,8 @@ class StripeController extends Controller
         $annonce = Annonce::find(session('annonce_id'));
         $host = Host::find($annonce->host_id);
 
-        Mail::to($user->email)->send(new PaymentDone($user, $annonce, $host));
+
+        //Mail::to($user->email)->send(new PaymentDone($user, $annonce, $host));
         return view('stripe.index');
     }
 
