@@ -106,4 +106,15 @@ class Reservation extends Model
     {
         return $this->host()->id === $user->id;
     }
+
+    /**
+     * Check if the reservation is active
+     *
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->status === 'active';
+    }
+
 }

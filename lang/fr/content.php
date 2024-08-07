@@ -27,6 +27,10 @@ return [
     'your_meal'=> 'Votre repas',
     'pay'=> 'Paiement',
     'host'=> 'Hôte',
+    'in' => 'en',
+    'our_best_host' => 'Nos meilleurs hôtes',
+
+
 
 
 

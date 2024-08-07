@@ -21,6 +21,7 @@ class AnnonceFactory extends Factory
     {
         // Get a random host or create one if none exists
         $host = Host::inRandomOrder()->first() ?? Host::factory()->create();
+        $user = $host->user;
 
         return [
             'title' => substr($this->faker->sentence(), 0, 40), // max 40 characters
@@ -30,7 +31,7 @@ class AnnonceFactory extends Factory
             'max_guest' => $this->faker->numberBetween(1, 8),
             'cuisine' => Country::inRandomOrder()->first()->name ?? 21, // Belgium
             'host_id' => $host->id, // foreign key
-            'country_id' => Country::inRandomOrder()->first()->id ?? 21, // Belgium
+            'country_id' => $user->country_id,
         ];
     }
 }

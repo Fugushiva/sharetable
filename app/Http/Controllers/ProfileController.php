@@ -117,7 +117,9 @@ class ProfileController extends Controller
         // Trouver les IDs des annonces liées aux réservations de l'utilisateur
         $annonceIds = $reservations->pluck('annonce_id');
 
-
+        //evaluations for user guest profile
+        $evaluations = $user->hostReviewsReceived()->get();
+        $evaluationsAverage = round($evaluations->avg('rating'));
         // Récupérer la prochaine annonce
         $nextAnnonce = Annonce::whereIn('id', $annonceIds)->nextAnnonce()->first();
 
@@ -128,7 +130,9 @@ class ProfileController extends Controller
             'user' => $user,
             'reservations' => $reservations,
             'nextAnnonce' => $nextAnnonce,
-            'pastAnnonces' => $pastAnnonces
+            'pastAnnonces' => $pastAnnonces,
+            'evaluations' => $evaluations,
+            'evaluationsAverage' => $evaluationsAverage
         ]);
     }
 }

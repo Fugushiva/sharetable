@@ -81,12 +81,12 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         return $this->hasMany(Reservation::class);
     }
 
-    public function country():BelongsTo
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
     }
 
-    public function city():BelongsTo
+    public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
@@ -111,7 +111,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         return $this->hasMany(Evaluation::class, 'reviewer_id');
     }
 
-    public function reviewsReceived():HasMany
+    public function reviewsReceived(): HasMany
     {
         return $this->hasMany(Evaluation::class, 'reviewee_id');
     }
@@ -128,35 +128,68 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     }
 
 
+    /**
+     * Check if the user can acces the Filament panel.
+     *
+     * @param string $profile
+     * @return bool
+     */
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasRole('admin');
     }
 
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
     public function getFilamentName(): string
     {
         return "{$this->firstname} {$this->lastname}";
     }
 
+    /**
+     * Get evaluatiopns given by guests.
+     * @return HasMany
+     */
     public function guestReviewsReceived()
     {
-        return $this->hasMany(Evaluation::class, 'reviewee_id')->whereHas('reservation', function($query) {
-            $query->where('user_id', $this->id);
-        });
+        return $this->hasMany(Evaluation::class, 'reviewee_id')
+            ->whereHas('reservation', function ($query) {
+                $query->where('user_id', $this->id);
+            });
     }
 
+    public function paginatedGuestReviewsReceived($perPage)
+    {
+        return $this->guestReviewsReceived()->paginate($perPage);
+    }
+
+    /**
+     * Get evaluations given by hosts.
+     * @return HasMany
+     */
     public function hostReviewsReceived()
     {
-        return $this->hasMany(Evaluation::class, 'reviewee_id')->whereHas('reservation.annonce', function($query) {
+        return $this->hasMany(Evaluation::class, 'reviewee_id')->whereHas('reservation.annonce', function ($query) {
             $query->where('host_id', $this->id);
         });
     }
 
+    /**
+     * Check if the user is a guest.
+     * @return bool
+     */
     public function isGuest()
     {
         return $this->profiles()->where('profile', 'guest')->exists();
     }
 
+    /**
+     * Check if the user is a host.
+     * @return bool
+     */
     public function isHost()
     {
         return $this->profiles()->where('profile', 'host')->exists();
