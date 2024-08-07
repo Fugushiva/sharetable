@@ -87,20 +87,29 @@ class AnnonceController extends Controller
             $current_host = Host::where('user_id', $current_user->id)->first();
         }
 
+
+
         $annonce = Annonce::with('pictures')->find($id);
+
+        //get country with cuisine
+        $annonceCuisine = Country::where('name', $annonce->cuisine)->first();
+
 
         // Récupère l'hôte de l'annonce & l'utilisateur qui a créé l'annonce
         $host = Host::find($annonce->host_id);
         $user = User::find($host->user_id);
 
-        $reservations = Reservation::where('annonce_id', $id)->get();
+        $reservations = Reservation::where('annonce_id', $id)
+            ->where('status', 'active')
+            ->get();
 
         return view('annonce.show', [
             'annonce' => $annonce,
             'host' => $host,
             'user' => $user,
             'currentHost' => $current_host,
-            'reservations' => $reservations
+            'reservations' => $reservations,
+            'annonceCuisine' => $annonceCuisine
         ]);
     }
 

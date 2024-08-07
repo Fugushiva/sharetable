@@ -11,5 +11,8 @@ return [
     'annonce_details' => 'View Details',
 
     //host profile
-    'my_ads' => 'My Ads',
+    "host" => [
+        "ads" => ":name's ads",
+        "message" => "Send message",
+    ]
 ];

@@ -33,6 +33,16 @@ return [
     "of" => "of",
     "results" => "results",
 
+    "show" => [
+        'see_profile' => 'See profile',
+        'guest_code' => 'Guest code',
+        'code_validation' => 'Please validate the code received by the guest to confirm that the appointment took place.',
+        'enter_code' => 'Enter the code here',
+
+    ]
+
+
+
 
 
 

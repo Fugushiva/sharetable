@@ -31,4 +31,13 @@ return [
     "of" => "de",
     "results" => "résultats",
 
+    "show" => [
+        'see_profile' => 'Voir le profil',
+        'guest_code' => 'Code invité',
+        'code_validation' => 'Veuillez valider le code reçu par le guest pour confirmer que le rendez-vous a eu lieu.',
+        'enter_code' => 'Entrez le code ici',
+    ]
+
+
+
 ];

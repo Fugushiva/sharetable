@@ -95,11 +95,13 @@ class HostController extends Controller
     {
         $user = User::find($host->user_id); // host user
         $guest = Auth::user(); // guest user
-        $evaluations = $user->hostReviewsReceived; // host evaluations
+        $evaluations = $user->paginatedGuestReviewsReceived(5);
         $annonces = $host->annonces()->with('pictures')->get();
+
         // Get the booking code
         $sessionBookingCode = Session::get('booking_code');
         $bookingCode = BookingCode::where('code', $sessionBookingCode)->first();
+
         // Get the reservation if the booking code is validated
         if ($bookingCode && $bookingCode->validated) {
             $reservation = Reservation::where('user_id', $guest->id)
