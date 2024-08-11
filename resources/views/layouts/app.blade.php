@@ -18,13 +18,6 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
     <style>
-
-        .custom-logo {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
         .swiper-container {
             width: 50%;
             height: 100%;

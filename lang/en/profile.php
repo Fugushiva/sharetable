@@ -14,9 +14,5 @@ return [
     "host" => [
         "ads" => ":name's ads",
         "message" => "Send message",
-    ],
-    "guest" => [
-        'rating' => "rating",
-        'no_rating' => ":name has no rating yet",
     ]
 ];
