@@ -171,10 +171,14 @@ class HostController extends Controller
             ->where('status', 'active')
             ->get();
 
+        $evaluations = $user->guestReviewsReceived()->get();
+        $evaluationsAverage = round($evaluations->avg('rating'));
 
         return view('host.profile', [
             'user' => $user,
             'annonces' => $annonces,
+            'evaluations' => $evaluations,
+            'evaluationsAverage' => $evaluationsAverage
 
         ]);
     }
