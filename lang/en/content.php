@@ -27,6 +27,8 @@ return [
     'your_meal'=> 'Your meal',
     'pay'=> 'Payment',
     'host'=> 'Host',
+    'in' => 'in',
+    'our_best_host' => 'Our best hosts',
 
 
 

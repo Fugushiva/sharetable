@@ -25,13 +25,42 @@ class AnnonceController extends Controller
      */
     public function index()
     {
+        // Get all the active ads
         $annonces = Annonce::with('host', 'host.user', 'pictures')
             ->where('status', '=', 'active')
             ->paginate(15)
             ->fragment('annonces');
 
+        // get all the actives ads base on the user country
+        $user = User::find(auth()->id());
+        $annonceByCountry = Annonce::with('host', 'host.user', 'pictures')
+            ->where('status', '=', 'active')
+            ->where('country_id', $user->country_id)->get();
+
+        //get first ad of our 10 best host
+        $hosts = Host::all()->map(function($host) {
+
+            $user = $host->user;
+            $evaluations = $user->hostReviewsReceived()->get();
+            $host->average_rating = $evaluations->avg('rating');
+            return $host;
+        });
+
+        //get the 10 best host
+        $bestHosts = $hosts->sortByDesc('average_rating')->take(10);
+
+        $firstAdTable = $bestHosts->map(function($host) {
+            return $host->annonces()->first();
+        });
+
+
+
+
         return view('annonce.index', [
-            'annonces' => $annonces
+            'annonces' => $annonces,
+            'annonceByCountry' => $annonceByCountry,
+            'user' => $user,
+            'firstAdTable' => $firstAdTable
         ]);
     }
 
