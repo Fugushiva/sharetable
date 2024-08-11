@@ -7,24 +7,44 @@
 <body>
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 h-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-24"> <!-- Ajout de items-center ici -->
-            <div class="flex items-center"> <!-- Ajout de items-center ici -->
+        <div class="flex justify-between items-center h-24">
+            <div class="flex items-center">
+                <!-- Logo -->
                 <div class="shrink-0 flex items-center w-24 mt-4">
-                    <a href="{{ route('guest.index', Auth()->user()->id) }}">
-                        <x-application-logo class="custom-logo block fill-current text-gray-800"/>
-                    </a>
+                    <x-application-logo class="custom-logo block fill-current text-gray-800"/>
                 </div>
-
+                <!-- Dashboard Link -->
                 <div class="hidden space-x-8 sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('content.dashboard') }}
-                    </x-nav-link>
+                    @if(Auth::user())
+                        @if(Auth::user()->isHost())
+                            <x-nav-link :href="route('host.profile')" :active="request()->routeIs('host.profile')">
+                                {{ __('content.dashboard') }}
+                            </x-nav-link>
+                        @elseif(Auth::user()->hasRole('admin'))
+                            <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                                {{ __('content.admin') }}
+                            </x-nav-link>
+                        @elseif(Auth::user()->isGuest())
+                            <x-nav-link :href="route('profile.show')" :active="request()->routeIs('dashboard')">
+                                {{ __('content.dashboard') }}
+                            </x-nav-link>
+                        @endif
+                    @else
+                        <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                            {{ __('content.register') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                            {{ __('content.login') }}
+                        </x-nav-link>
+                    @endif
                 </div>
+                <!-- Listing Link -->
                 <div class="hidden space-x-8 sm:ms-10 sm:flex">
                     <x-nav-link :href="route('annonce.index')" :active="request()->routeIs('annonce.index')">
                         {{ __('content.listing') }}
                     </x-nav-link>
                 </div>
+                <!-- Host Link -->
                 <div class="hidden space-x-8 sm:ms-10 sm:flex">
                     @if (Auth::user() && !Auth::user()->host)
                         <x-nav-link :href="route('host.create')" :active="request()->routeIs('host.create')">
@@ -34,8 +54,8 @@
                         <x-nav-link :href="route('register')" :active="request()->routeIs('host.create')">
                             {{ __('content.become_host') }}
                         </x-nav-link>
-                    @elseif(Auth::user()->host)
-                        <x-nav-link :href="route('annonce.create')" :active="request()->routeIs('host.profile')">
+                    @else
+                        <x-nav-link :href="route('annonce.create')" :active="request()->routeIs('annonce.create')">
                             {{ __('content.create_experience') }}
                         </x-nav-link>
                     @endif
