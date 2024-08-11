@@ -95,7 +95,7 @@ class HostController extends Controller
     {
         $user = User::find($host->user_id); // host user
         $guest = Auth::user(); // guest user
-        $evaluations = $user->paginatedGuestReviewsReceived(5);
+        $evaluationsPerPage = $user->paginatedGuestReviewsReceived(5);
         $annonces = $host->annonces()->with('pictures')->get();
 
         // Get the booking code
@@ -120,6 +120,8 @@ class HostController extends Controller
                 ->first();
         }
 
+        $evaluations = $user->guestReviewsReceived()->get();
+        $evaluationsAverage = round($evaluations->avg('rating'));
 
 
 
@@ -128,9 +130,10 @@ class HostController extends Controller
             'host' => $host,
             'guest' => $guest,
             'annonces' => $annonces,
-            'evaluations' => $evaluations,
+            'evaluations' => $evaluationsPerPage,
             'bookingCode' => $bookingCode,
             'reservation' => $reservation,
+            'evaluationsAverage' => $evaluationsAverage,
             'showForm' => $bookingCode && $bookingCode->validated && $reservation,
             'existingEvaluation' => $existingEvaluation ?? null
         ]);
@@ -171,10 +174,14 @@ class HostController extends Controller
             ->where('status', 'active')
             ->get();
 
+        $evaluations = $user->guestReviewsReceived()->get();
+        $evaluationsAverage = round($evaluations->avg('rating'));
 
         return view('host.profile', [
             'user' => $user,
             'annonces' => $annonces,
+            'evaluations' => $evaluations,
+            'evaluationsAverage' => $evaluationsAverage
 
         ]);
     }

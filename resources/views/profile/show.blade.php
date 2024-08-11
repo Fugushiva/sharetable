@@ -40,7 +40,7 @@
                             </span>
                         @endfor
                     @else
-                        <span>{{__(['profile.no_rating', 'name' => $user->firstname])}}</span>
+                        <span>{{__('profile.no_rating')}}</span>
                     @endif
                 </p>
             </div>
@@ -83,7 +83,7 @@
                 </div>
             </div>
         @else
-            <p class="text-center mt-8">@lang('profile.no_upcoming_annonce')</p>
+            <p class="text-center mt-8">@lang('profile.host.no_upcoming_annonce')</p>
         @endif
     </section>
 
@@ -145,7 +145,7 @@
                 @endforeach
             </div>
         @else
-            <p class="text-center mt-8">@lang('profile.no_past_annonce')</p>
+            <p class="text-center mt-8">@lang('profile.host.no_past_annonce')</p>
         @endif
     </section>
 

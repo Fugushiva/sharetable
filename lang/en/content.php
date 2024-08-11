@@ -29,6 +29,33 @@ return [
     'host'=> 'Host',
     'in' => 'in',
     'our_best_host' => 'Our best hosts',
+    'admin_panel' => 'Admin panel',
+
+    "days" => [
+        'Mon' => 'Monday',
+        'Tue' => 'Tuesday',
+        'Wed' => 'Wednesday',
+        'Thu' => 'Thursday',
+        'Fri' => 'Friday',
+        'Sat' => 'Saturday',
+        'Sun' => 'Sunday',
+    ],
+
+    'months' => [
+        'january' => 'January',
+        'february' => 'February',
+        'march' => 'March',
+        'april' => 'April',
+        'may' => 'May',
+        'june' => 'June',
+        'july' => 'July',
+        'august' => 'August',
+        'september' => 'September',
+        'october' => 'October',
+        'november' => 'November',
+        'december' => 'December',
+    ],
+
 
 
 
