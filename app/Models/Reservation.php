@@ -116,4 +116,5 @@ class Reservation extends Model
     {
         return $this->status === 'active';
     }
+
 }

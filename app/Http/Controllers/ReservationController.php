@@ -27,7 +27,10 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::activeForUser(auth()->id())->get();
+        $reservations = Reservation::activeForUser(auth()->id())
+        ->whereHas('annonce', function($query){
+            $query->where('schedule', '>', now());
+        })->get();
 
 
         return view('reservation.index', compact('reservations',));

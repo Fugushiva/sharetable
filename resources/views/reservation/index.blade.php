@@ -5,22 +5,22 @@
     <section class="mt-8">
         <h1 class="text-3xl font-bold mb-6 text-center">@lang('content.reservation_list')</h1>
         <div class="flex justify-center">
-            <table class="min-w-full bg-white border border-gray-300">
-                <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b text-center">Hôte</th>
-                    <th class="py-2 px-4 border-b text-center">Lieu</th>
-                    <th class="py-2 px-4 border-b text-center">Prix</th>
-                    <th class="py-2 px-4 border-b text-center">Date</th>
-                    <th class="py-2 px-4 border-b text-center">Annonce</th>
-                    <th class="py-2 px-4 border-b text-center">Action</th>
+            <table class="w-3/4 mx-auto bg-white border border-gray-300">
+                <thead class="bg-red-750">
+                <tr class="text-white text-center">
+                    <th class="py-2 px-4 border-b ">{{__('annonce.host')}}</th>
+                    <th class="py-2 px-4 border-b ">{{__('annonce.place')}}</th>
+                    <th class="py-2 px-4 border-b ">{{__('annonce.price')}}</th>
+                    <th class="py-2 px-4 border-b">{{__('annonce.date')}}</th>
+                    <th class="py-2 px-4 border-b">{{__('annonce.ad')}}</th>
+                    <th class="py-2 px-4 border-b">{{__('annonce.action')}}</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($reservations as $reservation)
                     <tr class="hover:bg-gray-100">
                         <td class="py-2 px-4 border-b flex items-center justify-center text-center">
-                            <img src="{{ image_path($reservation->annonce->host->user->profile_picture) }}" class="w-10 h-10 rounded-full mr-2">
+                            <img src="{{ asset($reservation->annonce->host->user->profile_picture) }}" class="w-10 h-10 rounded-full mr-2">
                             <div>
                                 <a href="{{ route('host.show', $reservation->annonce->host->id) }}" class="font-medium">
                                     {{ $reservation->annonce->host->user->firstname }}
@@ -46,7 +46,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
-                                <button type="submit" class="btn-secondary cancel-button">Annuler</button>
+                                <button type="submit" class="btn-secondary cancel-button">{{__('annonce.cancel')}}</button>
                             </form>
                         </td>
                     </tr>

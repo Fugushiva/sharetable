@@ -14,5 +14,12 @@ return [
     "host" => [
         "ads" => "Annonces de :name",
         "message" => "Envoyer un message",
+    ],
+
+    "guest" => [
+        'rating' => "note",
+        'no_rating' => ":name n'a pas encore de note",
     ]
+
+
 ];

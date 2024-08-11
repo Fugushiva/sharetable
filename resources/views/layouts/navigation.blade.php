@@ -5,29 +5,27 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 h-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <div class="shrink-0 flex items-center">
-                    @if(Auth()->user())
-                        <a href="{{ route('guest.index', Auth()->user()->id) }}">
-                            <x-application-logo class="block h-9 w-auto fill-current text-gray-800"/>
-                        </a>
-                    @endif
+        <div class="flex justify-between items-center h-24"> <!-- Ajout de items-center ici -->
+            <div class="flex items-center"> <!-- Ajout de items-center ici -->
+                <div class="shrink-0 flex items-center w-24 mt-4">
+                    <a href="{{ route('guest.index', Auth()->user()->id) }}">
+                        <x-application-logo class="custom-logo block fill-current text-gray-800"/>
+                    </a>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('content.dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:ms-10 sm:flex">
                     <x-nav-link :href="route('annonce.index')" :active="request()->routeIs('annonce.index')">
                         {{ __('content.listing') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:ms-10 sm:flex">
                     @if (Auth::user() && !Auth::user()->host)
                         <x-nav-link :href="route('host.create')" :active="request()->routeIs('host.create')">
                             {{ __('content.become_host') }}
@@ -45,7 +43,7 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <div class="w-full">
+                <div class="w-full flex items-center"> <!-- Ajout de flex items-center -->
                     <form id="language-form" action="{{ route('change.language') }}" method="POST">
                         @csrf
                         <select id="language" class="w-1/2 mr-12 select" name="language"
@@ -60,12 +58,12 @@
                     </form>
                 </div>
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-4"> <!-- Ajout de items-center ici -->
                     <!-- Notification -->
                     <div id="notification-container" class="relative">
                         <i class="fa-solid fa-bell cursor-pointer text-3xl relative" id="notification-icon">
-            <span id="notification-count"
-                  class="absolute bottom-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+                            <span id="notification-count"
+                                  class="absolute bottom-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
                         </i>
                         <ul id="notification-list"
                             class="hidden absolute top-8 right-0 bg-white border border-gray-300 rounded-md w-80 max-h-80 overflow-y-auto shadow-lg">
@@ -125,7 +123,6 @@
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-
                                 <x-dropdown-link :href="route('logout')"
                                                  onclick="event.preventDefault();
                                                     this.closest('form').submit();">
