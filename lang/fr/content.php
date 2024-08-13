@@ -31,5 +31,31 @@ return [
     'our_best_host' => 'Nos meilleurs hôtes',
     'admin_panel' => 'Panneau d\'administration',
 
+    "days" => [
+        'Mon' => 'Lundi',
+        'Tue' => 'Mardi',
+        'Wed' => 'Mercredi',
+        'Thu' => 'Jeudi',
+        'Fri' => 'Vendredi',
+        'Sat' => 'Samedi',
+        'Sun' => 'Dimanche',
+    ],
+
+    'months' => [
+        'january' => 'Janvier',
+        'february' => 'Février',
+        'march' => 'Mars',
+        'april' => 'Avril',
+        'may' => 'Mai',
+        'june' => 'Juin',
+        'july' => 'Juillet',
+        'august' => 'Août',
+        'september' => 'Septembre',
+        'october' => 'Octobre',
+        'november' => 'Novembre',
+        'december' => 'Décembre',
+    ],
+
+
 
 ];

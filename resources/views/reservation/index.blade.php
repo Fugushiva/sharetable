@@ -9,11 +9,11 @@
                 <thead class="bg-red-750">
                 <tr class="text-white text-center">
                     <th class="py-2 px-4 border-b ">{{__('annonce.host')}}</th>
-                    <th class="py-2 px-4 border-b ">{{__('annonce.place')}}</th>
-                    <th class="py-2 px-4 border-b ">{{__('annonce.price')}}</th>
-                    <th class="py-2 px-4 border-b">{{__('annonce.date')}}</th>
-                    <th class="py-2 px-4 border-b">{{__('annonce.ad')}}</th>
-                    <th class="py-2 px-4 border-b">{{__('annonce.action')}}</th>
+                    <th class="py-2 px-4 border-b ">{{__('annonce.data.cuisine')}}</th>
+                    <th class="py-2 px-4 border-b ">{{__('annonce.data.price')}}</th>
+                    <th class="py-2 px-4 border-b">{{__('annonce.data.date')}}</th>
+                    <th class="py-2 px-4 border-b">{{__('annonce.data.title')}}</th>
+                    <th class="py-2 px-4 border-b">{{__('annonce.actions.title')}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,13 +28,13 @@
                             </div>
                         </td>
                         <td class="py-2 px-4 border-b text-center">
-                            {{ $reservation->annonce->host->user->country->name }}, {{ $reservation->annonce->host->user->city->name }}
+                            {{ __('country.'.$reservation->country->iso2) }}
                         </td>
                         <td class="py-2 px-4 border-b text-center">
                             {{ $reservation->annonce->price }} €
                         </td>
                         <td class="py-2 px-4 border-b text-center">
-                            {{ Carbon::parse($reservation->annonce->schedule)->format('d/m/Y H:i') }}
+                            {{ __('content.days.'.Carbon::parse($reservation->annonce->schedule)->format('D')) }} {{ Carbon::parse($reservation->annonce->schedule)->format('d/m/Y') }}
                         </td>
                         <td class="py-2 px-4 border-b text-center">
                             <a href="{{ route('annonce.show', $reservation->annonce->id) }}" class="text-orange-600 hover:text-orange-800 underline">
@@ -46,7 +46,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
-                                <button type="submit" class="btn-secondary cancel-button">{{__('annonce.cancel')}}</button>
+                                <button type="submit" class="btn-secondary cancel-button">{{__('annonce.actions.cancel')}}</button>
                             </form>
                         </td>
                     </tr>

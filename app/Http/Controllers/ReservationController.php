@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use Nnjeim\World\Models\Country;
 use Stripe\Checkout\Session as stripeSession;
 use Stripe\Stripe;
 
@@ -28,12 +29,24 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::activeForUser(auth()->id())
-        ->whereHas('annonce', function($query){
-            $query->where('schedule', '>', now());
-        })->get();
+            ->whereHas('annonce', function ($query) {
+                $query->where('schedule', '>', now());
+            })->get();
+
+        $cuisines = $reservations->pluck('annonce.cuisine');
+        $countries = Country::whereIn('name', $cuisines)->get();
 
 
-        return view('reservation.index', compact('reservations',));
+        $reservations->each(function ($reservation) use ($countries) {
+            $cuisine = $reservation->annonce->cuisine;
+            $country = $countries->firstWhere('name', $cuisine);
+            $reservation->country = $country;
+        });
+
+
+
+
+        return view('reservation.index', compact(['reservations', 'cuisines'],));
     }
 
 
