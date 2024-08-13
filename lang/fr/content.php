@@ -22,16 +22,14 @@ return [
     'create_experience' => 'Créer une expérience',
     'my_reservations' => 'Mes réservations',
     'reservation_list' => 'Liste des réservations',
-    'book'=> 'Réserver',
-    'booking_summary'=> 'Résumé de la réservation',
-    'your_meal'=> 'Votre repas',
-    'pay'=> 'Paiement',
-    'host'=> 'Hôte',
+    'book' => 'Réserver',
+    'booking_summary' => 'Résumé de la réservation',
+    'your_meal' => 'Votre repas',
+    'pay' => 'Paiement',
+    'host' => 'Hôte',
     'in' => 'en',
     'our_best_host' => 'Nos meilleurs hôtes',
-
-
-
+    'admin_panel' => 'Panneau d\'administration',
 
 
 ];

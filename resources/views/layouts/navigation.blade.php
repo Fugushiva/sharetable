@@ -139,7 +139,11 @@
                             <x-dropdown-link :href="route('reservation.index')">
                                 {{ __('content.my_reservations') }}
                             </x-dropdown-link>
-
+                            @if(Auth::user()->hasRole('admin'))
+                                <x-dropdown-link :href="route('filament.admin.pages.dashboard')">
+                                    {{ __('content.admin_panel') }}
+                                </x-dropdown-link>
+                            @endif
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
