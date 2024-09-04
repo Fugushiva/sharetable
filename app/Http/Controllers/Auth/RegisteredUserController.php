@@ -75,9 +75,10 @@ class RegisteredUserController extends Controller
         $guestProfile = Profile::where('profile', 'guest')->first();
         $user->profiles()->attach($guestProfile);
 
-        Mail::to($user->email)->send(new UserRegistered($user));
 
-        event(new Registered($user));
+        //Mail::to($user->email)->send(new UserRegistered($user));
+
+        //event(new Registered($user));
 
         Auth::login($user);
 

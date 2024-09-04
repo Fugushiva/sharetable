@@ -17,40 +17,48 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($reservations as $reservation)
-                    <tr class="hover:bg-gray-100">
-                        <td class="py-2 px-4 border-b flex items-center justify-center text-center">
-                            <img src="{{ asset($reservation->annonce->host->user->profile_picture) }}" class="w-10 h-10 rounded-full mr-2">
-                            <div>
-                                <a href="{{ route('host.show', $reservation->annonce->host->id) }}" class="font-medium">
-                                    {{ $reservation->annonce->host->user->firstname }}
-                                </a>
-                            </div>
-                        </td>
-                        <td class="py-2 px-4 border-b text-center">
-                            {{ __('country.'.$reservation->country->iso2) }}
-                        </td>
-                        <td class="py-2 px-4 border-b text-center">
-                            {{ $reservation->annonce->price }} €
-                        </td>
-                        <td class="py-2 px-4 border-b text-center">
-                            {{ __('content.days.'.Carbon::parse($reservation->annonce->schedule)->format('D')) }} {{ Carbon::parse($reservation->annonce->schedule)->format('d/m/Y') }}
-                        </td>
-                        <td class="py-2 px-4 border-b text-center">
-                            <a href="{{ route('annonce.show', $reservation->annonce->id) }}" class="text-orange-600 hover:text-orange-800 underline">
-                                {{ $reservation->annonce->title }}
-                            </a>
-                        </td>
-                        <td class="py-2 px-4 border-b text-center">
-                            <form action="{{ route('stripe.refund') }}" method="post" class="cancel-form">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
-                                <button type="submit" class="btn-secondary cancel-button">{{__('annonce.actions.cancel')}}</button>
-                            </form>
+                @if($reservations->isEmpty())
+                    <tr>
+                        <td colspan="6" class="text-center py-4">
+                            {{__('content.no_reservations')}}
                         </td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach($reservations as $reservation)
+                        <tr class="hover:bg-gray-100">
+                            <td class="py-2 px-4 border-b flex items-center justify-center text-center">
+                                <img src="{{ asset($reservation->annonce->host->user->profile_picture) }}" class="w-10 h-10 rounded-full mr-2">
+                                <div>
+                                    <a href="{{ route('host.show', $reservation->annonce->host->id) }}" class="font-medium">
+                                        {{ $reservation->annonce->host->user->firstname }}
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="py-2 px-4 border-b text-center">
+                                {{ __('country.'.$reservation->country->iso2) }}
+                            </td>
+                            <td class="py-2 px-4 border-b text-center">
+                                {{ $reservation->annonce->price }} €
+                            </td>
+                            <td class="py-2 px-4 border-b text-center">
+                                {{ __('content.days.'.Carbon::parse($reservation->annonce->schedule)->format('D')) }} {{ Carbon::parse($reservation->annonce->schedule)->format('d/m/Y') }}
+                            </td>
+                            <td class="py-2 px-4 border-b text-center">
+                                <a href="{{ route('annonce.show', $reservation->annonce->id) }}" class="text-orange-600 hover:text-orange-800 underline">
+                                    {{ $reservation->annonce->title }}
+                                </a>
+                            </td>
+                            <td class="py-2 px-4 border-b text-center">
+                                <form action="{{ route('stripe.refund') }}" method="post" class="cancel-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
+                                    <button type="submit" class="btn-secondary cancel-button">{{__('annonce.actions.cancel')}}</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
                 </tbody>
             </table>
         </div>
