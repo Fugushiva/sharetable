@@ -7,13 +7,44 @@
             <div>
                 <p class="text-2xl font-bold text-gray-800">{{$host->user->firstname}} {{$host->user->lastname}}</p>
                 <p class="text-sm text-red-750">{{$host->user->country->name}}, {{$host->user->city->name}}</p>
+                <div class="mt-6">
+                    <a href="{{ route('conversations.create', ['recipient_id' => $host->user->id]) }}"
+                       class="btn-validate">
+                        {{ __('profile.host.message') }}
+                    </a>
+                </div>
             </div>
-            <div class="mt-6">
-                <a href="{{ route('conversations.create', ['recipient_id' => $host->user->id]) }}" class="btn-validate">
-                    {{ __('profile.host.message') }}
-                </a>
-            </div>
+
+            <!-- rating -->
+            @if($evaluations)
+                <div class="ml-auto">
+                    <p class="font-bold">Rating :
+                        @if($evaluationsAverage)
+                            @for($i = 0; $i < $evaluationsAverage; $i++)
+                                <span>
+                    <i class="fa-solid fa-star" style="color: #991a14"></i>
+                </span>
+                            @endfor
+                            @for($i = 5; $i > $evaluationsAverage; $i--)
+                                <span>
+                    <i class="fa-regular fa-star" style="color: #991a14"></i>
+                </span>
+                            @endfor
+                        @else
+                            <span>{{__('profile.no_rating')}}</span>
+                        @endif
+                    </p>
+                </div>
+            @else
+                <div class="ml-auto">
+                    <p class="font-bold">Rating :
+                        <span>{{__('profile.no_rating', ['name' => $host->user->firstname])}}</span>
+                    </p>
+                    @endif
+                </div>
         </div>
+
+
         <div class="mt-6">
             <h2 class="text-xl font-bold text-gray-700">@lang('content.about') {{$host->user->firstname}}</h2>
             <p class="mt-3 text-gray-600">{{$host->bio}}</p>
@@ -74,6 +105,10 @@
                         </div>
                     @endforeach
                 </div>
+            @else
+                <div class="flex justify-center text-center mx-auto mb-2">
+                    <h1 class="text-3xl font-bold text-red-750">{{__('profile.host.no_ads')}}</h1>
+                </div>
             @endif
         </div>
     </section>
@@ -87,36 +122,40 @@
             {{ $evaluations->links() }}
         </div>
         <div class="space-y-4">
-            @foreach($evaluations as $evaluation)
-                <div class="rounded-lg  p-4 flex items-start">
-                    <img src="{{ asset($evaluation->reviewer->profile_picture) }}" alt="Reviewer profile picture"
-                         class="w-16 h-16 rounded-full  mr-4">
-                    <div>
-                        <p class="text-lg font-semibold text-gray-800">{{ $evaluation->reviewer->firstname}}</p>
-                        <p class="text-red-750 text-sm ">{{ $evaluation->reviewer->country->name}}</p>
+            @if($evaluations)
+                @foreach($evaluations as $evaluation)
+                    <div class="rounded-lg  p-4 flex items-start">
+                        <img src="{{ asset($evaluation->reviewer->profile_picture) }}" alt="Reviewer profile picture"
+                             class="w-16 h-16 rounded-full  mr-4">
+                        <div>
+                            <p class="text-lg font-semibold text-gray-800">{{ $evaluation->reviewer->firstname}}</p>
+                            <p class="text-red-750 text-sm ">{{ $evaluation->reviewer->country->name}}</p>
 
-                        <p class="text-xs text-red-750">{{ $evaluation->created_at->format('M j, Y') }}</p>
-                        <div class="flex items-center mt-2">
-                            @for ($i = 0; $i < 5; $i++)
-                                @if ($i < $evaluation->rating)
-                                    <svg class="w-5 h-5 text-red-750" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                    </svg>
-                                @else
-                                    <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                    </svg>
-                                @endif
-                            @endfor
+                            <p class="text-xs text-red-750">{{ $evaluation->created_at->format('M j, Y') }}</p>
+                            <div class="flex items-center mt-2">
+                                @for ($i = 0; $i < 5; $i++)
+                                    @if ($i < $evaluation->rating)
+                                        <svg class="w-5 h-5 text-red-750" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                        </svg>
+                                    @else
+                                        <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                        </svg>
+                                    @endif
+                                @endfor
+                            </div>
+                            <comment class="text-gray-600 text-lg mt-2"> {{ $evaluation->comment }}</comment>
                         </div>
-                        <comment class="text-gray-600 text-lg mt-2"> {{ $evaluation->comment }}</comment>
                     </div>
+                @endforeach
+            @else
+                <div class="flex justify-center text-center mx-auto mb-2">
+                    <h1 class="text-3xl font-bold text-red-750">@lang('profile.no_rating')</h1>
                 </div>
-            @endforeach
+            @endif
         </div>
-
     </section>
-
 </x-app-layout>

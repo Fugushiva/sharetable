@@ -25,7 +25,7 @@
                 </span>
                         @endfor
                     @else
-                        <span>{{__(['profile.no_rating', 'name' => $user->firstname])}}</span>
+                        <span>{{__('profile.no_rating')}}</span>
                     @endif
                 </p>
             </div>
