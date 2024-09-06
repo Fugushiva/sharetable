@@ -68,6 +68,12 @@ return [
         'evaluate' => 'Evaluate :name',
     ],
 
+    'message' => [
+        "send" => "Send message",
+        "answer" => "Answer",
+        "between" => "Conversation between you and :user",
+    ],
+
 
 
 ];

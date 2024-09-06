@@ -2,7 +2,7 @@
 
 return [
 
-    'dashboard' => 'Tableau de bord',
+
     'listing' => 'Annonces',
     'become_host' => 'Devenir Hôte',
     'profile' => 'Mon profil',
@@ -56,6 +56,20 @@ return [
         'december' => 'Décembre',
     ],
 
-
+    "dashboard" => [
+        "title" => "Tableau de bord",
+        "exchange" => "Échange culturel et culinaire",
+        "exchange_text" => "Découvrez le monde à travers la nourriture et partagez votre culture avec les autres",
+        "find" => "Trouver une expérience",
+        "become_host" => "Devenir hôte",
+        "discover" => "Découvrez des expériences culinaires uniques",
+        "discover_text" => "Explorez le monde à travers la nourriture et la culture. Des repas faits maison authentiques aux cours de cuisine pratiques, il y en a pour tous les goûts.",
+        "experience_search" => "Rechercher une expérience",
+        "experience_search_text" => "Trouvez l'expérience parfaite pour vous. Recherchez par ville, cuisine, etc.",
+        "cuisine_discovery" => "Découverte de cuisine",
+        "cuisine_discovery_text" => "Parcourez une variété de cuisines et découvrez de nouvelles saveurs",
+        "experience_sharing" => "Partage d'expérience",
+        "experience_sharing_text" => "Partagez vos compétences culinaires et traditions culturelles",
+    ]
 
 ];

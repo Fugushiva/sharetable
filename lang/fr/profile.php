@@ -18,5 +18,17 @@ return [
         "no_ads" => "Pas encore d'annonce",
         "no_upcoming_annonce" => "Pas d'annonce à venir",
         "no_past_annonce" => "Pas d'annonce passée",
+    ],
+
+    "guest" => [
+        "no_reservation" => "Vous n'avez pas encore de réservation, commencez par réserver une expérience",
+    ],
+
+    "conversation" => [
+        "title" => "Vos conversations",
+        "no_conversation" => "Vous n'avez pas encore de conversation",
+        "send_message_to" => "Envoyer un message à :name",
+
     ]
+
 ];

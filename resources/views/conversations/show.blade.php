@@ -24,10 +24,10 @@
         <form action="{{ route('conversations.reply', $thread->id) }}" method="post" class="mt-4">
             @csrf
             <div class="mb-4">
-                <label for="body" class="block text-gray-700 font-medium mb-2">Réponse</label>
+                <label for="body" class="block text-gray-700 font-medium mb-2">{{__('forms.message.answer')}}</label>
                 <textarea name="body" id="body" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" required></textarea>
             </div>
-            <button type="submit" class="w-full btn-validate">Envoyer</button>
+            <button type="submit" class="w-full btn-validate">{{__('forms.message.send')}}</button>
         </form>
     </section>
 </x-app-layout>

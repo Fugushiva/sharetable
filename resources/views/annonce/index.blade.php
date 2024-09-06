@@ -8,7 +8,7 @@
             <div class="border border-gray-300 rounded-lg shadow-lg w-1/4 p-5 bg-white">
                 <div class="flex flex-col">
                     <div class="flex mb-4">
-                        <img src="{{ asset($firstAd->host->user->profile_picture) }}"
+                        <img src="{{ asset($firstAd->host->user->profile_picture)  }}"
                              class="w-16 h-16 rounded-full mr-4">
                         <div class="flex flex-col">
                             <p class="font-medium"><a

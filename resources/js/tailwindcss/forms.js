@@ -46,6 +46,16 @@ module.exports = {
             backgroundPositionX: 'calc(100% - 10px)',
             backgroundPositionY: 'center'
         },
+        '.textarea': {
+            padding: '10px',
+            borderRadius: '12px',
+            backgroundColor: '#F5F0F0',
+            border: '1px solid #ddd',
+            '&:focus': {
+                border: '1px solid #991A14',
+                outline: 'none'
+            }
+        },
 
 
     }

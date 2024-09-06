@@ -2,7 +2,6 @@
 
 return [
 
-    'dashboard' => 'Dashboard',
     'listing' => 'Listing',
     'become_host' => 'Become a host',
     'profile' => 'My profile',
@@ -56,7 +55,20 @@ return [
         'december' => 'December',
     ],
 
-
-
+    "dashboard" => [
+        "title" => "Dashboard",
+        "exchange" => "Cultural and culinary exchange",
+        "exchange_text" => "Discover the world through food and share your culture with others",
+        "find" => "Find an experience",
+        "become_host" => "Become a host",
+        "discover" => "Discover unique food experiences",
+        "discover_text" => "Explore the world through food and culture. From authentic home-cooked meals to hands on cooking classes, there is something for everyone.",
+        "experience_search" => "search for an experience",
+        "experience_search_text" => "Find the perfect experience for you. Search by city, cuisine..",
+        "cuisine_discovery" => "Cuisine discovery",
+        "cuisine_discovery_text" => "Browse through a variety of cuisines and discover new flavors",
+        "experience_sharing" => "Experience sharing",
+        "experience_sharing_text" => "Share your culture and culinary skills and cultural traditions",
+    ]
 
 ];

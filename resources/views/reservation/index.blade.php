@@ -5,6 +5,13 @@
     <section class="mt-8">
         <h1 class="text-3xl font-bold mb-6 text-center">@lang('content.reservation_list')</h1>
         <div class="flex justify-center">
+            @if($reservations->isEmpty())
+                <tr>
+                    <td colspan="6" class="text-center py-4">
+                        {{__('profile.guest.no_reservation')}}
+                    </td>
+                </tr>
+            @else
             <table class="w-3/4 mx-auto bg-white border border-gray-300">
                 <thead class="bg-red-750">
                 <tr class="text-white text-center">
@@ -17,13 +24,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if($reservations->isEmpty())
-                    <tr>
-                        <td colspan="6" class="text-center py-4">
-                            {{__('content.no_reservations')}}
-                        </td>
-                    </tr>
-                @else
+
                     @foreach($reservations as $reservation)
                         <tr class="hover:bg-gray-100">
                             <td class="py-2 px-4 border-b flex items-center justify-center text-center">

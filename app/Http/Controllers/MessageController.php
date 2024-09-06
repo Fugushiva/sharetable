@@ -41,7 +41,7 @@ class MessageController extends Controller
         ]);
 
         $thread = Thread::create([
-            'subject' => 'Conversation entre ' . Auth::user()->firstname . ' et ' . User::find($validated['recipient_id'])->firstname,
+            'subject' => __('forms.message.between', ['user' => User::find($validated['recipient_id'])->firstname])
         ]);
 
         $message = Message::create([

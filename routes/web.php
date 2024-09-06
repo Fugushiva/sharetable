@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware([SetUserLocale::class])->group(function () {
     Route::get('/', function () {
         return view('welcome');
-    });
+    })->name('welcome');
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('welcome');
 
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    })->middleware(['auth', 'verified'])->name('welcome');
 
     Route::middleware('auth')->group(function () {
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');

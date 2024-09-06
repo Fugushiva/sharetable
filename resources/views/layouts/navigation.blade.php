@@ -18,7 +18,7 @@
                     @if(Auth::user())
                         @if(Auth::user()->isHost())
                             <x-nav-link :href="route('host.profile')" :active="request()->routeIs('host.profile')">
-                                {{ __('content.dashboard') }}
+                                {{ __('content.dashboard.title') }}
                             </x-nav-link>
                         @elseif(Auth::user()->hasRole('admin'))
                             <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
@@ -26,7 +26,7 @@
                             </x-nav-link>
                         @elseif(Auth::user()->isGuest())
                             <x-nav-link :href="route('profile.show')" :active="request()->routeIs('dashboard')">
-                                {{ __('content.dashboard') }}
+                                {{ __('content.dashboard.title') }}
                             </x-nav-link>
                         @endif
                     @else
@@ -133,9 +133,15 @@
                             <x-dropdown-link :href="route('profile.show')">
                                 {{ __('content.profile') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('host.profile')">
-                                {{ __('content.switch_host') }}
-                            </x-dropdown-link>
+                            @if(Auth::user()->isHost())
+                                <x-dropdown-link :href="route('host.profile')">
+                                    {{ __('content.switch_host') }}
+                                </x-dropdown-link>
+                            @else
+                                <x-dropdown-link :href="route('host.create')">
+                                    {{ __('content.become_host') }}
+                                </x-dropdown-link>
+                            @endif
                             <x-dropdown-link :href="route('reservation.index')">
                                 {{ __('content.my_reservations') }}
                             </x-dropdown-link>
@@ -185,8 +191,8 @@
 
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('content.dashboard') }}
+            <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
+                {{ __('content.dashboard.title') }}
             </x-responsive-nav-link>
         </div>
 

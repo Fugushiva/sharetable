@@ -1,8 +1,8 @@
 <x-app-layout>
     <section class="max-w-2xl mx-auto mt-8 p-4 bg-white rounded-lg shadow-lg">
-        <h1 class="text-2xl font-semibold mb-4 text-center">Vos Conversations</h1>
+        <h1 class="text-2xl font-semibold mb-4 text-center">{{__('profile.conversation.title')}}</h1>
         @if($threads->isEmpty())
-            <p class="text-gray-500 text-center">Vous n'avez aucune conversation.</p>
+            <p class="text-gray-500 text-center">{{__('profile.conversation.no_conversation')}}</p>
         @else
             <ul class="space-y-4">
                 @foreach($threads as $thread)
