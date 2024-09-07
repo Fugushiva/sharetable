@@ -19,6 +19,8 @@ return [
         "no_ads" => "No ads yet",
         "no_upcoming_annonce" => "No upcoming ads",
         "no_past_annonce" => "No past ads",
+        "my_ads" => "My ads",
+        'my_evaluation' => 'My evaluations',
     ],
 
     "guest" => [
