@@ -10,6 +10,7 @@ return [
     'past_experience' => 'Expérience passée',
     'annonce_details' => 'Voir les détails',
     'no_rating' => 'Pas encore d\'évaluation',
+    'note' => 'Note',
 
     //host profile
     "host" => [

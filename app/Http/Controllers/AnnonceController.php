@@ -86,6 +86,7 @@ class AnnonceController extends Controller
      */
     public function store(StoreAnnonceRequest $request)
     {
+
         // Récupère l'hôte qui a créé l'annonce
         $host = Host::getCurrentUser();
         $user = User::find(auth()->id());
@@ -93,6 +94,7 @@ class AnnonceController extends Controller
         $validated = $request->validated();
         $validated['host_id'] = $host->id;
         $validated['country_id'] = $user->country_id;
+        $validated['cuisine'] = Country::where('name', $validated['cuisine'])->first()->iso2;
 
         $annonce = Annonce::create($validated);
 

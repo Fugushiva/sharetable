@@ -33,7 +33,7 @@
                     <span class="text-red-500 mr-2">
                       <i class="fa-solid fa-bowl-food text-red-750 text-3xl"></i>
                     </span>
-                    <p class="text-gray-700 text-2xl leading-relaxed">Dîner, {{__('country.'. $annonceCuisine->iso2)}}</p>
+                    <p class="text-gray-700 text-2xl leading-relaxed">Dîner, {{__('country.'. $annonce->cuisine)}}</p>
                 </div>
             </div>
             <div class="flex items-start">

@@ -28,7 +28,7 @@ class StoreAnnonceRequest extends FormRequest
             'price' => ['required', 'numeric', 'min:0.01'], // price must be a positive number
             'cuisine' => ['required', 'string', 'exists:countries,name'], // cuisine must be a valid country name
             'max_guest' => ['required', 'numeric', 'min:1', 'max:8'], // max 8 guests
-            'pictures.*' => ['image', 'mimes:jpeg,jpg,png', 'max:2048'], // max 2MB per picture
+            'pictures.*' => ['image', 'mimes:jpeg,jpg,png,jfif,webp', 'max:2048'], // max 2MB per picture
             'pictures' => ['required', 'array', 'max:6'] // max 6 pictures
         ];
     }

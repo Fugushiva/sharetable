@@ -98,6 +98,7 @@ class HostController extends Controller
         $evaluationsPerPage = $user->paginatedGuestReviewsReceived(5);
         $annonces = $host->annonces()->with('pictures')->get();
 
+
         // Get the booking code
         $sessionBookingCode = Session::get('booking_code');
         $bookingCode = BookingCode::where('code', $sessionBookingCode)->first();

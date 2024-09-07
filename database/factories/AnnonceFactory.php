@@ -29,7 +29,7 @@ class AnnonceFactory extends Factory
             'schedule' => $this->faker->dateTimeBetween('-3months', '+1 year'),
             'price' => $this->faker->randomFloat(2, 10, 50),
             'max_guest' => $this->faker->numberBetween(1, 8),
-            'cuisine' => Country::inRandomOrder()->first()->name ?? 21, // Belgium
+            'cuisine' => Country::inRandomOrder()->first()->iso2 ?? 21, // Belgium
             'host_id' => $host->id, // foreign key
             'country_id' => $user->country_id,
         ];

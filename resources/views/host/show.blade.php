@@ -18,7 +18,7 @@
             <!-- rating -->
             @if($evaluations)
                 <div class="ml-auto">
-                    <p class="font-bold">Rating :
+                    <p class="font-bold">{{__('profile.note')}} :
                         @if($evaluationsAverage)
                             @for($i = 0; $i < $evaluationsAverage; $i++)
                                 <span>
@@ -42,7 +42,6 @@
                     </p>
                     @endif
                 </div>
-        </div>
 
 
         <div class="mt-6">
@@ -95,7 +94,12 @@
                             class="border border-gray-200 rounded-lg shadow-lg p-5 bg-white transform transition-transform hover:scale-105 w-full max-w-xs mx-auto border-solid">
                             <div class="flex flex-col items-center">
                                 <p class="mb-2 text-sm font-bold text-red-750">{{ $annonce->title }}</p>
-                                <p>{{__('annonce.cuisine')}} {{ $annonce->cuisine }}</p>
+                                <div class="flex items-center">
+                                    <span class="text-red-500 mr-2">
+                                        <i class="fa-solid fa-bowl-food text-red-750 text-sm"></i>
+                                    </span>
+                                    <p>{{ __('country.' . $annonce->cuisine) }}</p>
+                                </div>
                                 <a href="{{ route('annonce.show', $annonce->id) }}" class="w-full h-48 overflow-hidden">
                                     <img src="{{ asset($annonce->pictures[0]->path) }}"
                                          class="w-full h-full object-cover rounded">

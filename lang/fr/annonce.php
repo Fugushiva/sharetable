@@ -21,6 +21,7 @@ return [
 
 
     "actions" => [
+        'action' => 'Action',
         'title' => 'Action',
         'details' => 'Détails',
         'delete' => 'Supprimer',
