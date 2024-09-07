@@ -21,6 +21,7 @@ return [
         "no_past_annonce" => "Pas d'annonce passée",
         "my_ads" => "Mes annonces",
         'my_evaluation' => 'Mes évaluations',
+        'stripe_connect' => 'Connecter Stripe',
     ],
 
     "guest" => [

@@ -15,3 +15,6 @@ Route::get('/profile/host', [HostController::class, 'profile'])
 Route::get('/host/{host}', [HostController::class, 'show'])
     ->name('host.show')
     ->where('id', '[0-9]+');
+Route::get('/host/{host}/stripe-connect', [HostController::class, 'connectStripe'])
+    ->name('host.stripe-connect')
+    ->where('id', '[0-9]+');

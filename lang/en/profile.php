@@ -21,6 +21,7 @@ return [
         "no_past_annonce" => "No past ads",
         "my_ads" => "My ads",
         'my_evaluation' => 'My evaluations',
+        'stripe_connect' => 'Stripe Connect',
     ],
 
     "guest" => [
