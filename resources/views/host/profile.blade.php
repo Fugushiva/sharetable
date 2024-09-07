@@ -8,7 +8,6 @@
                 <div>
                     <p class="text-2xl font-bold text-red-750">{{$user->firstname}} {{$user->lastname}}</p>
                     <p class="text-sm text-gray-600">{{$user->country->name}}, {{$user->city->name}}</p>
-                    <a href="{{route('host.stripe-connect', $user->host->id)}}">@lang('profile.host.stripe_connect')</a>
                 </div>
             </div>
             <!-- rating -->

@@ -30,6 +30,7 @@ return [
     'in' => 'en',
     'our_best_host' => 'Nos meilleurs hôtes',
     'admin_panel' => 'Panneau d\'administration',
+    'explore' => 'Explorer',
 
     "days" => [
         'Mon' => 'Lundi',

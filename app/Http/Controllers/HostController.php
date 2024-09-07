@@ -218,4 +218,20 @@ class HostController extends Controller
         return redirect($accountLink->url);
 
     }
+
+
+    public function verifyStripeAccount(Request $request)
+    {
+        // Récupérer l'hôte de l'utilisateur connecté
+        $host = auth()->user()->host;
+
+        // Vérifie si l'hôte a un compte Stripe
+        if (!$host->hasStripeAccount()) {
+            return redirect()->route('host.stripe.connect')->with('error', 'Vous devez d\'abord créer un compte Stripe.');
+        }
+
+        return redirect()->route('annonces.create')->with('success', 'Vous avez un compte Stripe actif.');
+    }
+
+
 }

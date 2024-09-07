@@ -29,6 +29,7 @@ return [
     'in' => 'in',
     'our_best_host' => 'Our best hosts',
     'admin_panel' => 'Admin panel',
+    'explore' => 'Explore',
 
     "days" => [
         'Mon' => 'Monday',
