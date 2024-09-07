@@ -6,27 +6,19 @@
 </head>
 <body>
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 h-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 ">
         <div class="flex justify-between items-center h-24">
-            <div class="flex items-center">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center w-24 mt-4">
-                    <x-application-logo class="custom-logo block fill-current text-gray-800"/>
-                </div>
+            <!-- Logo -->
+            <div class="shrink-0 flex start-0 w-24">
+                <a href="{{route('welcome')}}"><x-application-logo class="custom-logo block fill-current text-gray-800"/></a>
+            </div>
+            <div class="flex items-center justify-between">
                 <!-- Dashboard Link -->
-                <div class="hidden space-x-8 sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:ms-10 sm:flex items-center">
                     @if(Auth::user())
-                        @if(Auth::user()->isHost())
-                            <x-nav-link :href="route('host.profile')" :active="request()->routeIs('host.profile')">
-                                {{ __('content.dashboard.title') }}
-                            </x-nav-link>
-                        @elseif(Auth::user()->hasRole('admin'))
-                            <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                        @if(Auth::user()->hasRole('admin'))
+                            <x-nav-link :href="route('filament.admin.pages.dashboard')" :active="request()->routeIs('filament.admin.pages.dashboard')">
                                 {{ __('content.admin') }}
-                            </x-nav-link>
-                        @elseif(Auth::user()->isGuest())
-                            <x-nav-link :href="route('profile.show')" :active="request()->routeIs('dashboard')">
-                                {{ __('content.dashboard.title') }}
                             </x-nav-link>
                         @endif
                     @else
@@ -39,28 +31,37 @@
                     @endif
                 </div>
                 <!-- Listing Link -->
-                <div class="hidden space-x-8 sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:ms-10 sm:flex items-center">
                     <x-nav-link :href="route('annonce.index')" :active="request()->routeIs('annonce.index')">
-                        {{ __('content.listing') }}
+                        {{ __('content.explore') }}
                     </x-nav-link>
                 </div>
                 <!-- Host Link -->
-                <div class="hidden space-x-8 sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:ms-10 sm:flex items-center">
                     @if (Auth::user() && !Auth::user()->host)
+                        <!-- Lien pour devenir un hôte -->
                         <x-nav-link :href="route('host.create')" :active="request()->routeIs('host.create')">
                             {{ __('content.become_host') }}
                         </x-nav-link>
                     @elseif(!Auth::user())
-                        <x-nav-link :href="route('register')" :active="request()->routeIs('host.create')">
+                        <!-- Lien pour s'enregistrer -->
+                        <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                             {{ __('content.become_host') }}
                         </x-nav-link>
+                    @elseif(Auth::user() && Auth::user()->host && !Auth::user()->host->hasStripeAccount())
+                        <!-- Lien pour connecter son compte Stripe s'il est hôte mais n'a pas de compte Stripe -->
+                        <x-nav-link :href="route('host.stripe-connect', Auth::user()->host->id )" :active="request()->routeIs('host.stripe-connect')">
+                            {{ __('connect to stripe') }}
+                        </x-nav-link>
                     @else
+                        <!-- Lien pour créer une annonce si l'hôte a un compte Stripe -->
                         <x-nav-link :href="route('annonce.create')" :active="request()->routeIs('annonce.create')">
                             {{ __('content.create_experience') }}
                         </x-nav-link>
                     @endif
                 </div>
             </div>
+
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <div class="w-full flex items-center"> <!-- Ajout de flex items-center -->

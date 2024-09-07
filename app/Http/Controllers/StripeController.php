@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use Stripe\Transfer;
 
 
 class StripeController extends Controller
@@ -107,5 +108,27 @@ class StripeController extends Controller
 
 
         return redirect()->route('annonce.show', ['id' => $annonce->id]);
+    }
+
+    public function transferPaymentToHost($host, $amount)
+    {
+        Stripe::setApiKey(env('STRIPE_SK'));
+
+        try {
+            // Transférer 85% du montant total au compte Stripe de l'hôte
+            $transfer = Transfer::create([
+                'amount' => intval($amount * 100), // Le montant en centimes
+                'currency' => 'eur',
+                'destination' => $host->stripe_account_id,
+                'transfer_group' => 'reservation_' . $host->id,
+            ]);
+
+            return response()->json(['success' => 'Paiement transféré avec succès à l\'hôte.'], 200);
+
+        } catch (\Exception $e) {
+            // Log l'erreur pour savoir ce qui s'est passé
+            Log::error('Erreur lors du transfert : ' . $e->getMessage());
+            return response()->json(['error' => 'Erreur lors du transfert : ' . $e->getMessage()], 500);
+        }
     }
 }

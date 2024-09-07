@@ -19,6 +19,9 @@ return [
         "no_ads" => "Pas encore d'annonce",
         "no_upcoming_annonce" => "Pas d'annonce à venir",
         "no_past_annonce" => "Pas d'annonce passée",
+        "my_ads" => "Mes annonces",
+        'my_evaluation' => 'Mes évaluations',
+        'stripe_connect' => 'Connecter Stripe',
     ],
 
     "guest" => [

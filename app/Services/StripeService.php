@@ -38,6 +38,10 @@ class StripeService
                 'annonce_title' => $annonce->title
             ];
 
+        $unitAmount = $annonce->price * 100;
+        // 10% platform fee
+        $platformFee = $unitAmount * 0.1;
+
         return Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [
@@ -47,13 +51,14 @@ class StripeService
                         'product_data' => [
                             'name' => $annonce->title,
                         ],
-                        'unit_amount' => str_replace('.', '', $annonce->price),
+                        'unit_amount' => $annonce->price * 100,
                     ],
                     'quantity' => 1,
                 ],
             ],
             'metadata' => $metadata,
             'mode' => 'payment',
+
             'success_url' => route('stripe.success'),
             'cancel_url' => route('stripe.cancel'),
         ]);

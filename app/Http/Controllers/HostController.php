@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Nnjeim\World\Models\City;
+use Stripe\Account;
+use Stripe\Stripe;
 
 
 class HostController extends Controller
@@ -186,4 +188,54 @@ class HostController extends Controller
 
         ]);
     }
+
+    /**
+     * Connect the host to stripe to receive payments
+     * @param Host $host
+     */
+    public function connectStripe(Host $host)
+    {
+        Stripe::setApiKey(config('stripe.sk'));
+
+        // Create a stripe account
+        $account = Account::create([
+            'type' => 'express',
+            'country' => $host->user->country->iso2,
+            'email' => $host->email,
+            'capabilities' => [
+                'transfers' => ['requested' => true], // Demande d'activation de la capacité 'transfers'
+                'card_payments' => ['requested' => true], // Facultatif : permettre les paiements par carte si nécessaire
+            ],
+        ]);
+
+        // Save the stripe account id
+        $host->stripe_account_id = $account->id;
+        $host->save();
+
+        $accountLink = \Stripe\AccountLink::create([
+            'account' => $account->id,
+            'refresh_url' => route('host.stripe-connect', $host->id),
+            'return_url' => route('welcome'),
+            'type' => 'account_onboarding',
+        ]);
+
+        return redirect($accountLink->url);
+
+    }
+
+
+    public function verifyStripeAccount(Request $request)
+    {
+        // Récupérer l'hôte de l'utilisateur connecté
+        $host = auth()->user()->host;
+
+        // Vérifie si l'hôte a un compte Stripe
+        if (!$host->hasStripeAccount()) {
+            return redirect()->route('host.stripe.connect')->with('error', 'Vous devez d\'abord créer un compte Stripe.');
+        }
+
+        return redirect()->route('annonces.create')->with('success', 'Vous avez un compte Stripe actif.');
+    }
+
+
 }

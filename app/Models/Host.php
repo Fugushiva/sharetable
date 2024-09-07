@@ -56,4 +56,9 @@ class Host extends Model
     {
         return $query->with('user')->where('id', $annonceId)->first();
     }
+
+    public function hasStripeAccount()
+    {
+        return !empty($this->stripe_account_id);
+    }
 }

@@ -42,7 +42,7 @@
         @if(sizeOf($annonces)>0)
             <!-- If the user has ads -->
             <div class="flex justify-center text-center mx-auto">
-                <h1 class="text-3xl font-bold text-red-750">@lang('profile.my_ads')</h1>
+                <h1 class="text-3xl font-bold text-red-750">@lang('profile.host.my_ads')</h1>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full mt-4 bg-white shadow-lg rounded-lg text-center">
@@ -87,7 +87,7 @@
     </section>
     <!-- évaluations -->
     <section class="mt-8 w-full max-w-3xl mx-auto">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center mt-4">@lang('profile.evaluations')</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center mt-4">@lang('profile.host.my_evaluation')</h2>
         <div class="space-y-4 mx-auto flex flex-col items-center">
             @foreach($evaluations as $evaluation)
                 <div class="rounded-lg p-4 flex items-start w-full max-w-2xl">

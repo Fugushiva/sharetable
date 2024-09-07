@@ -34,14 +34,18 @@ class ReservationController extends Controller
             })->get();
 
         $cuisines = $reservations->pluck('annonce.cuisine');
-        $countries = Country::whereIn('name', $cuisines)->get();
+
+        $countries = Country::whereIn('iso2', $cuisines)->get();
 
 
         $reservations->each(function ($reservation) use ($countries) {
             $cuisine = $reservation->annonce->cuisine;
-            $country = $countries->firstWhere('name', $cuisine);
+            // Comparer avec iso2 au lieu de name
+            $country = $countries->firstWhere('iso2', $cuisine);
             $reservation->country = $country;
         });
+
+
 
 
 
@@ -242,6 +246,9 @@ class ReservationController extends Controller
             //Mail::to($guest->email)->send(new UserEvaluation($guest, $host));
             //envoyer une notification à l'invité
             $guest->notify(new NewNotification(__('notification.evaluation.evaluate', ['name' => $host->firstname]), URL::route('host.show', ['host' => $host->id])));
+
+            $stripeController = app()->make(StripeController::class);
+            $stripeController->transferPaymentToHost($annonce->host, $annonce->price);
 
             return response()->json([
                 'message' => 'Booking code is valid and has been marked as used.',
