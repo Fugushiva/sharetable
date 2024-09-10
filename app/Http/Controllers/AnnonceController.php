@@ -25,6 +25,9 @@ class AnnonceController extends Controller
      */
     public function index()
     {
+        $countries = Country::all();
+
+
         // Get all the active ads
         $annonces = Annonce::with('host', 'host.user', 'pictures')
             ->where('status', '=', 'active')
@@ -33,12 +36,21 @@ class AnnonceController extends Controller
 
         // get all the actives ads base on the user country
         $user = User::find(auth()->id());
-        $annonceByCountry = Annonce::with('host', 'host.user', 'pictures')
-            ->where('status', '=', 'active')
-            ->where('country_id', $user->country_id)->get();
+        if ($user && $user->country_id) {
+            // Filter ads by user's country_id
+            $annonceByCountry = Annonce::with('host', 'host.user', 'pictures')
+                ->where('status', '=', 'active')
+                ->where('country_id', $user->country_id)
+                ->get();
+        } else {
+            // If no user or no country_id, return all active ads
+            $annonceByCountry = Annonce::with('host', 'host.user', 'pictures')
+                ->where('status', '=', 'active')
+                ->get();
+        }
 
         //get first ad of our 10 best host
-        $hosts = Host::all()->map(function($host) {
+        $hosts = Host::all()->map(function ($host) {
 
             $user = $host->user;
             $evaluations = $user->hostReviewsReceived()->get();
@@ -49,18 +61,17 @@ class AnnonceController extends Controller
         //get the 10 best host
         $bestHosts = $hosts->sortByDesc('average_rating')->take(10);
 
-        $firstAdTable = $bestHosts->map(function($host) {
+        $firstAdTable = $bestHosts->map(function ($host) {
             return $host->annonces()->first();
         });
-
-
 
 
         return view('annonce.index', [
             'annonces' => $annonces,
             'annonceByCountry' => $annonceByCountry,
             'user' => $user,
-            'firstAdTable' => $firstAdTable
+            'firstAdTable' => $firstAdTable,
+            'countries' => $countries
         ]);
     }
 
@@ -117,7 +128,6 @@ class AnnonceController extends Controller
         if ($current_user) {
             $current_host = Host::where('user_id', $current_user->id)->first();
         }
-
 
 
         $annonce = Annonce::with('pictures')->find($id);
@@ -195,26 +205,39 @@ class AnnonceController extends Controller
      * Display the form to search for an ad.
      * @return \Illuminate\Contracts\View\View
      */
-    public function search(Request $request)
+    public function search(Request $request, Country $country)
     {
-        $input = $request->input();
-        $user = auth()->user();
+
+        // Récupérer tous les pays pour les suggestions (si nécessaire)
         $countries = Country::all();
 
-        $query = Annonce::query();
 
-        // Ajoutez des conditions à la requête en fonction des champs remplis
-        $this->applyFilters($query, $input);
 
-        // Exécutez la requête pour obtenir les résultats
-        $annonces = $query->get();
 
-        return view('guest.index', [
+        $selected_country = Country::where('id' , $country->id)->first();
+
+
+        // Récupérer le pays depuis l'URL ou la requête (le nom du pays)
+        $country = Country::where('name', $request->input('country_name'))->first();
+
+
+        // Créer la requête de base pour les annonces, filtrées par pays
+        $query = Annonce::with(['host', 'host.user', 'pictures'])
+            ->where('status', '=', 'active')
+            ->where('country_id', $selected_country->id);
+
+        $this->applyFilters($query, $request->all());
+        // Paginer les résultats
+        $annonces = $query->paginate(15)->fragment('annonces');
+
+        // Retourner la vue avec les résultats filtrés
+        return view('annonce.search', [
             'annonces' => $annonces,
-            'user' => $user,
-            'countries' => $countries
+            'countries' => $countries, // Pour le formulaire
+            'selected_country' => $selected_country, // Pour afficher le pays sélectionné
         ]);
     }
+
 
     /**
      * Apply filters to the query
@@ -225,6 +248,8 @@ class AnnonceController extends Controller
     private function applyFilters($query, $input)
     {
         if (!empty($input['cuisine'])) {
+            $country = Country::where('name', $input['cuisine'])->first();
+            $input['cuisine'] = $country->iso2;
             $query->findByCuisine($input['cuisine']);
         }
 
@@ -243,5 +268,19 @@ class AnnonceController extends Controller
         if (!empty($input['country'])) {
             $query->findByCountry($input['country']);
         }
+    }
+
+    public function searchByCountry(Request $request)
+    {
+        // Rechercher le pays sélectionné par son nom
+        $selected_country = Country::where('name', $request->input('country_name'))->first();
+
+        // Si le pays n'est pas trouvé, renvoyer une erreur
+        if (!$selected_country) {
+            return redirect()->back()->withErrors(['error' => 'Country not found']);
         }
+
+        // Rediriger vers la page de recherche en passant l'ID du pays
+        return redirect()->route('annonce.search', ['country' => $selected_country->id]);
+    }
 }

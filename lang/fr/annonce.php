@@ -27,6 +27,7 @@ return [
         'delete' => 'Supprimer',
         'edit' => 'Modifier',
         'cancel' => 'Annuler',
+        'search_by_country' => 'chercher par pays',
     ],
 
 
