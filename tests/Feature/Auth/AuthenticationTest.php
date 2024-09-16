@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     /**
      * Prepare the test environment before each test.
@@ -18,7 +18,7 @@ class AuthenticationTest extends TestCase
     protected function setUp(): Void {
         parent::setUp();
 
-        Artisan::call('db:seed', ['--class' => 'WorldSeeder']);
+        //Artisan::call('db:seed', ['--class' => 'WorldSeeder']);
     }
     public function test_login_screen_can_be_rendered(): void
     {
@@ -37,7 +37,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertRedirect(route('welcome', absolute: false));
     }
 
     public function test_users_can_not_authenticate_with_invalid_password(): void

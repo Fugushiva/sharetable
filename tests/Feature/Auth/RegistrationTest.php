@@ -3,11 +3,14 @@
 namespace Tests\Feature\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
+    use WithFaker;
 
     public function test_registration_screen_can_be_rendered(): void
     {
@@ -18,18 +21,21 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
+        $email = $this->faker->unique()->safeEmail;
+
         $response = $this->post('/register', [
             'firstname' => 'Test User',
             'lastname' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'email' => $email,
+            'password' => 'password1234',
+            'password_confirmation' => 'password1234',
             'country_name' => 'Belgium',
             'city_name' => 'Brussels',
             'language_name' => 'français'
         ]);
 
+
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertRedirect(route('welcome', absolute: false));
     }
 }

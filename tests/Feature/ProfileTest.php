@@ -4,11 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
+    use withFaker;
 
     public function test_profile_page_is_displayed(): void
     {
@@ -23,28 +25,36 @@ class ProfileTest extends TestCase
 
     public function test_profile_information_can_be_updated(): void
     {
-        $user = User::factory()->create();
+        // Créer un utilisateur avec un email vérifié
+        $user = User::factory()->create([
+            'email_verified_at' => now(),  // Email vérifié
+        ]);
 
+        // Générer un nouvel email unique avec Faker
+        $newEmail = $this->faker->unique()->safeEmail;
+
+        // Mettre à jour le profil de l'utilisateur avec un nouvel email
         $response = $this
             ->actingAs($user)
             ->patch('/profile', [
                 'firstname' => 'Test',
                 'lastname' => 'User',
-                'email' => 'test@example.com',
-                'country_name' => 'Belgium', // Remplace par le nom valide
-                'city_name' => 'Brussels', // Remplace par le nom valide
-                'language_code' => 'fr', // Remplace par le code valide
+                'email' => $newEmail,  // Changer l'email
+                'country_name' => 'Belgium',
+                'city_name' => 'Brussels',
+                'language_code' => 'fr',
             ]);
 
-        $response
-            ->assertSessionHasNoErrors()
-            ->assertRedirect('/profile');
+        // Vérifier qu'il n'y a pas d'erreurs et que la redirection est correcte
+        $response->assertSessionHasNoErrors()->assertRedirect('/profile');
 
+        // Rafraîchir les données de l'utilisateur pour obtenir les dernières données de la base
         $user->refresh();
 
+        // Vérifier que les informations ont bien été mises à jour
         $this->assertSame('Test', $user->firstname);
         $this->assertSame('User', $user->lastname);
-        $this->assertSame('test@example.com', $user->email);
+        $this->assertSame($newEmail, $user->email);
         $this->assertNull($user->email_verified_at);
     }
 

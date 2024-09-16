@@ -10,6 +10,7 @@ return [
     'signin' => 'Sign in',
     'login' => 'Login',
     'register_connect' => 'Register or connect',
+    'register' => 'Register',
     'the' => 'The',
     'at' => 'at',
     'welcome_back' => "Welcome back",

@@ -11,6 +11,7 @@ return [
     'signin' => "S'enregistrer",
     'login' => 'Se connecter',
     'register_connect' => "S'enregistrer ou se connecter",
+    'register' => "S'enregistrer",
     'the' => 'Le',
     'at' => 'à',
     'welcome_back' => 'Bienvenue',

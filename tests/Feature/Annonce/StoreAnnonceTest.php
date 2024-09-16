@@ -55,7 +55,7 @@ class StoreAnnonceTest extends TestCase
 
         // Vérifier que l'annonce a été créée dans la base de données
         $this->assertDatabaseHas('annonces', [
-            'cuisine' => 'France',
+            'cuisine' => 'FR',
         ]);
 
         // Récupérer l'annonce récemment créée

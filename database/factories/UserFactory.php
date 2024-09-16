@@ -31,9 +31,9 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('password'), // password
             'profile_picture' => $imagePath . $randomImage->getFilename(),
-            'country_id' => $countryWithCities ? $countryWithCities->id : null,
-            'city_id' => $city ? $city->id : null,
-            'language_id' => $language ? $language->id : null,
+            'country_id' => $countryWithCities,
+            'city_id' => $city,
+            'language_id' => $language,
             'remember_token' => \Str::random(10),
         ];
     }

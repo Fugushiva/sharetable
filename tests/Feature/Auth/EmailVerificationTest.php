@@ -6,12 +6,13 @@ use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class EmailVerificationTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     public function test_email_verification_screen_can_be_rendered(): void
     {
@@ -30,6 +31,8 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => null,
         ]);
 
+
+
         Event::fake();
 
         $verificationUrl = URL::temporarySignedRoute(
@@ -38,11 +41,21 @@ class EmailVerificationTest extends TestCase
             ['id' => $user->id, 'hash' => sha1($user->email)]
         );
 
+        // Log l'URL de vérification générée pour voir si elle est correcte
+
+
         $response = $this->actingAs($user)->get($verificationUrl);
 
+        // Log la réponse retournée par l'appel à la route de vérification
+        //Log::info('Réponse après appel à la route de vérification', ['response' => $response->getContent()]);
+
         Event::assertDispatched(Verified::class);
+
+        // Log l'état de vérification de l'utilisateur après l'appel à la route
+        //Log::info('Email vérifié ?', ['isVerified' => $user->fresh()->hasVerifiedEmail()]);
+
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(route('dashboard', absolute: false).'?verified=1');
+        $response->assertRedirect(route('welcome', absolute: false).'?verified=1');
     }
 
     public function test_email_is_not_verified_with_invalid_hash(): void

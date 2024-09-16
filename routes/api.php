@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\api\AnnonceResourceController;
+use App\Http\Controllers\api\EvaluationResourceController;
 use App\Http\Controllers\api\NotificationController;
 use App\Http\Controllers\api\TransactionResourceController;
 use App\Http\Controllers\api\UserCollectionController;
@@ -56,17 +57,35 @@ Route::middleware('auth')->group(function () {
 });
 
 //User API
-Route::get('/api/user', [UserCollectionController::class, 'index'])
-    ->name('user-api.index');
-Route::get('/api/user/{id}', [UserCollectionController::class, 'show'])
-    ->where('id', '[0-9]+')
-    ->name('user-api.show');
-Route::get('/api/user/{id}/reservations', [UserCollectionController::class, 'userReservations'])
-    ->where('id', '[0-9]+')
-    ->name('user-api.reservations');
-Route::get('/api/user/{id}/annonces', [UserCollectionController::class, 'userAnnonces'])
-    ->where('id', '[0-9]+')
-    ->name('user-api.transactions');
+Route::middleware([EnsureUserIsAdmin::class])->group(function () {
+
+    Route::get('/api/user', [UserCollectionController::class, 'index'])
+        ->name('user-api.index');
+    Route::get('/api/user/{id}', [UserCollectionController::class, 'show'])
+        ->where('id', '[0-9]+')
+        ->name('user-api.show');
+    Route::get('/api/user/{id}/reservations', [UserCollectionController::class, 'userReservations'])
+        ->where('id', '[0-9]+')
+        ->name('user-api.reservations');
+    Route::get('/api/user/{id}/annonces', [UserCollectionController::class, 'userAnnonces'])
+        ->where('id', '[0-9]+')
+        ->name('user-api.transactions');
+});
+
+
+//evaluation api
+
+Route::prefix('api')->middleware('auth')->group(function () {
+    Route::get('/evaluation/{reservation_id}', [EvaluationResourceController::class, 'show'])
+        ->where('reservation_id', '[0-9]+')
+        ->name('evaluation.show');
+    Route::get('/evaluation/user/{user_id}', [EvaluationResourceController::class, 'userEvaluation'])
+        ->where('user_id', '[0-9]+')
+        ->name('evaluation.user');
+    Route::get('/evaluation/host/{host_id}', [EvaluationResourceController::class, 'hostEvaluation'])
+        ->where('host_id', '[0-9]+')
+        ->name('evaluation.host');
+});
 
 
 
