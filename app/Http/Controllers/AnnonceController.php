@@ -26,45 +26,48 @@ class AnnonceController extends Controller
     public function index()
     {
         $countries = Country::all();
+        $user = auth()->user();
 
+        // Requête de base pour récupérer toutes les annonces actives avec leurs relations
+        $annonceQuery = Annonce::with(['host', 'host.user', 'pictures'])
+            ->where('status', '=', 'active');
 
-        // Get all the active ads
-        $annonces = Annonce::with('host', 'host.user', 'pictures')
-            ->where('status', '=', 'active')
-            ->paginate(15)
-            ->fragment('annonces');
+        // Récupérer toutes les annonces paginées
+        $annonces = $annonceQuery->paginate(15)->fragment('annonces');
 
-        // get all the actives ads base on the user country
-        $user = User::find(auth()->id());
+        // Récupérer les annonces filtrées par pays de l'utilisateur
         if ($user && $user->country_id) {
-            // Filter ads by user's country_id
-            $annonceByCountry = Annonce::with('host', 'host.user', 'pictures')
-                ->where('status', '=', 'active')
+            $annonceByCountry = $annonceQuery
                 ->where('country_id', $user->country_id)
                 ->get();
         } else {
-            // If no user or no country_id, return all active ads
-            $annonceByCountry = Annonce::with('host', 'host.user', 'pictures')
-                ->where('status', '=', 'active')
-                ->get();
+            $annonceByCountry = $annonceQuery->get();
         }
 
-        //get first ad of our 10 best host
-        $hosts = Host::all()->map(function ($host) {
+        // Récupérer les 10 meilleurs hôtes avec les meilleures évaluations
+        $bestHosts = Host::with(['user.hostReviewsReceived'])
+            ->get()
+            ->map(function ($host) {
+                $host->average_rating = $host->user->hostReviewsReceived->avg('rating');
+                return $host;
+            })
+            ->sortByDesc('average_rating')
+            ->take(10);
 
-            $user = $host->user;
-            $evaluations = $user->hostReviewsReceived()->get();
-            $host->average_rating = $evaluations->avg('rating');
-            return $host;
-        });
-
-        //get the 10 best host
-        $bestHosts = $hosts->sortByDesc('average_rating')->take(10);
-
+        // Récupérer la première annonce de chaque hôte parmi les 10 meilleurs hôtes
         $firstAdTable = $bestHosts->map(function ($host) {
             return $host->annonces()->first();
-        });
+        })->filter(); // Retirer les hôtes sans annonce
 
+        // Récupérer les modèles de titre depuis le fichier de traduction
+        $titleTemplates = __('annonce.title_templates');
+
+        // Ajouter un titre unique à chaque annonce
+        foreach ($firstAdTable as $firstAd) {
+            // Calculer l'index du titre en fonction de l'ID de l'annonce modulo le nombre de titres disponibles
+            $titleIndex = $firstAd->id % count($titleTemplates);
+            $firstAd->unique_title = $titleTemplates[$titleIndex]; // Attribuer le titre unique
+        }
 
         return view('annonce.index', [
             'annonces' => $annonces,

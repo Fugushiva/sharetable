@@ -38,11 +38,37 @@ return [
     "results" => "résultats",
 
     "show" => [
-    'see_profile' => 'Voir le profil',
-    'guest_code' => 'Code invité',
-    'code_validation' => 'Veuillez valider le code reçu par le guest pour confirmer que le rendez-vous a eu lieu.',
-    'enter_code' => 'Entrez le code ici',
-]
+        'see_profile' => 'Voir le profil',
+        'guest_code' => 'Code invité',
+        'code_validation' => 'Veuillez valider le code reçu par le guest pour confirmer que le rendez-vous a eu lieu.',
+        'enter_code' => 'Entrez le code ici',
+    ],
 
+    // Titres pour les annonces
+    'title_templates' => [
+        "Profitez d'un dîner exceptionnel dans une ambiance chaleureuse.",
+        "Un repas convivial vous attend, à ne pas manquer !",
+        "Savourez des plats délicieux préparés avec soin.",
+        "Partagez un moment gourmand autour d'une table accueillante.",
+        "Venez déguster une cuisine authentique et raffinée.",
+        "Découvrez des saveurs uniques lors d'un repas gastronomique.",
+        "Participez à une soirée inoubliable avec des mets exquis.",
+        "Laissez-vous tenter par un menu raffiné et créatif.",
+        "Réservez votre place pour un dîner d'exception.",
+        "Passez une soirée conviviale autour d'un repas fait maison.",
+    ],
 
+    // Descriptions pour les annonces
+    'description_templates' => [
+        "Rejoignez-nous pour un repas inoubliable dans un cadre chaleureux, parfait pour partager des moments conviviaux.",
+        "Venez découvrir des plats faits maison, préparés avec des ingrédients locaux et de saison.",
+        "Dégustez une cuisine inventive et savoureuse, préparée avec passion par notre hôte.",
+        "Profitez d'un repas authentique dans une ambiance conviviale et détendue.",
+        "Partagez un moment unique autour d'une table généreuse, avec des saveurs qui vous feront voyager.",
+        "Découvrez une cuisine raffinée et créative, pour une soirée gourmande à ne pas manquer.",
+        "Appréciez des mets délicats et gourmands, tout en partageant une belle soirée avec de nouveaux amis.",
+        "Réservez vite pour une expérience culinaire mémorable, avec des plats qui raviront vos papilles.",
+        "Venez savourer des spécialités locales, préparées avec soin par notre hôte passionné.",
+        "Profitez d'une soirée autour de plats faits maison, dans une ambiance conviviale et chaleureuse.",
+    ],
 ];

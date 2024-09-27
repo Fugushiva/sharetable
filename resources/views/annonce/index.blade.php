@@ -26,7 +26,11 @@
     <!--best host-->
     <div class="flex flex-wrap justify-center gap-5">
         @foreach($firstAdTable as $firstAd)
-            <x-ad-card :firstAd="$firstAd" />
+            @if(isset($firstAd->unique_title))
+                <x-ad-card :firstAd="$firstAd" :uniqueTitle="$firstAd->unique_title" />
+            @else
+                <x-ad-card :firstAd="$firstAd" />
+            @endif
         @endforeach
     </div>
 

@@ -46,7 +46,13 @@
             </p>
         </div>
 
-        <h2 class="font-sans text-md text-red-750">{{ $firstAd->title }}</h2>
+        <h2 class="font-sans text-md text-red-750">
+            @if(isset($firstAd->unique_title))
+            {{ $firstAd->unique_title}}<!-- Affichage du titre unique -->
+            @else
+            {{ $firstAd->title }}<!-- Affichage du titre -->
+            @endif
+        </h2>
         <a href="{{ route('annonce.show', $firstAd->id) }}"
            class="block w-full h-48 overflow-hidden rounded">
             <img src="{{ asset($firstAd->pictures[0]->path) }}" class="w-full h-full object-cover">
