@@ -16,7 +16,7 @@
                 <li><a href="{{route('static.terms')}}" class="hover:text-gray-300">@lang('content.footer.terms_of_use')</a></li>
                 <li><a href="#" class="hover:text-gray-300">@lang('content.footer.contact')</a></li>
                 <li><a href="{{route('static.faq')}}" class="hover:text-gray-300">@lang('content.footer.faq')</a></li>
-                <li><a href="#" class="hover:text-gray-300">@lang('content.footer.about_us')</a></li>
+                <li><a href="{{route('static.about')}}" class="hover:text-gray-300">@lang('content.footer.about_us')</a></li>
             </ul>
         </div>
 

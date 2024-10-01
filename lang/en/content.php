@@ -69,6 +69,15 @@ return [
         ],
     ],
 
+    'about_us' => [
+        'title' => 'About Us',
+        'paragraph_1' => 'At ShareTable, we firmly believe that food is much more than just a daily necessity—it’s a powerful way to connect people, cultures, and traditions. The idea of ShareTable truly took shape during my travels through Southeast Asia, where I had the opportunity to meet travelers eager to dive into local cultures, often through their cuisines, and locals passionate about sharing their culinary heritage and the stories behind each dish. These moments of human and cultural exchange are what inspired the creation of ShareTable.',
+        'paragraph_2' => 'ShareTable is more than just a platform. We provide a space where hosts, passionate about their food and culture, can invite guests to experience unique moments. These shared meals are not just an opportunity to enjoy delicious food, but also a chance to discover the stories, traditions, and craftsmanship that enrich every recipe. Whether around a traditional dish or a regional specialty, each table becomes a meeting place where warmth and hospitality reign, and where genuine human connections are made.',
+        'paragraph_3' => "Whether you’re a globe-trotter in search of culinary adventures, a passionate cook eager to share your art, or simply someone looking for a different experience away from the usual settings, ShareTable is here for you. We believe in the richness of culinary and cultural diversity, and we are committed to offering you experiences that go far beyond just tasting. With ShareTable, every meal is a gateway to the world, an authentic exchange that leaves a lasting impression.",
+        'paragraph_4' => 'Welcome to ShareTable, where every meal is a journey, and every table is a story.',
+
+    ],
+
 
     "days" => [
         'Mon' => 'Monday',

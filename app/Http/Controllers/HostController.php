@@ -8,10 +8,12 @@ use App\Models\Annonce;
 use App\Models\BookingCode;
 use App\Models\Evaluation;
 use App\Models\Host;
+use App\Models\Notification;
 use App\Models\Profile;
 use App\Models\Reservation;
 use App\Models\User;
 use App\Notifications\NewNotification;
+use App\Notifications\StripeAccountNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,6 +86,10 @@ class HostController extends Controller
 
         $notifMessage = 'Vous avez créer votre profil hôte';
         $user->notify(new NewNotification($notifMessage));
+
+        $user->notify(new StripeAccountNotification('Vous pouvez créer un compte stripe', $host->id));
+
+
 
         return redirect()->route('annonce.index');
 

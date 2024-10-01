@@ -68,7 +68,14 @@ return [
             'question_9' => "La participation à une table d'hôte est-elle sécurisée ?",
             'answer_9' => "Nous nous engageons à garantir la sécurité de tous les participants en vérifiant les profils des hôtes et en offrant un système de notation transparent. Nous vous encourageons à consulter les avis avant de réserver."
         ],
+    ],
 
+    'about_us' =>  [
+        'title' => 'À propos de nous',
+        'paragraph_1' => "Chez ShareTable, nous croyons fermement que la nourriture transcende son rôle de simple besoin quotidien. Elle incarne un moyen puissant de connexion entre les individus, les cultures et les traditions. C'est au cours de mes voyages en Asie du Sud-Est que cette idée a véritablement pris forme. J’ai eu la chance de rencontrer des voyageurs animés par l’envie de plonger au cœur des cultures locales, souvent à travers leurs cuisines, et des habitants désireux de partager leur passion culinaire et les histoires qui se cachent derrière chaque plat. Ce sont ces moments d’échange humain et culturel qui ont inspiré la création de ShareTable.",
+        'paragraph_2' => "ShareTable est bien plus qu’une simple plateforme. Nous offrons un espace où des hôtes passionnés par leur cuisine et leur culture peuvent inviter des convives à vivre des expériences uniques. Ces repas partagés ne sont pas seulement l’occasion de savourer des mets délicieux, mais également de découvrir les histoires, les traditions et le savoir-faire qui enrichissent chaque recette. Que ce soit autour d’un plat traditionnel ou d’une spécialité régionale, chaque table devient un lieu de rencontre où la convivialité règne, et où de véritables liens humains se créent.",
+        'paragraph_3' => "Que vous soyez un globe-trotteur en quête d’aventures culinaires, un passionné de cuisine désireux de partager votre art, ou simplement quelqu’un cherchant à vivre un moment différent loin des circuits habituels, ShareTable est là pour vous. Nous croyons en la richesse de la diversité culinaire et culturelle, et nous nous engageons à vous offrir des expériences qui vont bien au-delà de la simple dégustation. Avec ShareTable, chaque repas est une porte ouverte sur le monde, un moment d’échange authentique qui laisse une empreinte durable.",
+        'paragraph_4' => "Bienvenue à notre table, où chaque plat raconte une histoire et chaque rencontre crée des souvenirs."
     ],
 
     "days" => [

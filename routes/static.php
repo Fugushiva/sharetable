@@ -9,3 +9,7 @@ route::get('/terms', function () {
 route::get('/faq', function () {
     return view('static.faq');
 })->name('static.faq');
+
+route::get('/about', function () {
+    return view('static.about');
+})->name('static.about');
