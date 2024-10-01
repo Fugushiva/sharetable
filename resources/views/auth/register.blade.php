@@ -89,4 +89,5 @@
 
 
     </x-guest-layout>
+    <x-footer />
 </x-app-layout>

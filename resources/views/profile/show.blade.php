@@ -148,6 +148,7 @@
             <p class="text-center mt-8">@lang('profile.host.no_past_annonce')</p>
         @endif
     </section>
+    <x-footer />
 
     <script>
         function showSection(sectionId) {

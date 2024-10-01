@@ -131,6 +131,5 @@
             </div>
         @endif
     </section>
-
-
+    <x-footer />
 </x-app-layout>

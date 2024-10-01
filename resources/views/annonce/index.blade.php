@@ -54,4 +54,5 @@
     <div class="mt-5">
         {{ $annonces->links() }}
     </div>
+    <x-footer />
 </x-app-layout>

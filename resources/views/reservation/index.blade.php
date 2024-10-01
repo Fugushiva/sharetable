@@ -80,6 +80,7 @@
             </div>
         @endif
     </section>
+    <x-footer />
 
     <!-- Script pour la boîte de confirmation -->
     <script>

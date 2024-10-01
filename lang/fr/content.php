@@ -33,6 +33,44 @@ return [
     'admin_panel' => 'Panneau d\'administration',
     'explore' => 'Explorer',
 
+    'footer' => [
+        'phone' => 'Téléphone',
+        'email' => 'Email',
+        'all_rights_reserved' => 'Tous droits réservés',
+        'terms_of_use' => 'Conditions d\'utilisation',
+        'contact' => 'Contact',
+        'faq' => 'FAQ',
+        'follow_us' => 'Suivez-nous',
+        'back_to_top' => 'Retour en haut',
+        'about_us' => 'À propos de nous',
+    ],
+
+    'faq' => [
+        'title' => 'Foire aux questions',
+        'faq_text' => ' Vous trouverez ici les réponses aux questions fréquemment posées sur notre service.',
+        'q&a' => [
+            'question_1' => 'Comment réserver une expérience ?',
+            'answer_1' => "Vous pouvez réserver une place directement via notre application en sélectionnant la table d'hôte qui vous intéresse, le nombre de personnes et la date. Vous recevrez une confirmation une fois la réservation validée.",
+            'question_2' => 'Quels modes de paiement acceptez-vous ?',
+            'answer_2' => "Nous acceptons les paiements par carte de crédit, de type visa",
+            'question_3' => 'Puis-je annuler une réservation ?',
+            'answer_3' => "Vous pouvez annuler une réservation jusqu'à 48 heures avant la date de l'expérience. Passé ce délai, aucun remboursement ne sera possible.",
+            'question_4' => 'Que se passe-t-il si un hôte annule une réservation ?',
+            'answer_4' => "Si un hôte annule une réservation, vous serez entièrement remboursé et nous vous enverrons une notification.",
+            'question_5' => 'Comment les avis des invités sont-ils gérés ?',
+            'answer_5' => "Après chaque repas, les invités ont la possibilité de laisser un avis sur l'expérience. Les avis sont modérés pour assurer qu'ils respectent nos règles de bonne conduite.",
+            'question_6' => "Est-ce que je peux communiquer avec l'hôte avant le repas ?",
+            'answer_6' => "Oui, vous pouvez communiquer avec l'hôte via notre plateforme pour discuter de vos préférences alimentaires, des allergies, etc.",
+            'question_7' => "Quels types de tables d'hôtes proposez-vous ?",
+            'answer_7' => "Ce sont les utilisateurs qui créent les annonces, allant des repas traditionnels aux cours de cuisine en passant par les dégustations de vin.",
+            'question_8' => "Comment devenir hôte ?",
+            'answer_8' => "Pour devenir hôte, vous devez vous inscrire et soumettre votre profil pour validation, ensuite créer un profil stripe à partir de notre portail. Une fois approuvé, vous pourrez créer des événements de table d'hôte et accueillir des invités.",
+            'question_9' => "La participation à une table d'hôte est-elle sécurisée ?",
+            'answer_9' => "Nous nous engageons à garantir la sécurité de tous les participants en vérifiant les profils des hôtes et en offrant un système de notation transparent. Nous vous encourageons à consulter les avis avant de réserver."
+        ],
+
+    ],
+
     "days" => [
         'Mon' => 'Lundi',
         'Tue' => 'Mardi',

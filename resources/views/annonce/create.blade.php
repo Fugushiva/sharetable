@@ -82,4 +82,5 @@
             </div>
         </form>
     </section>
+    <x-footer />
 </x-app-layout>

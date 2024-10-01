@@ -6,9 +6,13 @@
                 <h1 class="text-4xl font-bold">{{ __('content.dashboard.exchange') }}</h1>
                 <p class="mt-4 text-lg">{{ __('content.dashboard.exchange_text') }}</p>
                 <div class="mt-8">
-                    <a href="#" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">{{ __('content.dashboard.find') }}</a>
-                    <a href="#" class="bg-gray-300 hover:bg-gray-500 text-gray-700 font-bold py-2 px-4 rounded ml-4">{{ __('content.dashboard.become_host') }}</a>
-                </div>
+                    <a href="{{route('annonce.index')}}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">{{ __('content.dashboard.find') }}</a>
+                    @if(auth()->user() && !auth()->user()->host)
+                        <a href="{{route('host.create')}}" class="bg-gray-300 hover:bg-gray-500 text-gray-700 font-bold py-2 px-4 rounded ml-4">{{ __('content.dashboard.become_host') }}</a>
+                    @elseif(!auth()->user())
+                        <a href="{{route('register')}}" class="bg-gray-300 hover:bg-gray-500 text-gray-700 font-bold py-2 px-4 rounded ml-4">{{ __('content.register') }}</a>
+                    @endif
+                </div>*
             </div>
         </section>
 
@@ -41,4 +45,5 @@
             </div>
         </section>
     </div>
+    <x-footer />
 </x-app-layout>
