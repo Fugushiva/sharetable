@@ -42,6 +42,7 @@ return [
         'guest_code' => 'Code invité',
         'code_validation' => 'Veuillez valider le code reçu par le guest pour confirmer que le rendez-vous a eu lieu.',
         'enter_code' => 'Entrez le code ici',
+        'guest_list' => 'Liste des convives',
     ],
 
     // Titres pour les annonces

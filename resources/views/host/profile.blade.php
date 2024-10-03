@@ -51,7 +51,7 @@
                         <th class="py-2 px-4">@lang('annonce.data.title')</th>
                         <th class="py-2 px-4">@lang('annonce.data.price')</th>
                         <th class="py-2 px-4">@lang('annonce.data.date')</th>
-                        <th class="py-2 px-4">@lang('annonce.action.action')</th>
+                        <th class="py-2 px-4">@lang('annonce.actions.action')</th>
                     </tr>
                     </thead>
                     <tbody>

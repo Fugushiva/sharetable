@@ -250,16 +250,11 @@ class ReservationController extends Controller
             $stripeController = app()->make(StripeController::class);
             $stripeController->transferPaymentToHost($annonce->host, $annonce->price);
 
-            return response()->json([
-                'message' => 'Booking code is valid and has been marked as used.',
-                'reservation' => $bookingCode->reservation,
-            ]);
+            return redirect()->back()->with('success', 'Le code de réservation est valide et a été utilisé.');
         }
 
 
-        return response()->json([
-            'message' => 'Invalid or already used booking code.',
-        ], 400);
+        return redirect()->back()->with('error', 'Code de réservation invalide ou déjà utilisé.');
     }
 
     public function bookingCodeGenerate($reservation)

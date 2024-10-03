@@ -12,14 +12,14 @@
                     <span class="text-red-500 mr-2">
                         <i class="fa-solid fa-users text-red-750 text-3xl"></i>
                     </span>
-                    <p class="text-2xl text-gray-600">{{ trans_choice('annonce.guest_max', $annonce->max_guest, ['count' => $annonce->max_guest]) }}</p>
+                    <p class="text-2xl text-gray-600">{{ trans_choice('annonce.data.max_guest', $annonce->max_guest, ['count' => $annonce->max_guest]) }}</p>
                 </div>
                 <!-- price -->
                 <div class="flex items-center">
                     <span class="text-red-500 mr-2">
                         <i class="fa-solid fa-dollar-sign text-red-750 text-3xl"></i>
                     </span>
-                    <p class="text-2xl text-gray-600">{{$annonce->price}}€ {{__('annonce.per_guest')}}</p>
+                    <p class="text-2xl text-gray-600">{{$annonce->price}}€ {{__('annonce.data.per_guest')}}</p>
                 </div>
                 <!-- schedule -->
                 <div class="flex items-center">
@@ -42,11 +42,8 @@
                 </p>
             </div>
         </div>
-
-        <div class="border border-solid border-red-750 w-3/4 mx-auto my-5"></div>
-
         <!-- pictures carousel -->
-        <div class="relative w-3/4 mx-auto h-full flex items-center justify-center p-4 bg-white shadow-lg rounded-lg">
+        <div class="relative w-3/4 mx-auto h-full flex items-center justify-center p-4 shadow-lg rounded-lg">
             <div class="swiper-container w-full h-full overflow-hidden rounded-lg">
                 <div class="swiper-wrapper">
                     <!-- Pictures -->
@@ -63,6 +60,11 @@
                 <div class="swiper-button-next"></div>
             </div>
         </div>
+
+        <div class="border border-solid border-red-750 w-3/4 mx-auto my-5"></div>
+
+
+
     </section>
 
     <!-- Check if guest went to host -->
@@ -73,6 +75,8 @@
                 <p class="text-lg font-semibold text-gray-800">
                     {{__('annonce.show.code_validation')}}
                 </p>
+
+                {{-- Formulaire --}}
                 <form method="post" action="{{route('reservation.code')}}" class="flex flex-col gap-4">
                     @csrf
                     <input type="hidden" name="annonce_id" value="{{$annonce->id}}">
@@ -81,10 +85,22 @@
                         type="text" name="code" placeholder="{{__('annonce.show.enter_code')}}">
                     <button class="btn-validate">Envoyer</button>
                 </form>
+                @if (session('success'))
+                    <div class="alert alert-success mt-4 text-green-700">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger mt-4 text-red-700">
+                        {{ session('error') }}
+                    </div>
+                @endif
             </div>
-            @if($reservations)
+
+        @if($reservations)
                 <div class="overflow-x-auto mx-auto w-full sm:w-3/4 lg:w-2/3 mt-8">
-                    <h2 class="text-2xl mb-4 text-center">{{__('annonce.guest_list')}}</h2>
+                    <h2 class="text-2xl mb-4 text-center">{{__('annonce.show.guest_list')}}</h2>
                     <table class="min-w-full bg-white border border-gray-300">
                         <thead class="bg-red-750 text-white">
                         <tr>
@@ -101,11 +117,11 @@
                                     <img src="{{asset($reservation->user->profile_picture)}}"
                                          class="rounded-full w-12 h-12 mx-auto">
                                 </td>
-                                <td class="px-4 py-2 border-b border-gray-300">{{$reservation->user->firstname}}</td>
-                                <td class="px-4 py-2 border-b border-gray-300">{{$reservation->user->lastname}}</td>
-                                <td class="px-4 py-2 border-b border-gray-300">
+                                <td class="px-4 py-2 border-b border-gray-300 text-center">{{$reservation->user->firstname}}</td>
+                                <td class="px-4 py-2 border-b border-gray-300 text-center">{{$reservation->user->lastname}}</td>
+                                <td class="px-4 py-2 border-b border-gray-300 text-center">
                                     <a href="{{ route('guest.show', ['id' => $reservation->user->id, 'reservationId' => $reservation->id]) }}"
-                                       class="text-red-750 text-sm hover:underline">
+                                       class="text-red-750  text-sm hover:underline">
                                         {{__('annonce.show.see_profile')}}
                                     </a>
                                 </td>
@@ -131,5 +147,7 @@
             </div>
         @endif
     </section>
+
     <x-footer />
 </x-app-layout>
+

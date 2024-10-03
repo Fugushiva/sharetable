@@ -18,7 +18,7 @@
                     @if(Auth::user())
                         @if(Auth::user()->hasRole('admin'))
                             <x-nav-link :href="route('filament.admin.pages.dashboard')" :active="request()->routeIs('filament.admin.pages.dashboard')">
-                                {{ __('content.admin') }}
+                                {{ __('content.admin_panel') }}
                             </x-nav-link>
                         @endif
                     @else

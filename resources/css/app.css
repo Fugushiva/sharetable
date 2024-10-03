@@ -26,3 +26,15 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 10px;
     flex-shrink: 0;
 }
+
+.alert {
+    @apply p-4 mb-4 rounded-lg text-center;
+}
+
+.alert-success {
+    @apply bg-green-100 text-green-700 border-green-400;
+}
+
+.alert-danger {
+    @apply bg-red-100 text-red-700 border-red-400;
+}

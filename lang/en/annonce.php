@@ -42,6 +42,7 @@ return [
         'guest_code' => 'Guest code',
         'code_validation' => 'Please validate the code received by the guest to confirm that the appointment took place.',
         'enter_code' => 'Enter the code here',
+        'guest_list' => 'Guest list',
 
     ],
 
