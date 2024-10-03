@@ -72,4 +72,5 @@ return [
         "Venez savourer des spécialités locales, préparées avec soin par notre hôte passionné.",
         "Profitez d'une soirée autour de plats faits maison, dans une ambiance conviviale et chaleureuse.",
     ],
+
 ];

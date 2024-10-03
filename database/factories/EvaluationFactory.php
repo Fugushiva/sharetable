@@ -28,13 +28,15 @@ class EvaluationFactory extends Factory
         // Determine if this evaluation is for the host or the guest
         $isHostEvaluation = $this->faker->boolean;
 
+        $evaluationTemplate = __("profile.evaluationTemplate");
+
 
         return [
             'reservation_id' => $reservation->id,
             'reviewer_id' => $isHostEvaluation ? $host->id : $guest->id,
             'reviewee_id' => $isHostEvaluation ? $guest->id : $host->id,
             'rating' => $this->faker->numberBetween(1, 5),
-            'comment' => $this->faker->sentence,
+            'comment' => $this->faker->randomElement($evaluationTemplate),
         ];
     }
 }
