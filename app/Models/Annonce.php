@@ -56,11 +56,23 @@ class Annonce extends Model
     public function uploadPictures(array $pictures)
     {
         foreach ($pictures as $picture) {
+            // Générer un nom unique pour chaque image
             $filename = generateUniqueImageName($picture);
-            $path = $picture->storeAs('img/annonces/' . $this->id, $filename, 'public');
 
+            // Définir le chemin où l'image sera stockée
+            $destinationPath = public_path('img/annonces/' . $this->id);
+
+            // S'assurer que le dossier existe (sinon, il le crée)
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true); // Crée les répertoires si nécessaire
+            }
+
+            // Déplacer le fichier vers le dossier public/img/annonces/{annonceId}
+            $picture->move($destinationPath, $filename);
+
+            // Sauvegarder le chemin relatif dans la base de données
             $this->pictures()->create([
-                'path' => 'storage/' . $path,
+                'path' => 'img/annonces/' . $this->id . '/' . $filename,
             ]);
         }
     }
