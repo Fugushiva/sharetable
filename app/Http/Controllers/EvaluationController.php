@@ -66,15 +66,15 @@ class EvaluationController extends Controller
         if ($reservation->isGuest($reviewee)) {
             $actionLink = route('guest.profile', ['id' => $reviewee->id, 'reservationid' => $reservation->id]);
         } elseif ($reservation->isHost($reviewee)) {
-            $actionLink = route('host.profile', ['host' => $reviewee->id]);
+            $actionLink = route('host.profile', ['host' => $reviewee->id, 'reservationid' => $reservation->id]);
         } else {
             $actionLink = route('home'); // fallback to home in case of error
         }
         // Notify the reviewee
-        $reviewee->notify(new NewNotification([
-            'message' => __('notification.evaluation.host', ['Name' => $reviewer->firstname]),
-            'action' => $actionLink
-        ]));
+        $reviewee->notify(new NewNotification(
+            __('notification.evaluation.host', ['Name' => $reviewer->firstname]),
+            $actionLink // Passez l'URL directement
+        ));
 
         // Redirigez vers la page d'accueil de l'hôte
         return redirect()->route('host.show', $reservation->annonce->host->id)

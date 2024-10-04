@@ -40,6 +40,7 @@
                     <form action="{{route('guest.evaluation.store', $reservation->id)}}" method="POST"
                           class="flex flex-col items-center bg-gray-50 p-6 rounded-lg shadow-md">
                         @csrf
+
                         <div class="flex flex-col md:flex-row gap-4 mb-4 w-full max-w-lg">
                             <div class="flex-1">
                                 <label for="rating" class="block text-gray-700">Note:</label>

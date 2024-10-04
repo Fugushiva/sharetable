@@ -150,7 +150,8 @@ class GuestController extends Controller
             'reviewee_id' => $validatedData['reviewee_id'],
         ]);
 
-        return redirect()->route('guest.show', $decryptedGuestId, $validatedData['reservation_id'])
+
+        return redirect()->route('guest.show', [$decryptedGuestId, $validatedData['reservation_id']])
             ->with('success', 'Evaluation submitted successfully');
     }
 }

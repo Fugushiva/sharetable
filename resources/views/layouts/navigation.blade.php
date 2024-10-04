@@ -87,7 +87,7 @@
                                   class="absolute bottom-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
                         </i>
                         <ul id="notification-list"
-                            class="hidden absolute top-8 right-0 bg-white border border-gray-300 rounded-md w-80 max-h-80 overflow-y-auto shadow-lg">
+                            class="hidden absolute top-8 right-0 bg-white border border-gray-300 rounded-md w-80 max-h-80 overflow-y-auto shadow-lg z-40">
                             <!-- Notifications will be added here by JavaScript -->
                         </ul>
                     </div>

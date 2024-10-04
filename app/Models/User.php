@@ -150,15 +150,12 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     }
 
     /**
-     * Get evaluatiopns given by guests.
+     * Get evaluations given by guests.
      * @return HasMany
      */
     public function guestReviewsReceived()
     {
-        return $this->hasMany(Evaluation::class, 'reviewee_id')
-            ->whereHas('reservation', function ($query) {
-                $query->where('user_id', $this->id);
-            });
+        return $this->hasMany(Evaluation::class, 'reviewee_id');
     }
 
     public function paginatedGuestReviewsReceived($perPage)
@@ -172,9 +169,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
      */
     public function hostReviewsReceived()
     {
-        return $this->hasMany(Evaluation::class, 'reviewee_id')->whereHas('reservation.annonce', function ($query) {
-            $query->where('host_id', $this->id);
-        });
+        return $this->hasMany(Evaluation::class, 'reviewee_id');
     }
 
     /**

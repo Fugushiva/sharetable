@@ -36,7 +36,7 @@
 
     @if(isset($user->country))
 
-        <h1 class="text-3xl font-bold my-6 text-center text-red-750">@lang('annonce.list') @lang('content.in') {{__('country.'.$user->country->iso2)}}</h1>
+        <h1 class="text-3xl font-bold my-6 text-center text-red-750">@lang('annonce.data.list') @lang('content.in') {{__('country.'.$user->country->iso2)}}</h1>
         <!--user country Ads-->
         <div class="flex flex-wrap justify-center gap-5">
             @foreach($annonceByCountry as $annonce)
@@ -44,11 +44,11 @@
             @endforeach
         </div>
     @endif
-    <h1 class="text-3xl font-bold my-6 text-center text-red-750">@lang('annonce.list')</h1>
+    <h1 class="text-3xl font-bold my-6 text-center text-red-750">@lang('annonce.data.list')</h1>
     {{ $annonces->links() }}
     <div class="flex flex-wrap justify-center gap-5">
         @foreach($annonces as $annonce)
-            <x-ad-card :firstAd="$firstAd" />
+            <x-ad-card :firstAd="$annonce" />
         @endforeach
     </div>
     <div class="mt-5">
