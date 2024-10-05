@@ -40,5 +40,6 @@ Route::middleware([SetUserLocale::class])->group(function () {
     require __DIR__ . '/message.php';
     require __DIR__ . '/evaluation.php';
     require __DIR__ . '/static.php';
+    require __DIR__ . '/notification.php';
 
 });

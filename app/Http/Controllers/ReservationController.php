@@ -107,11 +107,18 @@ class ReservationController extends Controller
         if ($scheduleTime->lessThan($now)) {
             // Si la réservation est dans moins de 48 heures, envoyer l'email immédiatement
             $this->bookingCodeGenerate($reservation);
-            $user->notify(new NewNotification(__('notification.booking_code.send', ['code' => Session::get('booking_code')])));
+            $user->notify(new NewNotification(
+                __('notification.booking_code.send', ['code' => Session::get('booking_code')]),
+                URL::route('annonce.show', ['id' => $annonce->id])
+            ));
         } else {
             // Sinon, planifier l'envoi de l'email 48 heures avant la réservation
             $this->bookingCodeGenerate($reservation)->delay($scheduleTime);
-            $user->notify(new NewNotification(__('notification.booking_code.send', ['code' => Session::get('booking_code')])));
+            // Correction dans la partie notification
+            $user->notify(new NewNotification(
+                __('notification.booking_code.send', ['code' => Session::get('booking_code')]),
+                URL::route('annonce.show', ['id' => $annonce->id])
+            ));
         }
 
         return redirect()->route('reservation.index');

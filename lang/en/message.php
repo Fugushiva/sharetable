@@ -12,5 +12,10 @@ return [
 
     "payment" => [
 
-    ]
+    ],
+
+    //reservations
+    'reservations' => [
+        'cancel' => 'If you cancel your reservation less than 48 hours before the start of the experience, you will not be refunded.',
+    ],
 ];

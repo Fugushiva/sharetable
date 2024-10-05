@@ -6,6 +6,9 @@ return  [
     'cancel_reservation' => ':Name cancelled his reservation.',
     'host_cancel_reservation' => 'The host has cancelled the reservation, yu will receive a refund shortly.',
     'new_reservation' => 'You have received a new reservation for your ad',
+    'access' => 'All your notifications',
+    'see_more' => 'See more',
+    'all' => 'All notifications',
 
 
     //transactions

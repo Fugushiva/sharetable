@@ -10,14 +10,17 @@
         <div class="flex justify-between items-center h-24">
             <!-- Logo -->
             <div class="shrink-0 flex start-0 w-24">
-                <a href="{{route('welcome')}}"><x-application-logo class="custom-logo block fill-current text-gray-800"/></a>
+                <a href="{{route('welcome')}}">
+                    <x-application-logo class="custom-logo block fill-current text-gray-800"/>
+                </a>
             </div>
             <div class="flex items-center justify-between">
                 <!-- Dashboard Link -->
                 <div class="hidden space-x-8 sm:ms-10 sm:flex items-center">
                     @if(Auth::user())
                         @if(Auth::user()->hasRole('admin'))
-                            <x-nav-link :href="route('filament.admin.pages.dashboard')" :active="request()->routeIs('filament.admin.pages.dashboard')">
+                            <x-nav-link :href="route('filament.admin.pages.dashboard')"
+                                        :active="request()->routeIs('filament.admin.pages.dashboard')">
                                 {{ __('content.admin_panel') }}
                             </x-nav-link>
                         @endif
@@ -50,7 +53,8 @@
                         </x-nav-link>
                     @elseif(Auth::user() && Auth::user()->host && !Auth::user()->host->hasStripeAccount())
                         <!-- Lien pour connecter son compte Stripe s'il est hôte mais n'a pas de compte Stripe -->
-                        <x-nav-link :href="route('host.stripe-connect', Auth::user()->host->id )" :active="request()->routeIs('host.stripe-connect')">
+                        <x-nav-link :href="route('host.stripe-connect', Auth::user()->host->id )"
+                                    :active="request()->routeIs('host.stripe-connect')">
                             {{ __('connect to stripe') }}
                         </x-nav-link>
                     @else
@@ -78,7 +82,7 @@
                         </select>
                     </form>
                 </div>
-
+                @if(Auth::user())
                 <div class="flex items-center gap-4"> <!-- Ajout de items-center ici -->
                     <!-- Notification -->
                     <div id="notification-container" class="relative">
@@ -86,11 +90,21 @@
                             <span id="notification-count"
                                   class="absolute bottom-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
                         </i>
+
                         <ul id="notification-list"
                             class="hidden absolute top-8 right-0 bg-white border border-gray-300 rounded-md w-80 max-h-80 overflow-y-auto shadow-lg z-40">
+                            <div class="text-center my-4">
+                                <a class="underline hover:text-red-750 transition duration-300 ease-in-out font-semibold" href="{{route('notifications.show')}}">
+                                    {{__('notification.access')}}
+                                </a>
+                            </div>
+                            <div class="w-full h-[1px] bg-gradient-to-r from-red-500 via-red-700 to-red-500 my-4"></div>
                             <!-- Notifications will be added here by JavaScript -->
+
                         </ul>
                     </div>
+
+
                     <!-- Messages -->
                     <div class="relative">
                         <a href="{{ route('conversations.index') }}">
@@ -104,6 +118,7 @@
                         </a>
                     </div>
                 </div>
+                @endif
 
                 <!-- Profile dropdown -->
                 <x-dropdown align="right" width="48">

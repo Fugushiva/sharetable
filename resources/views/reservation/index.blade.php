@@ -90,7 +90,7 @@
             cancelButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
                     event.preventDefault();
-                    const confirmed = confirm('Êtes-vous sûr de vouloir annuler cette réservation ?');
+                    const confirmed = confirm("{{__('message.reservations.cancel')}}");
                     if (confirmed) {
                         button.closest('form').submit();
                     }

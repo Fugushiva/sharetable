@@ -14,10 +14,7 @@
                     </li>
                 @endforeach
             </ul>
-            <form action="{{ route('notification.read') }}" method="POST">
-                @csrf
-                <button type="submit">Mark all as read</button>
-            </form>
+
         </div>
     @endsection
 </x-app-layout>

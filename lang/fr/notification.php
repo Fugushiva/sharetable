@@ -6,6 +6,9 @@ return [
     'cancel_reservation' => ':Name a annulé sa réservation.',
     'host_cancel_reservation' => "l'hôte a annulé la réservation, vous recevrez un remboursement sous peu.",
     'new_reservation' => 'Vous avez reçu une nouvelle réservation pour votre annonce',
+    'access' => 'Toutes vos notifications',
+    'see_more' => 'Voir plus',
+    'all' => 'Toutes les notifications',
 
     //transactions
     'refund' => [
