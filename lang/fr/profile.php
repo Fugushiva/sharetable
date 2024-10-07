@@ -58,6 +58,28 @@ return [
         "C'était un réel plaisir de partager ce repas ensemble, merci !",
     ],
 
+    "hostBioTemplate" => [
+        "Je vous propose de découvrir des plats typiques de ma région, cuisinés avec des produits frais et locaux. L'ambiance est chaleureuse et conviviale, comme à la maison.",
+        "Passionné par la cuisine, j'aime partager des moments autour d'une bonne table. Mes recettes sont un mélange de traditions et de créativité, parfait pour une expérience gastronomique unique.",
+        "J'adore recevoir et cuisiner pour mes invités. Venez déguster un menu raffiné dans une ambiance cosy et décontractée, où chaque plat est préparé avec soin et amour.",
+        "Chez moi, chaque repas est une célébration. Je vous invite à savourer des plats authentiques inspirés de mes voyages, préparés avec des ingrédients de qualité.",
+        "Je cuisine avec le cœur, en utilisant des recettes familiales transmises de génération en génération. Mon but est de vous offrir une expérience culinaire authentique et pleine de saveurs.",
+        "Amoureux de la gastronomie, je vous propose de découvrir mes spécialités, préparées avec des produits de saison et beaucoup de passion. Vous serez accueillis dans une ambiance conviviale et chaleureuse.",
+        "Venez découvrir une cuisine traditionnelle et gourmande, élaborée à partir de produits frais du marché. Chaque plat est une invitation à la découverte des saveurs de ma région.",
+        "Je vous propose une expérience culinaire unique, alliant cuisine locale et internationale. Mon objectif est de créer des moments de partage et de plaisir autour d’un bon repas.",
+        "Passionné par les saveurs du monde, je vous invite à un voyage culinaire à travers mes plats, tous préparés avec des produits de qualité et un savoir-faire unique.",
+        "Je vous accueille chez moi pour partager un moment gourmand. Chaque repas est l’occasion de découvrir de nouvelles saveurs et de profiter d’un moment de convivialité.",
+        "Amateur de cuisine raffinée, je mets un point d'honneur à vous offrir des plats élégants et savoureux, dans une ambiance détendue et chaleureuse.",
+        "Je prépare des repas faits maison, inspirés de la cuisine traditionnelle de ma région. Chaque plat est cuisiné avec des produits frais et beaucoup d’amour pour offrir une expérience authentique.",
+        "Je vous propose de découvrir une cuisine créative et pleine de saveurs, dans un cadre chaleureux et convivial. Chaque plat est une surprise pour vos papilles.",
+        "J'adore cuisiner pour les autres, et je vous invite à partager un repas fait maison, préparé avec soin et amour. L’ambiance est détendue, parfaite pour un moment agréable.",
+        "Chez moi, la cuisine est un art de vivre. Je vous propose de goûter à des plats inspirés de la cuisine locale, avec une touche personnelle qui saura vous surprendre.",
+        "Je vous propose un menu gourmand, élaboré avec des produits locaux et de saison. Chaque plat est préparé avec attention pour vous offrir un moment de pur plaisir.",
+        "Venez savourer des plats authentiques et généreux, inspirés de la cuisine de ma région. Chaque repas est une véritable invitation au voyage gustatif.",
+        "Je vous invite à découvrir une cuisine sincère, préparée avec passion et des ingrédients frais. Mon objectif est de vous offrir un moment de partage autour d’un bon repas.",
+        "Je vous propose de déguster des plats simples mais savoureux, préparés avec des produits locaux et de qualité. L’atmosphère est conviviale, comme à la maison.",
+        "Passionné par la bonne cuisine, je vous invite à découvrir mes créations culinaires, préparées avec des produits frais et de saison. Vous serez accueillis dans une ambiance chaleureuse et détendue.",
+    ]
 
 
 ];

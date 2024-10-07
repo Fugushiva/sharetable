@@ -39,8 +39,11 @@ class HostFactory extends Factory
         // Randomly select an image
         $profilePicture = $images[array_rand($images)];
 
+        $bioTemplate = __('profile.hostBioTemplate');
+        $bio = $this->faker->randomElement($bioTemplate);
+
         return [
-            'bio' => $this->faker->paragraph(),
+            'bio' => $bio,
             'birthdate' => $this->faker->date(),
             'user_id' => $user ? $user->id : null,
             'profile_picture' => 'resources/test-images/host/' . $profilePicture,

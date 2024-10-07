@@ -24,17 +24,17 @@ class HostSeeder extends Seeder
         $hosts = [
             [
                 'name' => 'jerome',
-                'bio' => $faker->text(1200),
+                'bio' => "passionné de cuisine depuis mon plus jeune age je vous propose de découvrir mes spécialités",
                 'birthdate' => Carbon::create(1990, 11, 21)
             ],
             [
                 'name' => 'Ayu',
-                'bio' => $faker->text(720),
+                'bio' => "Je vous invite à découvrir des plats typiques de ma région, cuisinés avec des produits frais et locaux. L'ambiance est chaleureuse et conviviale, comme à la maison.",
                 'birthdate' => Carbon::create(1995, 8, 30)
             ],
             [
                 'name' => 'Chen',
-                'bio' => $faker->text(720),
+                'bio' => "Passionate about cooking, I love sharing moments around a good meal. My recipes blend tradition and creativity, offering a unique gastronomic experience.",
                 'birthdate' => Carbon::create(1992, 8, 30)
             ],
         ];
