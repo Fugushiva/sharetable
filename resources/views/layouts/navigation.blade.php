@@ -86,9 +86,9 @@
                 <div class="flex items-center gap-4"> <!-- Ajout de items-center ici -->
                     <!-- Notification -->
                     <div id="notification-container" class="relative">
-                        <i class="fa-solid fa-bell cursor-pointer text-3xl relative" id="notification-icon">
+                        <i class="fa-solid fa-bell cursor-pointer text-3xl relative" id="notification-icon" role="button" tabindex="0" aria-label="{{ __('Notifications') }}">
                             <span id="notification-count"
-                                  class="absolute bottom-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+                                  class="absolute bottom-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center" aria-hidden="true">0</span>
                         </i>
 
                         <ul id="notification-list"
@@ -107,11 +107,11 @@
 
                     <!-- Messages -->
                     <div class="relative">
-                        <a href="{{ route('conversations.index') }}">
-                            <i class="fa-solid fa-message cursor-pointer text-3xl"></i>
+                        <a href="{{ route('conversations.index') }}" aria-label="{{ __('Messages') }}">
+                            <i class="fa-solid fa-message cursor-pointer text-3xl" aria-hidden="true"></i>
                             @if($unreadCount > 0)
                                 <span
-                                    class="absolute top-0 right-0 inline-block w-6 h-6 bg-red-600 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                                    class="absolute top-0 right-0 inline-block w-6 h-6 bg-red-600 text-white text-xs font-bold rounded-full flex items-center justify-center" aria-hidden="true">
                                     {{ $unreadCount }}
                                 </span>
                             @endif
@@ -192,6 +192,7 @@
 
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open"
+                        aria-label="{{ __('Toggle navigation') }}"
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex"
